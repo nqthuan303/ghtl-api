@@ -31,80 +31,47 @@ router.get('/list', authService.isAuthenticated, function (req, res, next) {
 
 router.post('/add', authService.isAuthenticated, function(req, res, next) {
   var postData = req.body;
+  var objData = new model(postData);
 
-  if(
-    !postData.name || 
-    !postData.contact_name ||
-    !postData.phone_number ||
-    !postData.district_id ||
-    !postData.address ||
-    !postData.status
-  ){
-    res.status(400);
-    res.json({
-      "error": "Bad data"
-    });
-  }else{
-    var objData = new model(postData);
+  var promise = objData.save();
 
-    var promise = objData.save();
-
-    promise.then(function (doc) {
-      var result = {
-        "statusCode": 0, 
-        "message": "Success"
-      }
-      if(doc.errors){
-        result.statusCode = -1;
-        result.message = "Error";
-      }
-      res.json(result);
-    });
-    
-  }
+  promise.then(function (doc) {
+    var result = {
+      "statusCode": 0, 
+      "message": "Success"
+    }
+    if(doc.errors){
+      result.statusCode = -1;
+      result.message = "Error";
+    }
+    res.json(result);
+  });
 });
 
 router.put('/update/:id', authService.isAuthenticated, function(req, res, next) {
   var id = req.params.id;
 
   var data = req.body;
-  if(
-    !data.name || 
-    !data.contact_name ||
-    !data.phone_number ||
-    !data.district_id ||
-    !data.address ||
-    !data.status||
-    !data.bankNumber ||
-    !data.bankName ||
-    !data.bankBranch ||
-    !data.bankAccount
-  ){
-    res.status(400);
-    res.json({
-      "error": "Bad data"
-    });
-  }else{
-    model.findOne({_id: id}, function(err, dataFound){
-      if(err || !dataFound){
-        res.json({
-          "statusCode": -1, 
-          "message": "Error"
-        });
-      }
-      dataFound.update(data, function(err, dataUpdate){
-        var result = {
-          "statusCode": 0, 
-          "message": "Success"
-        }
-        if(err){
-          result.statusCode = -1;
-          result.message = "Error";
-        }
-        res.json(result);
+  
+  model.findOne({_id: id}, function(err, dataFound){
+    if(err || !dataFound){
+      res.json({
+        "statusCode": -1, 
+        "message": "Error"
       });
+    }
+    dataFound.update(data, function(err, dataUpdate){
+      var result = {
+        "statusCode": 0, 
+        "message": "Success"
+      }
+      if(err){
+        result.statusCode = -1;
+        result.message = "Error";
+      }
+      res.json(result);
     });
-  }
+  });
 });
 
 

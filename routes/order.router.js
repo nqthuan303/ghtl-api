@@ -4,90 +4,59 @@ var model = require('../models/order.model');
 var orderLogModel = require('./../models/orderLog.model');
 var authService = require('../services/auth');
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var ObjectId = Schema.Types.ObjectId;
-
 router.post('/add', authService.isAuthenticated, function (req, res, next) {
   var data = req.body;
+  var objData = new model(data);
 
-  if (!data.client_id ||
-    !data.reciever_name ||
-    !data.district_id ||
-    !data.address ||
-    !data.ship_fee
-  ) {
-    res.status(400);
-    res.json({
-      "error": "Bad data"
-    });
-  } else {
+  var promise = objData.save();
 
-    var objData = new model(data);
-
-    var promise = objData.save();
-
-    promise.then(function (doc) {
-      var result = {
-        "statusCode": -1,
-        "message": "Error"
-      }
-      if (!doc.errors) {
-        result.statusCode = 0;
-        result.message = "Success";
-        result.data = {
-          'order_id': doc._id,
-          'orderstatus_id': doc.orderstatus_id
-        };
-      }
-      res.json(result);
-    });
-
-  }
+  promise.then(function (doc) {
+    var result = {
+      "statusCode": -1,
+      "message": "Error"
+    }
+    if (!doc.errors) {
+      result.statusCode = 0;
+      result.message = "Success";
+      result.data = {
+        'order_id': doc._id,
+        'orderstatus_id': doc.orderstatus_id
+      };
+    }
+    res.json(result);
+  });
 });
 
 router.put('/update/:id', authService.isAuthenticated, function (req, res, next) {
   var id = req.params.id;
 
   var data = req.body;
-  if (!data.client_id ||
-    !data.reciever_name ||
-    !data.district_id ||
-    !data.address ||
-    !data.ship_fee
-  ) {
-    res.status(400);
-    res.json({
-      "error": "Bad data"
-    });
-  } else {
-    model.findOne({
-      _id: id
-    }, function (err, dataFound) {
-      if (err || !dataFound) {
-        res.json({
-          "statusCode": -1,
-          "message": "Error"
-        });
-      }
-
-      dataFound.update(data, function (err, dataUpdate) {
-        var result = {
-          "statusCode": -1,
-          "message": "Error"
-        }
-        if (!err) {
-          result.statusCode = 0;
-          result.message = "Success";
-          result.data = {
-            'order_id': dataFound._id,
-            'orderstatus_id': data.orderstatus_id
-          };
-        }
-        res.json(result);
+  model.findOne({
+    _id: id
+  }, function (err, dataFound) {
+    if (err || !dataFound) {
+      res.json({
+        "statusCode": -1,
+        "message": "Error"
       });
+    }
+
+    dataFound.update(data, function (err, dataUpdate) {
+      var result = {
+        "statusCode": -1,
+        "message": "Error"
+      }
+      if (!err) {
+        result.statusCode = 0;
+        result.message = "Success";
+        result.data = {
+          'order_id': dataFound._id,
+          'orderstatus_id': data.orderstatus_id
+        };
+      }
+      res.json(result);
     });
-  }
+  });
 });
 
 
@@ -95,55 +64,49 @@ router.put('/updateStatus/:id', authService.isAuthenticated, function (req, res,
   var id = req.params.id;
 
   var data = req.body;
-  if (!data.orderstatus_id) {
-    res.status(400);
-    res.json({
-      "error": "Bad data"
-    });
-  } else {
-    model.findOne({
-      _id: id
-    }, function (err, dataFound) {
-      if (err || !dataFound) {
-        res.json({
+
+  model.findOne({
+    _id: id
+  }, function (err, dataFound) {
+    if (err || !dataFound) {
+      res.json({
+        "statusCode": -1,
+        "message": "Error"
+      });
+    }
+
+    if (dataFound.orderstatus_id != data.orderstatus_id) {
+      dataFound.update(data, function (err, dataUpdate) {
+        var result = {
           "statusCode": -1,
           "message": "Error"
-        });
-      }
+        }
+        if (!err) {
+          orderLogData = {
+            'order_id': id,
+            'orderstatus_id': data.orderstatus_id
+          };
+          var orderLog = new orderLogModel(orderLogData);
 
-      if (dataFound.orderstatus_id != data.orderstatus_id) {
-        dataFound.update(data, function (err, dataUpdate) {
-          var result = {
-            "statusCode": -1,
-            "message": "Error"
-          }
-          if (!err) {
-            orderLogData = {
-              'order_id': id,
-              'orderstatus_id': data.orderstatus_id
-            };
-            var orderLog = new orderLogModel(orderLogData);
+          var promise = orderLog.save();
 
-            var promise = orderLog.save();
+          promise.then(function (doc) {
+            if (!doc.errors) {
+              result.statusCode = 0;
+              result.message = "Success";
+              result.data = {
+                'order_id': dataFound._id,
+                'orderstatus_id': data.orderstatus_id
+              };
+            }
+            res.json(result);
+          });
 
-            promise.then(function (doc) {
-              if (!doc.errors) {
-                result.statusCode = 0;
-                result.message = "Success";
-                result.data = {
-                  'order_id': dataFound._id,
-                  'orderstatus_id': data.orderstatus_id
-                };
-              }
-              res.json(result);
-            });
+        }
+      });
+    }
 
-          }
-        });
-      }
-
-    });
-  }
+  });
 });
 
 
