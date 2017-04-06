@@ -1,0 +1,63 @@
+{"_id":{"$oid":"587124bcbe644a04d4b14e5a"},"name":"Hà Nội","type":"Thành Phố"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e5b"},"name":"Hà Giang","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e5c"},"name":"Cao Bằng","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e5d"},"name":"Bắc Kạn","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e5e"},"name":"Tuyên Quang","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e5f"},"name":"Lào Cai","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e60"},"name":"Điện Biên","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e61"},"name":"Lai Châu","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e62"},"name":"Sơn La","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e63"},"name":"Yên Bái","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e64"},"name":"Hòa Bình","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e65"},"name":"Thái Nguyên","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e66"},"name":"Lạng Sơn","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e67"},"name":"Quảng Ninh","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e68"},"name":"Bắc Giang","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e69"},"name":"Phú Thọ","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e6a"},"name":"Vĩnh Phúc","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e6b"},"name":"Bắc Ninh","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e6c"},"name":"Hải Dương","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e6d"},"name":"Hải Phòng","type":"Thành Phố"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e6e"},"name":"Hưng Yên","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e6f"},"name":"Thái Bình","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e70"},"name":"Hà Nam","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e71"},"name":"Nam Định","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e72"},"name":"Ninh Bình","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e73"},"name":"Thanh Hóa","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e74"},"name":"Nghệ An","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e75"},"name":"Hà Tĩnh","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e76"},"name":"Quảng Bình","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e77"},"name":"Quảng Trị","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e78"},"name":"Thừa Thiên Huế","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e79"},"name":"Đà Nẵng","type":"Thành Phố"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e7a"},"name":"Quảng Nam","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e7b"},"name":"Quảng Ngãi","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e7c"},"name":"Bình Định","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e7d"},"name":"Phú Yên","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e7e"},"name":"Khánh Hòa","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e7f"},"name":"Ninh Thuận","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e80"},"name":"Bình Thuận","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e81"},"name":"Kon Tum","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e82"},"name":"Gia Lai","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e83"},"name":"Đắk Lắk","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e84"},"name":"Đắk Nông","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e85"},"name":"Lâm Đồng","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e86"},"name":"Bình Phước","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e87"},"name":"Tây Ninh","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e88"},"name":"Bình Dương","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e89"},"name":"Đồng Nai","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e8a"},"name":"Bà Rịa - Vũng Tàu","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e8b"},"name":"Hồ Chí Minh","type":"Thành Phố"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e8c"},"name":"Long An","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e8d"},"name":"Tiền Giang","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e8e"},"name":"Bến Tre","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e8f"},"name":"Trà Vinh","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e90"},"name":"Vĩnh Long","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e91"},"name":"Đồng Tháp","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e92"},"name":"An Giang","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e93"},"name":"Kiên Giang","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e94"},"name":"Cần Thơ","type":"Thành Phố"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e95"},"name":"Hậu Giang","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e96"},"name":"Sóc Trăng","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e97"},"name":"Bạc Liêu","type":"Tỉnh"}
+{"_id":{"$oid":"587124bcbe644a04d4b14e98"},"name":"Cà Mau","type":"Tỉnh"}

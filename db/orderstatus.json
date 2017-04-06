@@ -1,0 +1,7 @@
+{"_id":{"$oid":"5884a56f7b66847851a426e6"},"value":"pending","name":"Pending"}
+{"_id":{"$oid":"5884a5a37b66847851a42717"},"value":"receiving","name":"Receiving"}
+{"_id":{"$oid":"5884a5ba7b66847851a42725"},"value":"storage","name":"Storage"}
+{"_id":{"$oid":"5884a5d87b66847851a42735"},"value":"shipping","name":"Shipping"}
+{"_id":{"$oid":"5884a5e77b66847851a4273a"},"value":"cancel","name":"Cancel"}
+{"_id":{"$oid":"5884a5f77b66847851a42748"},"value":"done","name":"Done"}
+{"_id":{"$oid":"5884a6117b66847851a42757"},"value":"paid","name":"Paid"}
