@@ -7,6 +7,16 @@ router.get('/list', authService.isAuthenticated, function (req, res, next) {
   
   var objQuery = req.query;
 
+  var objSort = {
+    'datetime_added': -1
+  };
+
+
+  if (objQuery.sortField && objQuery.sortValue) {
+    objSort = {};
+    objSort[objQuery.sortField] = objQuery.sortValue;
+  }
+
   var objSearch = getObjSearch(objQuery);
 
   var recordsPerPage = Number(objQuery.recordsPerPage);
@@ -19,9 +29,7 @@ router.get('/list', authService.isAuthenticated, function (req, res, next) {
     .populate('ward_id', 'name type')
     .limit(recordsPerPage)
     .skip(skip)
-    .sort({
-      'datetime_added': -1
-    })
+    .sort(objSort)
     .exec(function (err, data) {
       if (err) {
         res.send(err);
