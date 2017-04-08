@@ -175,13 +175,17 @@ function getObjSearch(objQuery) {
 router.delete('/delete/:id', function(req, res, next) {
     var id = req.params.id;
     model.findByIdAndRemove(id, function(err, data){
-      if(err) {
-        return API.fail(res, API.errors.UNKNOWN);
-      }
-      API.success(res, {
-          message: 'Success!',
-          statusCode: 0
+      orderLogModel.remove({order_id: id}).exec(function(err, data) {
+        if(err) {
+          return API.fail(res, API.errors.UNKNOWN);
+        }
+        API.success(res, {
+            message: 'Success!',
+            statusCode: 0
+        });
       });
+
+      
     })
 });
 
