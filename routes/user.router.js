@@ -66,6 +66,20 @@ router.post('/login', function(req, res, next) {
     });
 });
 
+router.delete('/delete/:id', function(req, res, next) {
+    var id = req.params.id;
+    model.findByIdAndRemove(id, function(err, data){
+      if(err) {
+          return API.fail(res, API.errors.UNKNOWN);
+        }
+        API.success(res, {
+            message: 'Success!',
+            statusCode: 0
+        });
+      
+    })
+});
+
 router.post('/add', authService.isAuthenticated, function(req, res, next) {
   var postData = req.body;
 
