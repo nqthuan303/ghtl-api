@@ -7,11 +7,13 @@ router.get('/list', authService.isAuthenticated, function (req, res, next) {
   
   var objQuery = req.query;
 
+  var objSearch = getObjSearch(objQuery);
+
   var recordsPerPage = Number(objQuery.recordsPerPage);
   var page = Number(objQuery.page);
   var skip = (page -1)* recordsPerPage;
 
-  model.find()
+  model.find(objSearch)
     .populate('province_id', 'name type')
     .populate('district_id', 'name type')
     .populate('ward_id', 'name type')
@@ -28,6 +30,64 @@ router.get('/list', authService.isAuthenticated, function (req, res, next) {
     });
 
 });
+
+router.delete('/delete/:id', function(req, res, next) {
+    var id = req.params.id;
+    model.findByIdAndRemove(id, function(err, data){
+      if(err) {
+          return API.fail(res, API.errors.UNKNOWN);
+        }
+        API.success(res, {
+            message: 'Success!',
+            statusCode: 0
+        });
+      
+    })
+});
+
+function getObjSearch(objQuery) {
+  var query = {};
+
+  var arrAnd = [];
+
+  if (objQuery.keyword !== "null" && objQuery.keyword != '') {
+    arrAnd.push({
+      '$or': [{
+          'name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
+        },
+        {
+          'contact_name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
+        },
+        {
+          'address': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
+        },
+        {
+          'phone_number': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
+        }
+      ]
+    });
+  }
+
+  if (objQuery.districtId !== "null" && objQuery.districtId !== undefined && objQuery.districtId != 0) {
+    arrAnd.push({
+        'district_id': objQuery.districtId,
+    });
+  }
+
+  if (objQuery.wardId !== "null" && objQuery.wardId !== undefined && objQuery.wardId != 0)
+   {
+    arrAnd.push({
+      'ward_id': objQuery.wardId
+    })
+  }
+
+
+  if (arrAnd.length > 0) {
+    query.$and = arrAnd;
+  }
+  return query;
+}
+
 
 router.post('/add', authService.isAuthenticated, function(req, res, next) {
   var postData = req.body;
