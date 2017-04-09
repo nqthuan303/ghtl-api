@@ -23,7 +23,8 @@ var errors = {
 
     USER_PASSWORD_NOT_MATCH: {
         code: 103,
-        text: 'User password not match'
+        // text: 'User password not match',
+        text: 'Mật khẩu không đúng',
     },
 
     USER_CODE_NOT_MATCH: {
@@ -66,7 +67,8 @@ var errors = {
 
     USER_NOT_FOUND: {
         code: 404,
-        text: 'User not found'
+        // text: 'User not found',
+        text: 'Không tìm thấy User'
     },
 
     DATE_EXPIRED: {
