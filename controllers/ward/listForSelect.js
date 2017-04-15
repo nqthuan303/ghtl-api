@@ -1,9 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var model = require('../models/ward.model');
+'use strict';
 
-router.get('/listForSelect', function (req, res, next) {
-  var objQuery = req.query;
+let async = require('asyncawait/async'),
+    await = require('asyncawait/await');
+
+var model = require('./../../models/ward.model');
+
+module.exports = async((req, res) => {
+    var objQuery = req.query;
   var districtId = objQuery.districtId;
 
   model.aggregate([
@@ -23,6 +26,3 @@ router.get('/listForSelect', function (req, res, next) {
   });
 
 });
-
-
-module.exports = router;

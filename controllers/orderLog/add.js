@@ -1,9 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var model = require('./../models/orderLog.model');
-var authService = require('../services/auth');
+'use strict';
 
-router.post('/add', authService.isAuthenticated, function (req, res, next) {
+let async = require('asyncawait/async'),
+  await = require('asyncawait/await');
+
+var model = require('./../../models/orderLog.model');
+var API = require('./../../APILib');
+
+module.exports = async((req, res) => {
   var postData = req.body;
 
   var objData = new model(postData);
@@ -20,6 +23,5 @@ router.post('/add', authService.isAuthenticated, function (req, res, next) {
     }
     res.json(result);
   });
-});
 
-module.exports = router;
+});

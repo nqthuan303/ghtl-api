@@ -40,10 +40,6 @@ var errors = {
         code: 400,
         text: 'Invalid username'
     },
-    INVALID_RATING: {
-        code: 400,
-        text: 'Invalid rating'
-    },
 
     INVALID_PHONE_NUMBER: {
         code: 400,
@@ -130,14 +126,10 @@ API.error = function (errorMsg, errorCode) {
         errorMsg = errorMsg.text;
     }
 
-    return API.responce(STATUS_FAIL, errorCode, {msg: errorMsg});
+    return API.responce(STATUS_FAIL, errorCode, {
+        msg: errorMsg
+    });
 };
-
-/**
- * Basic HTTP GET request
- * @param url
- * @returns {Promise.<JSON>}
- */
 
 API.get = url => {
     return fetch(url)
@@ -167,37 +159,12 @@ API.post = (url, data) => {
         _body = data;
     }
     return fetch(url, {
-        method: 'post',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: _body
-    })
-        .then(response => {
-            if (response.status >= 200 && response.status < 300) {
-                return Promise.resolve(response)
-            } else {
-                return Promise.reject(new Error(response.statusText))
-            }
-        })
-        .then(response => response.json());
-};
-
-API.emailSubscribe = email => {
-    let url = 'https://us13.api.mailchimp.com/3.0/lists/c349d0f029/members';
-    return fetch(url, {
             method: 'post',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Basic YW55c3RyaW5nOjZiMDJhNjEwNjkyNjUxYWNiMTFhMDBlN2QwYjJmYzdlLXVzMTM"
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
             },
-            body: `{"email_address":"${email}","status":"subscribed"}`
-        }
-    ).then(r => r.json()).catch(e => console.log(e));
-};
-
-API.getGoogleAuth = url => {
-    return fetch(url)
+            body: _body
+        })
         .then(response => {
             if (response.status >= 200 && response.status < 300) {
                 return Promise.resolve(response)

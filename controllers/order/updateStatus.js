@@ -1,0 +1,59 @@
+'use strict';
+
+let async = require('asyncawait/async'),
+    await = require('asyncawait/await');
+
+var model = require('./../../models/order.model');
+var orderLogModel = require('./../../models/orderLog.model');
+
+var API = require('./../../APILib');
+
+module.exports = async((req, res) => {
+    var id = req.params.id;
+
+  var data = req.body;
+
+  model.findOne({
+    _id: id
+  }, function (err, dataFound) {
+    if (err || !dataFound) {
+      res.json({
+        "statusCode": -1,
+        "message": "Error"
+      });
+    }
+
+    if (dataFound.orderstatus_id != data.orderstatus_id) {
+      dataFound.update(data, function (err, dataUpdate) {
+        var result = {
+          "statusCode": -1,
+          "message": "Error"
+        }
+        if (!err) {
+          var orderLogData = {
+            'order_id': id,
+            'orderstatus_id': data.orderstatus_id
+          };
+          var orderLog = new orderLogModel(orderLogData);
+
+          var promise = orderLog.save();
+
+          promise.then(function (doc) {
+            if (!doc.errors) {
+              result.statusCode = 0;
+              result.message = "Success";
+              result.data = {
+                'order_id': dataFound._id,
+                'orderstatus_id': data.orderstatus_id
+              };
+            }
+            res.json(result);
+          });
+
+        }
+      });
+    }
+
+  });
+
+});
