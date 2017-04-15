@@ -5,13 +5,17 @@ var express = require('express'),
   mongoose = require('mongoose'),
   env = process.env.NODE_ENV || 'dev',
   conn = 'mongodb://localhost:27017/giaohangtienloi',
-  port = 3000;
+  port = 3000,
+  API = require('./APILib'),
+  model = require('./models'),
+  routes = require('./routes');
 
 mongoose.Promise = require('bluebird');
 
-var API = require('./APILib'), 
-    model = require('./models'), 
-    routes = require('./routes');
+if(env !== 'dev'){
+  conn = 'mongodb://nqthuan303:thuan1602@ds031632.mlab.com:31632/giaohangtienloi';
+  port = process.env.PORT;
+}
 
 mongoose.connect(conn);
 
