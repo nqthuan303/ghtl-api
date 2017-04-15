@@ -51,7 +51,7 @@ module.exports = async((req, res) => {
     var objQuery = req.query;
 
     var objSort = {
-        'datetime_added': -1
+        'createdAt': -1
     };
 
 
@@ -67,6 +67,7 @@ module.exports = async((req, res) => {
     var skip = (page - 1) * recordsPerPage;
 
     model.find(objSearch)
+      .populate('createdBy', 'name')
         .populate('province_id', 'name type')
         .populate('district_id', 'name type')
         .populate('ward_id', 'name type')

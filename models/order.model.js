@@ -16,9 +16,10 @@ var orderSchema = new Schema({
     ship_fee: { type: Number, required: true },
     note: String,
     orderstatus_id: {type: Schema.Types.ObjectId, default: '5884a56f7b66847851a426e6', ref: 'orderstatus' },
-    datetime_added: {type: Date, default: Date.now},
-    datetime_done: { type: Date},
-    datetime_modified: { type: Date}
+    createdAt: {type: Date, default: Date.now},
+    createdBy: {type: Schema.Types.ObjectId, ref: 'user', required: true },
+    modifiedAt: {type: Date, default: Date.now},
+    modifiedBy: {type: Schema.Types.ObjectId, ref: 'user' }
 });
 
 module.exports = mongoose.model('order', orderSchema, 'order');

@@ -65,7 +65,7 @@ module.exports = async((req, res) => {
   var objSearch = getObjSearch(objQuery);
 
   var objSort = {
-    'datetime_added': -1
+    'createdAt': -1
   };
 
   if (objQuery.sortField && objQuery.sortValue) {
@@ -74,11 +74,12 @@ module.exports = async((req, res) => {
   }
   model.find(objSearch)
     .populate('client_id', 'name')
+    .populate('createdBy', 'name')
     .populate('province_id', 'name type')
     .populate('district_id', 'name type')
     .populate('ward_id', 'name type')
     .populate('orderstatus_id', 'name')
-    .select('address bonus_fee reciever_name reciever_phone ship_fee datetime_added note client_id province_id district_id ward_id orderstatus_id')
+    .select('address bonus_fee reciever_name reciever_phone ship_fee createdAt note client_id createdBy province_id district_id ward_id orderstatus_id')
     .limit(recordsPerPage)
     .skip(skip)
     .sort(objSort)

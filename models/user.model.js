@@ -11,8 +11,12 @@ var objSchema = new Schema({
     ward_id: {type: Schema.Types.ObjectId, ref: 'ward' },
     address: {type: String, required: true},
     phone_number: {type: String, required: true},
-    datetime_added: {type: Date, default: Date.now},
-    status: {type: Number, default: 1, required: true }
+    status: {type: Number, default: 1, required: true },
+    createdAt: {type: Date, default: Date.now},
+    createdBy: {type: Schema.Types.ObjectId, ref: 'user', required: true},
+    modifiedAt: {type: Date, default: Date.now},
+    modifiedBy: {type: Schema.Types.ObjectId, ref: 'user' }
+    
 });
 
 objSchema.pre('save', function(next) {

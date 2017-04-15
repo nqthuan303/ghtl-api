@@ -5,6 +5,7 @@ let async = require('asyncawait/async'),
 
 var model = require('./../../models/order.model');
 var orderLogModel = require('./../../models/orderLog.model');
+var utils = require('./../../utils');
 
 var API = require('./../../APILib');
 
@@ -24,22 +25,24 @@ module.exports = async((req, res) => {
     }
 
     if (dataFound.orderstatus_id != data.orderstatus_id) {
+      data.modifiedAt = new Date();
       dataFound.update(data, function (err, dataUpdate) {
         var result = {
           "statusCode": -1,
           "message": "Error"
         }
         if (!err) {
+          var authInfo = utils.getAuthInfo(req.headers.authorization);
           var orderLogData = {
             'order_id': id,
-            'orderstatus_id': data.orderstatus_id
+            'orderstatus_id': data.orderstatus_id,
+            'createdBy': authInfo._id
           };
+
           var orderLog = new orderLogModel(orderLogData);
 
-          var promise = orderLog.save();
-
-          promise.then(function (doc) {
-            if (!doc.errors) {
+          orderLog.save(function(err) {
+            if (!err) {
               result.statusCode = 0;
               result.message = "Success";
               result.data = {

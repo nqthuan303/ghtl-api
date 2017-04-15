@@ -11,12 +11,16 @@ var clientSchema = new Schema({
     phone_number: { type: String, required: true },
     phone_number_2: String,
     link: String,
-    datetime_added: {type: Date, default: Date.now},
-    status: {type: Number, required: true, default: 1 },
     bankNumber: String,
     bankAccount: String,
     bankBranch: String,
     bankName: String,
+    createdAt: {type: Date, default: Date.now},
+    createdBy: {type: Schema.Types.ObjectId, ref: 'user', required: true },
+    modifiedAt: {type: Date, default: Date.now},
+    modifiedBy: {type: Schema.Types.ObjectId, ref: 'user' },
+    status: {type: Number, required: true, default: 1 }
+    
 });
 
 module.exports = mongoose.model('client', clientSchema, 'client');

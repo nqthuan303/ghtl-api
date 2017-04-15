@@ -5,9 +5,12 @@ let async = require('asyncawait/async'),
 
 var model = require('./../../models/order.model');
 var API = require('./../../APILib');
+var utils = require('./../../utils');
 
 module.exports = async((req, res) => {
-    var data = req.body;
+  var data = req.body;
+  var authInfo = utils.getAuthInfo(req.headers.authorization);
+  data.createdBy = authInfo._id;
   var objData = new model(data);
 
   var promise = objData.save();
