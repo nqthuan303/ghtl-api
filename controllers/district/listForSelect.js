@@ -12,15 +12,16 @@ module.exports = async((req, res) => {
 
     model.aggregate([{
             $match: {
-                province_id: provinceId
+                province: '587124bcbe644a04d4b14e8b'
             }
         },
         {
             "$project": {
-                "_id": false, //KHông lấy _id ra 
+                "_id": false,
+                "key": "$_id",
                 "value": "$_id",
-                "label": {
-                    $concat: ["$type", " ", "$name"] // nối cột
+                "text": {
+                    $concat: ["$type", " ", "$name"]
                 }
             }
         }

@@ -7,5 +7,6 @@ module.exports = {
     list: require('./list'),
     listStorage: require('./listStorage'),
     update: require('./update'),
-    updateStatus: require('./updateStatus')
+    updateStatus: require('./updateStatus'),
+    save: require('./save')
 };

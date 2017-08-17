@@ -32,14 +32,14 @@ function getObjSearch(objQuery) {
 
   if (objQuery.districtId !== "null" && objQuery.districtId !== undefined && objQuery.districtId != 0) {
     arrAnd.push({
-        'district_id': objQuery.districtId,
+        'district': objQuery.districtId,
     });
   }
 
   if (objQuery.wardId !== "null" && objQuery.wardId !== undefined && objQuery.wardId != 0)
    {
     arrAnd.push({
-      'ward_id': objQuery.wardId
+      'ward': objQuery.wardId
     })
   }
 
@@ -70,10 +70,10 @@ module.exports = async((req, res) => {
   var skip = (page -1)* recordsPerPage;
 
   model.find(objSearch)
-    .populate('createdBy', 'name')
-    .populate('province_id', 'name type')
-    .populate('district_id', 'name type')
-    .populate('ward_id', 'name type')
+    .populate('user', 'name')
+    .populate('province', 'name type')
+    .populate('district', 'name type')
+    .populate('ward', 'name type')
     .limit(recordsPerPage)
     .skip(skip)
     .sort(objSort)

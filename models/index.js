@@ -7,4 +7,5 @@ module.exports = {
     Province: require('./province.model'),
     User: require('./user.model'),
     Ward: require('./ward.model'),
+    Post: require('./post.model'),
 };

@@ -6,9 +6,32 @@ let order = require('./controllers/order');
 let orderLog = require('./controllers/orderLog');
 let orderStatus = require('./controllers/orderStatus');
 let user = require('./controllers/user');
+let post = require('./controllers/post');
 let ward = require('./controllers/ward');
 
 var auth = require('./services/auth');
+var file = require('./controllers/file');
+
+var multer = require('multer');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/images');
+    },
+    filename: function (req, file, cb) {
+        var originalname = file.originalname;
+        var index = 0;
+        for (var i = 0; i < originalname.length; i++) {
+            if (originalname[i] === ".") index = i;
+        }
+        let fileType = originalname.substr(index);
+        cb(null, Date.now() + fileType);
+    }
+});
+
+var upload = multer({
+    storage: storage
+});
 
 module.exports = (app) => {
 
@@ -41,8 +64,18 @@ module.exports = (app) => {
     app.get('/api/order/listStorage', auth.isAuthenticated, order.listStorage);
     app.put('/api/order/update/:id', auth.isAuthenticated, order.update);
     app.put('/api/order/updateStatus/:id', auth.isAuthenticated, order.updateStatus);
+    app.post('/api/order/save', auth.isAuthenticated, order.save);
 
     app.post('/api/orderlog/add', auth.isAuthenticated, orderLog.add);
     app.get('/api/orderStatus/listForSelect', orderStatus.listForSelect);
-    
+
+    app.post('/api/file/upload', upload.single('file'), file.upload);
+    app.get('/api/file/list', auth.isAuthenticated, file.list);
+
+    app.post('/api/post/add', auth.isAuthenticated, post.add);
+    app.delete('/api/post/delete/:id', auth.isAuthenticated, post.delete);
+    app.get('/api/post/findOne', auth.isAuthenticated, post.findOne);
+    app.get('/api/post/getCount', auth.isAuthenticated, post.getCount);
+    app.get('/api/post/list', auth.isAuthenticated, post.list);
+    app.put('/api/post/update/:id', auth.isAuthenticated, post.update);
 };

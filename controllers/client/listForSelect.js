@@ -11,8 +11,13 @@ module.exports = async((req, res) => {
       { 
         "$project": {
           "_id": false,
+          "key": "$_id",
           "value": "$_id",
-          "label": "$name",
+          "text": "$name",
+          'phone_number': true,
+          address: true,
+          district: true,
+          orderType: true
         }
       }
   ], function(err, data) {

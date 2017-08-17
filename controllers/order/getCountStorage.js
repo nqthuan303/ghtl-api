@@ -10,12 +10,12 @@ function getObjSearch(objQuery) {
   var query = {};
 
   var arrAnd = [{
-      'orderstatus_id': '5884a5ba7b66847851a42725'
+      'orderstatus': '5884a5ba7b66847851a42725'
     }];
   
   if (objQuery.clientId !== "null" && objQuery.clientId !== undefined && objQuery.clientId != 0) {
     arrAnd.push({
-      'client_id': objQuery.clientId
+      'client': objQuery.clientId
     });
   }
 

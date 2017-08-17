@@ -5,7 +5,7 @@ var express = require('express'),
   mongoose = require('mongoose'),
   env = process.env.NODE_ENV || 'dev',
   conn = 'mongodb://localhost:27017/giaohangtienloi',
-  port = 3000,
+  port = 3435,
   API = require('./APILib'),
   model = require('./models'),
   routes = require('./routes');
@@ -20,6 +20,8 @@ if(env !== 'dev'){
 mongoose.connect(conn);
 
 var app = express();
+
+app.use(express.static('uploads'));
 app.use(passport.initialize());
 
 app.use(bodyParser.json( { limit: '50mb' } ));

@@ -5,7 +5,7 @@ var districtSchema = new Schema({
     name: String,
     type: String,
     location: String,
-    province_id: String,
+    province: String,
 });
 
 module.exports = mongoose.model('district', districtSchema, 'district');

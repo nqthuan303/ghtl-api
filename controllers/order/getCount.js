@@ -13,13 +13,13 @@ function getObjSearch(objQuery) {
   
   if (objQuery.clientId !== "null" && objQuery.clientId !== undefined && objQuery.clientId != 0) {
     arrAnd.push({
-      'client_id': objQuery.clientId
+      'client': objQuery.clientId
     });
   }
 
   if (objQuery.orderStatusId !== "null" && objQuery.orderStatusId !== undefined && objQuery.orderStatusId != 0) {
     arrAnd.push({
-      'orderstatus_id': objQuery.orderStatusId
+      'orderstatus': objQuery.orderStatusId
     });
   }
 
@@ -37,14 +37,14 @@ function getObjSearch(objQuery) {
 
   if (objQuery.districtId !== "null" && objQuery.districtId !== undefined && objQuery.districtId != 0) {
     arrAnd.push({
-        'district_id': objQuery.districtId,
+        'district': objQuery.districtId,
     });
   }
 
   if (objQuery.wardId !== "null" && objQuery.wardId !== undefined && objQuery.wardId != 0)
    {
     arrAnd.push({
-      'ward_id': objQuery.wardId
+      'ward': objQuery.wardId
     })
   }
 

@@ -10,7 +10,7 @@ var utils = require('./../../utils');
 module.exports = async((req, res) => {
   var data = req.body;
   var authInfo = utils.getAuthInfo(req.headers.authorization);
-  data.createdBy = authInfo._id;
+  data.user = authInfo._id;
   var objData = new model(data);
   objData.save(function (err) {
     var result = {

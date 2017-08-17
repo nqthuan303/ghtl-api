@@ -3,25 +3,28 @@
 let async = require('asyncawait/async'),
   await = require('asyncawait/await');
 
-var model = require('./../../models/client.model');
+var model = require('./../../models/post.model');
 var API = require('./../../APILib');
+var utils = require('./../../utils');
 
 module.exports = async((req, res) => {
-  var id = req.params.id;
-
   var data = req.body;
+  var authInfo = utils.getAuthInfo(req.headers.authorization);
+  data.user = authInfo._id;
+  var objData = new model(data);
 
-  model.findOneAndUpdate({
-    _id: id
-  }, data, function (err, doc) {
+  var promise = objData.save();
+
+  promise.then(function(doc){
     var result = {
       "statusCode": 0,
       "message": "Success"
     }
-    if (err) {
+    if (doc.errors) {
       result.statusCode = -1;
       result.message = "Error";
     }
     res.json(result);
   });
+
 });

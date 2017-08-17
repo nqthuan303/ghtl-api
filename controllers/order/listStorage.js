@@ -10,12 +10,12 @@ function getObjSearch(objQuery) {
   var query = {};
 
   var arrAnd = [{
-      'orderstatus_id': '5884a5ba7b66847851a42725'
+      'orderstatus': '5884a5ba7b66847851a42725'
     }];
   
   if (objQuery.clientId !== "null" && objQuery.clientId !== undefined && objQuery.clientId != 0) {
     arrAnd.push({
-      'client_id': objQuery.clientId
+      'client': objQuery.clientId
     });
   }
 
@@ -56,13 +56,13 @@ module.exports = async((req, res) => {
     objSort[objQuery.sortField] = objQuery.sortValue;
   }
   model.find(objSearch)
-    .populate('client_id', 'name')
-    .populate('createdBy', 'name')
-    .populate('province_id', 'name type')
-    .populate('district_id', 'name type')
-    .populate('ward_id', 'name type')
-    .populate('orderstatus_id', 'name')
-    .select('address bonus_fee reciever_name reciever_phone ship_fee createdAt note client_id createdBy province_id district_id ward_id orderstatus_id')
+    .populate('client', 'name')
+    .populate('user', 'name')
+    .populate('province', 'name type')
+    .populate('district', 'name type')
+    .populate('ward', 'name type')
+    .populate('orderstatus', 'name')
+    .select('address bonus_fee reciever_name reciever_phone ship_fee createdAt note client user province district ward orderstatus')
     .limit(recordsPerPage)
     .skip(skip)
     .sort(objSort)

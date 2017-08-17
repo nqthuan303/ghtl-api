@@ -10,7 +10,6 @@ module.exports = async((req, res) => {
     var id = req.params.id;
 
   var data = req.body;
-  data.modifiedAt = new Date();
   model.findOne({
     _id: id
   }, function (err, dataFound) {

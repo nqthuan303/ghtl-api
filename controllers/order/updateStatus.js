@@ -25,7 +25,6 @@ module.exports = async((req, res) => {
     }
 
     if (dataFound.orderstatus_id != data.orderstatus_id) {
-      data.modifiedAt = new Date();
       dataFound.update(data, function (err, dataUpdate) {
         var result = {
           "statusCode": -1,
@@ -36,7 +35,7 @@ module.exports = async((req, res) => {
           var orderLogData = {
             'order_id': id,
             'orderstatus_id': data.orderstatus_id,
-            'createdBy': authInfo._id
+            'user': authInfo._id
           };
 
           var orderLog = new orderLogModel(orderLogData);

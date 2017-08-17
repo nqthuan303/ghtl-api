@@ -6,18 +6,16 @@ var objSchema = new Schema({
     name: {type: String, required: true},
     username: { type: String, required: true, index: { unique: true } },
     password: { type: String, select: false, required: true },
-    province_id: {type: Schema.Types.ObjectId, ref: 'province', default: '587124bcbe644a04d4b14e8b' },
-    district_id: {type: Schema.Types.ObjectId, required: true, ref: 'district' },
-    ward_id: {type: Schema.Types.ObjectId, ref: 'ward' },
+    province: {type: Schema.Types.ObjectId, ref: 'province', default: '587124bcbe644a04d4b14e8b' },
+    district: {type: Schema.Types.ObjectId, required: true, ref: 'district' },
+    ward: {type: Schema.Types.ObjectId, ref: 'ward' },
     address: {type: String, required: true},
     phone_number: {type: String, required: true},
     status: {type: Number, default: 1, required: true },
-    createdAt: {type: Date, default: Date.now},
-    createdBy: {type: Schema.Types.ObjectId, ref: 'user', required: true},
-    modifiedAt: {type: Date, default: Date.now},
+    user: {type: Schema.Types.ObjectId, ref: 'user', required: true},
     modifiedBy: {type: Schema.Types.ObjectId, ref: 'user' }
     
-});
+}, { timestamps: true });
 
 objSchema.pre('save', function(next) {
     let user = this;

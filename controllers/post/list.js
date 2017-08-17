@@ -3,7 +3,7 @@
 let async = require('asyncawait/async'),
     await = require('asyncawait/await');
 
-var model = require('./../../models/user.model');
+var model = require('./../../models/post.model');
 var API = require('./../../APILib');
 
 

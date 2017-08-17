@@ -10,7 +10,7 @@ module.exports = async((req, res) => {
   var districtId = objQuery.districtId;
 
   model.aggregate([
-    { $match : { district_id : districtId } },
+    { $match : { district : districtId } },
       { 
         "$project": {
           "_id": false,

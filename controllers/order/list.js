@@ -13,17 +13,17 @@ function getObjSearch(objQuery) {
   
   if (objQuery.clientId !== "null" && objQuery.clientId !== undefined && objQuery.clientId != 0) {
     arrAnd.push({
-      'client_id': objQuery.clientId
+      'client': objQuery.clientId
     });
   }
 
   if (objQuery.orderStatusId !== "null" && objQuery.orderStatusId !== undefined && objQuery.orderStatusId != 0) {
     arrAnd.push({
-      'orderstatus_id': objQuery.orderStatusId
+      'orderstatus': objQuery.orderStatusId
     });
   }
 
-  if (objQuery.keyword !== "null" && objQuery.keyword != '') {
+  if (objQuery.keyword && objQuery.keyword !== "null" && objQuery.keyword != '') {
     arrAnd.push({
       '$or': [{
           'reciever_name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
@@ -37,14 +37,20 @@ function getObjSearch(objQuery) {
 
   if (objQuery.districtId !== "null" && objQuery.districtId !== undefined && objQuery.districtId != 0) {
     arrAnd.push({
-        'district_id': objQuery.districtId,
+        'district': objQuery.districtId,
+    });
+  }
+
+  if (objQuery.inProcess) {
+    arrAnd.push({
+        'inProcess': objQuery.inProcess === 'true',
     });
   }
 
   if (objQuery.wardId !== "null" && objQuery.wardId !== undefined && objQuery.wardId != 0)
    {
     arrAnd.push({
-      'ward_id': objQuery.wardId
+      'ward': objQuery.wardId
     })
   }
 
@@ -73,13 +79,13 @@ module.exports = async((req, res) => {
     objSort[objQuery.sortField] = objQuery.sortValue;
   }
   model.find(objSearch)
-    .populate('client_id', 'name')
-    .populate('createdBy', 'name')
-    .populate('province_id', 'name type')
-    .populate('district_id', 'name type')
-    .populate('ward_id', 'name type')
-    .populate('orderstatus_id', 'name')
-    .select('address bonus_fee reciever_name reciever_phone ship_fee createdAt note client_id createdBy province_id district_id ward_id orderstatus_id')
+    .populate('client', 'name')
+    .populate('user', 'name')
+    .populate('province', 'name type')
+    .populate('district', 'name type')
+    .populate('ward', 'name type')
+    .populate('orderstatus', 'name')
+    .select('address bonus_fee reciever_name reciever_phone ship_fee createdAt note client user province district ward orderstatus')
     .limit(recordsPerPage)
     .skip(skip)
     .sort(objSort)

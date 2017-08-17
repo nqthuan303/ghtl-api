@@ -5,7 +5,7 @@ var wardSchema = new Schema({
     name: String,
     type: String,
     location: String,
-    district_id: String
+    district: String
 });
 
 module.exports = mongoose.model('ward', wardSchema, 'ward');
