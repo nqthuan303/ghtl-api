@@ -6,5 +6,6 @@ module.exports = {
     list: require('./list'),
     listForSelect: require('./listForSelect'),
     login: require('./login'),
-    update: require('./update')
+    update: require('./update'),
+    getShipper: require('./getShipper')
 };

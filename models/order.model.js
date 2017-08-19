@@ -24,8 +24,8 @@ var orderSchema = new Schema({
     },
     inProcess: {type: Boolean, required: true, default: true},
     orderstatus: {type: ObjectId, default: '5884a56f7b66847851a426e6', ref: 'orderstatus' },
-    user: {type: ObjectId, ref: 'user', required: true },
-    modifiedBy: [{type: ObjectId, ref: 'user'}]
+    createdBy: {type: ObjectId, ref: 'user', required: true },
+    updatedBy: [{type: ObjectId, ref: 'user'}]
 }, { timestamps: true });
 
 module.exports = mongoose.model('order', orderSchema, 'order');

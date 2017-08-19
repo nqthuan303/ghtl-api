@@ -8,4 +8,5 @@ module.exports = {
     User: require('./user.model'),
     Ward: require('./ward.model'),
     Post: require('./post.model'),
+    Role: require('./role.model'),
 };

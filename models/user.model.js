@@ -1,20 +1,21 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcryptjs'), SALT_WORK_FACTOR = 10;
+var ObjectId = Schema.Types.ObjectId;
 
 var objSchema = new Schema({
     name: {type: String, required: true},
     username: { type: String, required: true, index: { unique: true } },
     password: { type: String, select: false, required: true },
-    province: {type: Schema.Types.ObjectId, ref: 'province', default: '587124bcbe644a04d4b14e8b' },
-    district: {type: Schema.Types.ObjectId, required: true, ref: 'district' },
-    ward: {type: Schema.Types.ObjectId, ref: 'ward' },
+    province: {type: ObjectId, ref: 'province', default: '587124bcbe644a04d4b14e8b' },
+    district: {type: ObjectId, required: true, ref: 'district' },
+    ward: {type: ObjectId, ref: 'ward' },
     address: {type: String, required: true},
     phone_number: {type: String, required: true},
     status: {type: Number, default: 1, required: true },
-    user: {type: Schema.Types.ObjectId, ref: 'user', required: true},
-    modifiedBy: {type: Schema.Types.ObjectId, ref: 'user' }
-    
+    role: {type: ObjectId, ref: 'role', required: true},
+    createdBy: {type: ObjectId, ref: 'user', required: true},
+    updatedBy: {type: ObjectId, ref: 'user' }
 }, { timestamps: true });
 
 objSchema.pre('save', function(next) {
