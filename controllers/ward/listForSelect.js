@@ -1,11 +1,8 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-    await = require('asyncawait/await');
-
 var model = require('./../../models/ward.model');
 
-module.exports = async((req, res) => {
+module.exports = (req, res) => {
     var objQuery = req.query;
   var districtId = objQuery.districtId;
 
@@ -25,4 +22,4 @@ module.exports = async((req, res) => {
     res.json(data);
   });
 
-});
+};

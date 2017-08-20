@@ -1,7 +1,5 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-    await = require('asyncawait/await');
 
 var model = require('./../../models/user.model');
 var API = require('./../../APILib');
@@ -47,7 +45,7 @@ function getObjSearch(objQuery) {
   return query;
 }
 
-module.exports = async((req, res) => {
+module.exports = (req, res) => {
     var objQuery = req.query;
 
     var objSort = {
@@ -67,7 +65,7 @@ module.exports = async((req, res) => {
     var skip = (page - 1) * recordsPerPage;
 
     model.find(objSearch)
-      .populate('user', 'name')
+        .populate('createdBy', 'name')
         .populate('province', 'name type')
         .populate('district', 'name type')
         .populate('ward', 'name type')
@@ -80,4 +78,4 @@ module.exports = async((req, res) => {
             }
             res.json(data);
         });
-});
+};

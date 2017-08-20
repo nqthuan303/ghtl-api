@@ -1,15 +1,12 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-    await = require('asyncawait/await');
-
 var model = require('./../../models/order.model');
 var orderLogModel = require('./../../models/orderLog.model');
 var utils = require('./../../utils');
 
 var API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = (req, res) => {
     var id = req.params.id;
 
   var data = req.body;
@@ -35,7 +32,7 @@ module.exports = async((req, res) => {
           var orderLogData = {
             'order_id': id,
             'orderstatus_id': data.orderstatus_id,
-            'user': authInfo._id
+            'createdBy': authInfo._id
           };
 
           var orderLog = new orderLogModel(orderLogData);
@@ -58,4 +55,4 @@ module.exports = async((req, res) => {
 
   });
 
-});
+};

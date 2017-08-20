@@ -1,14 +1,12 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-    jwt = require('jsonwebtoken'),
-    config = require('../../config'),
-    await = require('asyncawait/await');
+let jwt = require('jsonwebtoken'),
+    config = require('../../config');
     
 var model = require('./../../models/user.model');
 var API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = (req, res) => {
     let reqBody = req.body;
     let username = reqBody.username, password = reqBody.password;
 
@@ -38,4 +36,4 @@ module.exports = async((req, res) => {
           });
       });
     });
-});
+};

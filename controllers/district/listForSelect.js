@@ -1,12 +1,8 @@
 'use strict';
-
-let async = require('asyncawait/async'),
-    await = require('asyncawait/await');
-
 var model = require('./../../models/district.model');
 var API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = (req, res) => {
     var objQuery = req.query;
     var provinceId = objQuery.provinceId;
 
@@ -32,4 +28,4 @@ module.exports = async((req, res) => {
         res.json(data);
     });
 
-});
+};

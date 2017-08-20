@@ -1,12 +1,9 @@
 'use strict';
-
-let async = require('asyncawait/async'),
-    await = require('asyncawait/await');
     
 var model = require('./../../models/post.model');
 var API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = (req, res) => {
     var objQuery = req.query;
 
     model.findById(objQuery.id, function (err, data) {
@@ -15,4 +12,4 @@ module.exports = async((req, res) => {
         }
         res.json(data);
     });
-});
+};

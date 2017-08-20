@@ -1,8 +1,5 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-  await = require('asyncawait/await');
-
 var model = require('./../../models/order.model');
 var API = require('./../../APILib');
 
@@ -56,7 +53,7 @@ function getObjSearch(objQuery) {
 }
 
 
-module.exports = async((req, res) => {
+module.exports = (req, res) => {
   var objQuery = req.query;
   var objSearch = getObjSearch(objQuery);
 
@@ -67,4 +64,4 @@ module.exports = async((req, res) => {
     res.json(data);
   });
 
-});
+};

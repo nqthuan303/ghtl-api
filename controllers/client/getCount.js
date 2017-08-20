@@ -1,12 +1,9 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-    await = require('asyncawait/await');
-
 var model = require('./../../models/client.model');
 var API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = (req, res) => {
     model.count(function(err, data) {
     if (err) {
       res.send(err);
@@ -14,4 +11,4 @@ module.exports = async((req, res) => {
     res.json(data);
   });
 
-});
+};
