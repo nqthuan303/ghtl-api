@@ -1,6 +1,10 @@
 'use strict';
 
+let async = require('asyncawait/async'),
+await = require('asyncawait/await');
+
 var model = require('./../../models/order.model');
+var orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
 
 function getObjSearch(objQuery) {
@@ -38,11 +42,7 @@ function getObjSearch(objQuery) {
     });
   }
 
-  if (objQuery.inProcess) {
-    arrAnd.push({
-        'inProcess': objQuery.inProcess === 'true',
-    });
-  }
+
 
   if (objQuery.wardId !== "null" && objQuery.wardId !== undefined && objQuery.wardId != 0)
    {
@@ -58,7 +58,7 @@ function getObjSearch(objQuery) {
   return query;
 }
 
-module.exports = (req, res) => {
+module.exports = async((req, res) => {
     var objQuery = req.query;
 
   var recordsPerPage = Number(objQuery.recordsPerPage);
@@ -66,6 +66,21 @@ module.exports = (req, res) => {
   var skip = (page - 1) * recordsPerPage;
 
   var objSearch = getObjSearch(objQuery);
+
+  if (objQuery.status) {
+    const orderStatus = await(orderStatusModel.findOne({value: objQuery.status}));
+    const orderStatusId = orderStatus._id;
+    let arrAnd = [];
+    
+    if(objSearch.$and && objSearch.$and.length > 0) {
+      arrAnd = objSearch.$and;
+    }
+
+    arrAnd.push({
+        'orderstatus': orderStatusId,
+    });
+    objSearch.$and = arrAnd;
+  }
 
   var objSort = {
     'createdAt': -1
@@ -93,4 +108,4 @@ module.exports = (req, res) => {
       res.json(data);
     });
 
-};
+});

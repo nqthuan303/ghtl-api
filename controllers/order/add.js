@@ -1,31 +1,37 @@
 'use strict';
 
-var model = require('./../../models/order.model');
-var API = require('./../../APILib');
-var utils = require('./../../utils');
+const model = require('./../../models/order.model');
+const clientModel = require('./../../models/client.model');
+const API = require('./../../APILib');
+const utils = require('./../../utils');
 
-module.exports = (req, res) => {
-  var data = req.body;
-  var authInfo = utils.getAuthInfo(req.headers.authorization);
+let async = require('asyncawait/async'),
+await = require('asyncawait/await');
+
+module.exports = async((req, res) => {
+  const data = req.body;
+  const authInfo = utils.getAuthInfo(req.headers.authorization);
   data.createdBy = authInfo._id;
-  var objData = new model(data);
+  const objData = new model(data);
 
-  var promise = objData.save();
-
-  promise.then(function (doc) {
-    var result = {
-      "statusCode": -1,
-      "message": "Error"
+  try {
+    const saveOrder = await(objData.save());
+    let clientFound = await(clientModel.findOne({_id: data.client}));
+    
+    let clientOrder = [];
+    if(clientFound.orders && clientFound.orders.length > 0) {
+      clientOrder = clientFound.orders;
     }
-    if (!doc.errors) {
-      result.statusCode = 0;
-      result.message = "Success";
-      result.data = {
-        'order_id': doc._id,
-        'orderstatus_id': doc.orderstatus_id
-      };
-    }
-    res.json(result);
-  });
+  
+    clientOrder.push(saveOrder._id);
+  
+    const saveClient = await(clientModel.findOneAndUpdate({_id: data.client}, {orders: clientOrder}));
+  
+    API.success(res, {
+        message: 'Success!'
+    });
+  } catch (err) {
+    return API.fail(res, err.message);
+  }
 
-};
+});

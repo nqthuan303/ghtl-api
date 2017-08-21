@@ -5,5 +5,6 @@ module.exports = {
     getCount: require('./getCount'),
     list: require('./list'),
     listForSelect: require('./listForSelect'),
-    update: require('./update')
+    update: require('./update'),
+    ordersEachClient: require('./ordersEachClient')
 };

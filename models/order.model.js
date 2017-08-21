@@ -22,8 +22,7 @@ var orderSchema = new Schema({
         lat: String,
         lng: String,
     },
-    inProcess: {type: Boolean, required: true, default: true},
-    orderstatus: {type: ObjectId, default: '5884a56f7b66847851a426e6', ref: 'orderstatus' },
+    orderstatus: {type: ObjectId, default: '599992d32fc27aec771a8acb', ref: 'orderstatus' },
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}]
 }, { timestamps: true });

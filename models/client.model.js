@@ -4,6 +4,7 @@ var ObjectId = Schema.Types.ObjectId;
 
 var clientSchema = new Schema({
     name: { type: String, required: true },
+    orders: [{type: ObjectId, ref: 'order'}],
     contact_name: { type: String, required: true },
     province: {type: ObjectId, ref: 'province', required: true, default: '587124bcbe644a04d4b14e8b' },
     district: {type: ObjectId, ref: 'district' },
