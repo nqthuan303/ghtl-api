@@ -1,50 +1,75 @@
 'use strict';
 
-let async = require('asyncawait/async'),
+const async = require('asyncawait/async'),
 await = require('asyncawait/await');
 
-var model = require('./../../models/order.model');
-var districtModel = require('./../../models/district.model');
+var model = require('./../../models/client.model');
+const orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
 
 module.exports = async((req, res) => {
+
     var objQuery = req.query;
 
-    const aggregatorOpts = [
-        { $unwind: "$sender" },
-        { 
-            $group: {
-                _id: "$sender.district",
-                count: { $sum: 1 }
-            }
-        }
-    ]
+    const orderStatusPending = await(orderStatusModel.findOne({value: 'pending'}));
+    const pendingId = orderStatusPending._id;
 
-    let ordersInDistrict = await(model.aggregate(aggregatorOpts));
-    let districtIds = [];
+    var objSearchClient = {$where: 'this.orders.length > 0'}
 
-    const objCount = {}
-
-    for(let i=0; i< ordersInDistrict.length; i++) {
-        const district = ordersInDistrict[i];
-        const districtId = district._id.toString();
-        objCount[districtId] = district.count;
-        districtIds.push(districtId);
+    if(objQuery.districtId) {
+        var districtId = objQuery.districtId;
+        objSearchClient['district'] = ObjectId(districtId);;
     }
 
-    districtModel.find({_id: {$in: districtIds}}).exec(function(err, data) {
-        const result = [];
-        for(let i=0; i< data.length; i++) {
-            const item = data[i];
-            const itemId = item._id.toString();
-
-            result.push({
-                _id: item._id.toString(),
-                name: item.name,
-                count: objCount[itemId]
-            });
+    model.find(objSearchClient).populate({
+        path: 'orders',
+        match: { orderstatus: pendingId}
+    }).populate('district').sort({district: -1}).exec(function(err, data) {
+        if (err) {
+            return API.fail(res, err);
         }
-        res.json(result);
+        var result = []
+        var count = 1;
+
+        var id = '';
+
+        for(var i=0; i< data.length; i++) {
+            const item = data[i];
+            const district = item.district;
+            const districtId = district._id.toString();
+
+            if(id !== districtId) {
+                id = districtId;
+                count=1
+            }else {
+                count++;
+            }
+
+            const nextData = data[i+1];
+
+
+            if(nextData) {
+                const nextDistrict = nextData.district;
+                const nextDistrictId = nextDistrict._id.toString();
+
+                if(nextDistrictId !== districtId) {
+                    result.push({
+                        _id: districtId,
+                        name: district.name,
+                        count: count
+                    })
+                }
+            }else {
+                result.push({
+                    _id: districtId,
+                    name: district.name,
+                    count: count
+                })
+            }
+
+        }
+
+        API.success(res, result);
     });
     
 });

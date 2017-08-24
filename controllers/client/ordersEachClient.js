@@ -4,17 +4,28 @@ const async = require('asyncawait/async'),
 await = require('asyncawait/await');
 
 const model = require('./../../models/client.model');
+
 const orderStatusModel = require('./../../models/orderStatus.model');
 
 const API = require('./../../APILib');
+var mongoose = require('mongoose');
+var Types = mongoose.Types;
+var ObjectId = Types.ObjectId;
 
 module.exports = async((req, res) => {
-    const objQuery = req.query;
+    var objQuery = req.query;
 
     const orderStatusPending = await(orderStatusModel.findOne({value: 'pending'}));
     const pendingId = orderStatusPending._id;
 
-    model.find({}).populate({
+    var objSearchClient = {$where: 'this.orders.length > 0'}
+
+    if(objQuery.districtId) {
+        var districtId = objQuery.districtId;
+        objSearchClient['district'] = ObjectId(districtId);;
+    }
+
+    model.find(objSearchClient).populate({
         path: 'orders',
         match: { orderstatus: pendingId}
     }).exec(function(err, data) {
@@ -22,6 +33,6 @@ module.exports = async((req, res) => {
             return API.fail(res, err);
         }
         API.success(res, data);
-    }) 
+    });
 
 });
