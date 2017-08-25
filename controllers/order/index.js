@@ -9,5 +9,6 @@ module.exports = {
     update: require('./update'),
     updateStatus: require('./updateStatus'),
     save: require('./save'),
-    countOrderInDistrict: require('./countOrderInDistrict')
+    countOrderInDistrict: require('./countOrderInDistrict'),
+    countOrderInStatus: require('./countOrderInStatus'),
 };

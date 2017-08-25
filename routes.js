@@ -68,7 +68,8 @@ module.exports = (app) => {
     app.put('/api/order/updateStatus/:id', auth.isAuthenticated, order.updateStatus);
     app.post('/api/order/save', auth.isAuthenticated, order.save);
     app.get('/api/order/count-order-in-district', auth.isAuthenticated, order.countOrderInDistrict);
-    
+    app.get('/api/order/count-order-in-status', auth.isAuthenticated, order.countOrderInStatus);
+
     
     app.post('/api/orderlog/add', auth.isAuthenticated, orderLog.add);
     app.get('/api/orderStatus/listForSelect', orderStatus.listForSelect);
