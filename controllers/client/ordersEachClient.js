@@ -8,9 +8,6 @@ const model = require('./../../models/client.model');
 const orderStatusModel = require('./../../models/orderStatus.model');
 
 const API = require('./../../APILib');
-var mongoose = require('mongoose');
-var Types = mongoose.Types;
-var ObjectId = Types.ObjectId;
 
 module.exports = async((req, res) => {
     var objQuery = req.query;
@@ -22,7 +19,7 @@ module.exports = async((req, res) => {
 
     if(objQuery.districtId) {
         var districtId = objQuery.districtId;
-        objSearchClient['district'] = ObjectId(districtId);;
+        objSearchClient['district'] = districtId
     }
 
     model.find(objSearchClient).populate({
