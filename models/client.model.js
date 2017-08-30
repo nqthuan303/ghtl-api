@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-var clientSchema = new Schema({
+var counter = require('./counter.model');
+
+var objSchema = new Schema({
+    id: String,
     name: { type: String, required: true },
     orders: [{type: ObjectId, ref: 'order'}],
     contact_name: { type: String, required: true },
@@ -24,4 +27,13 @@ var clientSchema = new Schema({
     
 }, { timestamps: true });
 
-module.exports = mongoose.model('client', clientSchema, 'client');
+objSchema.pre('save', function(next) {
+    var doc = this;
+    counter.findByIdAndUpdate({_id: 'clientId'}, {$inc: { seq: 1} }, function(error, counter)   {
+        if(error) return next(error);
+        doc.id = counter.seq;
+        next();
+    });
+});
+
+module.exports = mongoose.model('client', objSchema, 'client');

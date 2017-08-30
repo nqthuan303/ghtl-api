@@ -1,4 +1,5 @@
 module.exports = {
+    Counter: require('./counter.model'),
     Client: require('./client.model'),
     District: require('./district.model'),
     Order: require('./order.model'),
