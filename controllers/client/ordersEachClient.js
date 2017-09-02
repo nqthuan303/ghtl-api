@@ -17,7 +17,7 @@ module.exports = async((req, res) => {
 
     var objSearchClient = {$where: 'this.orders.length > 0'}
 
-    if(objQuery.districtId) {
+    if(objQuery.districtId && objQuery.districtId !== 'all') {
         var districtId = objQuery.districtId;
         objSearchClient['district'] = districtId
     }

@@ -14,7 +14,7 @@ module.exports = async((req, res) => {
     const orderStatusPending = await(orderStatusModel.findOne({value: 'pending'}));
     const pendingId = orderStatusPending._id;
 
-    var objSearchClient = {$where: 'this.orders.length > 0'}
+    var objSearchClient = {}
 
     if(objQuery.districtId) {
         var districtId = objQuery.districtId;
@@ -35,6 +35,9 @@ module.exports = async((req, res) => {
 
         for(var i=0; i< data.length; i++) {
             const item = data[i];
+            if(item.orders.length === 0){
+                continue;
+            } 
             const district = item.district;
             const districtId = district._id.toString();
 

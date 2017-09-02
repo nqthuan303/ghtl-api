@@ -8,6 +8,7 @@ let orderStatus = require('./controllers/orderStatus');
 let user = require('./controllers/user');
 let post = require('./controllers/post');
 let ward = require('./controllers/ward');
+let pickup = require('./controllers/pickup');
 
 var auth = require('./services/auth');
 var file = require('./controllers/file');
@@ -83,4 +84,6 @@ module.exports = (app) => {
     app.get('/api/post/getCount', auth.isAuthenticated, post.getCount);
     app.get('/api/post/list', auth.isAuthenticated, post.list);
     app.put('/api/post/update/:id', auth.isAuthenticated, post.update);
+
+    app.post('/api/pickup/add', auth.isAuthenticated, pickup.add);
 };
