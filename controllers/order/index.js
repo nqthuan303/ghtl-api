@@ -8,7 +8,7 @@ module.exports = {
     listStorage: require('./listStorage'),
     update: require('./update'),
     updateStatus: require('./updateStatus'),
-    save: require('./save'),
+    setStatus: require('./setStatus'),
     countOrderInDistrict: require('./countOrderInDistrict'),
     countOrderInStatus: require('./countOrderInStatus'),
 };

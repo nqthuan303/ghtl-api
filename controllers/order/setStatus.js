@@ -10,10 +10,16 @@ var utils = require('./../../utils');
 
 module.exports = async((req, res) => {
   var data = req.body;
-  const orderStatusPending = await(orderStatusModel.findOne({value: 'pending'}));
-  const pendingId = orderStatusPending._id;
+  var objQuery = req.query;
 
-  model.update({ _id : { $in : data }}, {orderstatus: pendingId}, {"multi": true}, function(err, data) {
+  const orderStatus = await(orderStatusModel.findOne({value: objQuery.status}));
+  const statusId = orderStatus._id;
+
+  model.update(
+      { _id : { $in : data }}, 
+      {orderstatus: statusId}, 
+      {"multi": true}, 
+      function(err, data) {
         if(err) {
             return API.fail(res, API.errors.UNKNOWN);
         }
