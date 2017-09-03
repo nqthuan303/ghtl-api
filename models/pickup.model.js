@@ -5,7 +5,8 @@ var counter = require('./counter.model');
 
 var objSchema = new Schema({
     id: String,
-    user: {type: ObjectId, ref: 'user'},
+    user: {type: ObjectId, ref: 'user'}, //shipper
+    client: {type: ObjectId, ref: 'client'},
     orders: [{type: ObjectId, ref: 'order'}],
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}]

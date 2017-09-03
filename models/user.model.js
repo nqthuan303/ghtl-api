@@ -11,7 +11,7 @@ var objSchema = new Schema({
     district: {type: ObjectId, required: true, ref: 'district' },
     ward: {type: ObjectId, ref: 'ward' },
     address: {type: String, required: true},
-    phone_number: {type: String, required: true},
+    phone: {type: String, required: true},
     status: {type: Number, default: 1, required: true },
     role: {type: ObjectId, ref: 'role', required: true},
     createdBy: {type: ObjectId, ref: 'user', required: true},

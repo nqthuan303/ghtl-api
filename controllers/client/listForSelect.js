@@ -11,7 +11,7 @@ module.exports = (req, res) => {
           "key": "$_id",
           "value": "$_id",
           "text": "$name",
-          'phone_number': true,
+          'phone': true,
           address: true,
           district: true,
           orderType: true

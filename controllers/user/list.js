@@ -19,7 +19,7 @@ function getObjSearch(objQuery) {
           'address': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
         },
         {
-          'phone_number': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
+          'phone': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
         }
       ]
     });
