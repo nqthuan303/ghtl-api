@@ -44,6 +44,7 @@ module.exports = async((req, res) => {
                         createdAt: pickUp.createdAt,
                         client_id: client._id,
                         clientName: client.name, 
+                        orders: orders,
                         numOfOrder: orders.length, 
                         clientPhone: client.phone, 
                         clientAddress: 
@@ -60,6 +61,7 @@ module.exports = async((req, res) => {
                 createdAt: pickUp.createdAt,
                 client_id: client._id,
                 clientName: client.name, 
+                orders: orders,
                 numOfOrder: orders.length, 
                 clientPhone: client.phone, 
                 clientAddress: 

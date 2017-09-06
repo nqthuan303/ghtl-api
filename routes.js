@@ -86,5 +86,6 @@ module.exports = (app) => {
     app.put('/api/post/update/:id', auth.isAuthenticated, post.update);
 
     app.post('/api/pickup/add', auth.isAuthenticated, pickup.add);
-    app.get('/api/pickup/list', pickup.list);
+    app.get('/api/pickup/list', auth.isAuthenticated, pickup.list);
+    app.post('/api/pickup/delete/:id', auth.isAuthenticated, pickup.delete);
 };
