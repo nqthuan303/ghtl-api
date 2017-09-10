@@ -22,10 +22,12 @@ module.exports = async((req, res) => {
         objSearchClient['district'] = districtId
     }
 
-    model.find(objSearchClient).populate({
+    model.find(objSearchClient)
+    .populate({
         path: 'orders',
         match: { orderstatus: pendingId}
-    }).exec(function(err, data) {
+    }).populate('district', 'name type')
+    .exec(function(err, data) {
         if (err) {
             return API.fail(res, err);
         }
