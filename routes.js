@@ -9,6 +9,7 @@ let user = require('./controllers/user');
 let post = require('./controllers/post');
 let ward = require('./controllers/ward');
 let pickup = require('./controllers/pickup');
+let delivery = require('./controllers/delivery');
 
 var auth = require('./services/auth');
 var file = require('./controllers/file');
@@ -89,4 +90,6 @@ module.exports = (app) => {
     app.get('/api/pickup/list', auth.isAuthenticated, pickup.list);
     app.post('/api/pickup/delete/:id', auth.isAuthenticated, pickup.delete);
     app.get('/api/pickup/findByShipper/:shipperId', auth.isAuthenticated, pickup.findByShipper);
+
+    app.post('/api/delivery/list', auth.isAuthenticated, delivery.list);
 };
