@@ -10,8 +10,6 @@ var express = require('express'),
   model = require('./models'),
   routes = require('./routes');
 
-mongoose.Promise = require('bluebird');
-
 if(env !== 'dev'){
   conn = 'mongodb://nqthuan303:thuan1602@ds031632.mlab.com:31632/giaohangtienloi';
   port = process.env.PORT;

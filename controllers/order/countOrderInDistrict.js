@@ -1,8 +1,5 @@
 'use strict';
 
-const async = require('asyncawait/async'),
-await = require('asyncawait/await');
-
 var model = require('./../../models/client.model');
 const orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
@@ -75,4 +72,4 @@ module.exports = async((req, res) => {
         API.success(res, result);
     });
     
-});
+};

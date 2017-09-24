@@ -1,18 +1,15 @@
 'use strict';
 
-const async = require('asyncawait/async'),
-await = require('asyncawait/await');
-
 const model = require('./../../models/client.model');
 
 const orderStatusModel = require('./../../models/orderStatus.model');
 
 const API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = async (req, res) => {
     var objQuery = req.query;
 
-    const orderStatusPending = await(orderStatusModel.findOne({value: 'pending'}));
+    const orderStatusPending = await orderStatusModel.findOne({value: 'pending'});
     const pendingId = orderStatusPending._id;
 
     var objSearchClient = {$where: 'this.orders.length > 0'}
@@ -34,4 +31,4 @@ module.exports = async((req, res) => {
         API.success(res, data);
     });
 
-});
+};
