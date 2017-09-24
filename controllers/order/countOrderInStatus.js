@@ -1,13 +1,10 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-    await = require('asyncawait/await');
-
 var model = require('./../../models/order.model');
 var orderstatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = async (req, res) => {
     var objQuery = req.query;
 
     const aggregatorOpts = [
@@ -19,7 +16,7 @@ module.exports = async((req, res) => {
         }
     ]
 
-    let ordersInStatus = await(model.aggregate(aggregatorOpts));
+    let ordersInStatus = await model.aggregate(aggregatorOpts);
     let statusId = [];
 
     const objCount = {}
@@ -46,4 +43,4 @@ module.exports = async((req, res) => {
         res.json(result);
     });
 
-});
+};

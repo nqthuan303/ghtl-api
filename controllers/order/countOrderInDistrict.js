@@ -1,17 +1,14 @@
 'use strict';
 
-const async = require('asyncawait/async'),
-await = require('asyncawait/await');
-
 var model = require('./../../models/client.model');
 const orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = async (req, res) => {
 
     var objQuery = req.query;
 
-    const orderStatusPending = await(orderStatusModel.findOne({value: objQuery.orderStatus}));
+    const orderStatusPending = await orderStatusModel.findOne({value: objQuery.orderStatus});
     const pendingId = orderStatusPending._id;
 
     var objSearchClient = {}
@@ -75,4 +72,4 @@ module.exports = async((req, res) => {
         API.success(res, result);
     });
     
-});
+};

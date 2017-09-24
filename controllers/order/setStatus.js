@@ -1,18 +1,15 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-await = require('asyncawait/await');
-
 var model = require('./../../models/order.model');
 var orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
 var utils = require('./../../utils');
 
-module.exports = async((req, res) => {
+module.exports = async (req, res) => {
   var data = req.body;
   var objQuery = req.query;
 
-  const orderStatus = await(orderStatusModel.findOne({value: objQuery.status}));
+  const orderStatus = await orderStatusModel.findOne({value: objQuery.status});
   const statusId = orderStatus._id;
 
   model.update(
@@ -29,4 +26,4 @@ module.exports = async((req, res) => {
         });
   });
 
-});
+};

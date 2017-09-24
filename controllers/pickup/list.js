@@ -1,15 +1,12 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-await = require('asyncawait/await');
-
 var model = require('./../../models/pickup.model');
 var API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = async (req, res) => {
     var objQuery = req.query;
 
-    const pickUps = await(model.find()
+    const pickUps = await model.find()
     .populate({
         path: 'client',
         select: 'name address phone district',
@@ -23,7 +20,7 @@ module.exports = async((req, res) => {
     .sort({
         'createdAt': -1,
         'user': -1
-    }))
+    })
 
     let result = {}
     
@@ -74,4 +71,4 @@ module.exports = async((req, res) => {
 
     API.success(res, result);
 
-});
+};

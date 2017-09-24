@@ -1,8 +1,5 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-await = require('asyncawait/await');
-
 var model = require('./../../models/order.model');
 var orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
@@ -58,7 +55,7 @@ function getObjSearch(objQuery) {
   return query;
 }
 
-module.exports = async((req, res) => {
+module.exports = async (req, res) => {
     var objQuery = req.query;
 
   var recordsPerPage = Number(objQuery.recordsPerPage);
@@ -68,7 +65,7 @@ module.exports = async((req, res) => {
   var objSearch = getObjSearch(objQuery);
 
   if (objQuery.status) {
-    const orderStatus = await(orderStatusModel.findOne({value: objQuery.status}));
+    const orderStatus = await orderStatusModel.findOne({value: objQuery.status});
     const orderStatusId = orderStatus._id;
     let arrAnd = [];
     
@@ -108,4 +105,4 @@ module.exports = async((req, res) => {
       res.json(data);
     });
 
-});
+};

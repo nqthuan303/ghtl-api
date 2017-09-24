@@ -1,16 +1,13 @@
 'use strict';
 
-let async = require('asyncawait/async'),
-await = require('asyncawait/await');
-
 var model = require('./../../models/user.model');
 var modelRole = require('./../../models/role.model');
 var API = require('./../../APILib');
 
-module.exports = async((req, res) => {
+module.exports = async (req, res) => {
     var objQuery = req.query;
 
-    const roleShipper = await(modelRole.findOne({name: 'Shipper'}));
+    const roleShipper = await modelRole.findOne({name: 'Shipper'});
     const roleShipperId = roleShipper._id;
 
     model.aggregate([{ 
@@ -30,4 +27,4 @@ module.exports = async((req, res) => {
           res.json(data);
     });
 
-});
+};
