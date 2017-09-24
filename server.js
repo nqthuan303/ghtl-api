@@ -17,7 +17,7 @@ if(env !== 'dev'){
   port = process.env.PORT;
 }
 
-mongoose.connect(conn);
+mongoose.connect(conn, { useMongoClient: true });
 
 var app = express();
 

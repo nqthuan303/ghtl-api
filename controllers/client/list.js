@@ -8,8 +8,10 @@ function getObjSearch(objQuery) {
   var query = {};
 
   var arrAnd = [];
+  console.log(objQuery.keyword !== "null")
+  console.log(objQuery.keyword != '')
 
-  if (objQuery.keyword !== "null" && objQuery.keyword != '') {
+  if (objQuery.keyword && objQuery.keyword !== "null" && objQuery.keyword != '') {
     arrAnd.push({
       '$or': [{
           'name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
@@ -76,9 +78,12 @@ module.exports = (req, res) => {
     .sort(objSort)
     .exec(function (err, data) {
       if (err) {
-        res.send(err);
+        return API.fail(res, err.message);
       }
-      res.json(data);
+      API.success(res, {
+        message: 'Success!',
+        items: data
+      });
     });
 
 };
