@@ -14,7 +14,7 @@ var objSchema = new Schema({
         address: {type: String, required: true},
         lat: String,
         lng: String,
-        orderType: {type: String, required: true},
+        isCod: {type: Boolean, required: true},
     },
     reciever: {
         name: {type: String, required: true},

@@ -4,13 +4,13 @@ var model = require('./../../models/client.model');
 var API = require('./../../APILib');
 
 module.exports = (req, res) => {
-    var objQuery = req.query;
+  var objParams = req.params;
 
-  model.findById(objQuery.id, function (err, data) {
+  model.findById(objParams.id, function (err, data) {
     if (err) {
-      res.send(err);
+      return API.fail(res, err);
     }
-    res.json(data);
+    API.success(res, data);
   });
 
 };
