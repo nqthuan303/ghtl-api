@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
 
     var objQuery = req.query;
 
-    const orderStatusPending = await orderStatusModel.findOne({value: objQuery.orderStatus});
+    const orderStatusPending = await orderStatusModel.findOne({value: objQuery.status});
     const pendingId = orderStatusPending._id;
 
     var objSearchClient = {}
