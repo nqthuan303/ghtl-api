@@ -39,7 +39,7 @@ module.exports = (app) => {
 
     app.post('/api/client/add', auth.isAuthenticated, client.add);
     app.delete('/api/client/delete/:id', auth.isAuthenticated, client.delete);
-    app.get('/api/client/findOne', auth.isAuthenticated, client.findOne);
+    app.get('/api/client/findOne/:id', auth.isAuthenticated, client.findOne);
     app.get('/api/client/getCount', auth.isAuthenticated, client.getCount);
     app.get('/api/client/list', auth.isAuthenticated, client.list);
     app.get('/api/client/listForSelect', auth.isAuthenticated, client.listForSelect);

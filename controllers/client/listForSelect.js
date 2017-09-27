@@ -14,7 +14,7 @@ module.exports = (req, res) => {
           'phone': true,
           address: true,
           district: true,
-          orderType: true
+          isCod: true
         }
       }
   ], function(err, data) {
