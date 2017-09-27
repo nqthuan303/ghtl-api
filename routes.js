@@ -72,6 +72,8 @@ module.exports = (app) => {
     app.get('/api/order/count-order-in-district', auth.isAuthenticated, order.countOrderInDistrict);
     app.get('/api/order/count-order-in-status', auth.isAuthenticated, order.countOrderInStatus);
     app.get('/api/order/order-each-district-and-status', auth.isAuthenticated, order.orderEachDistrictAndStatus);
+    app.get('/api/order/count-order-each-district-and-status', auth.isAuthenticated, order.countOrderEachDistrictAndStatus);
+    
     
     app.post('/api/orderlog/add', auth.isAuthenticated, orderLog.add);
     app.get('/api/orderStatus/listForSelect', orderStatus.listForSelect);

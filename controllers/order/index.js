@@ -11,5 +11,6 @@ module.exports = {
     setStatus: require('./setStatus'),
     countOrderInDistrict: require('./countOrderInDistrict'),
     countOrderInStatus: require('./countOrderInStatus'),
-    orderEachDistrictAndStatus: require('./orderEachDistrictAndStatus')
+    orderEachDistrictAndStatus: require('./orderEachDistrictAndStatus'),
+    countOrderEachDistrictAndStatus: require('./countOrderEachDistrictAndStatus')
 };
