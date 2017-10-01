@@ -10,4 +10,5 @@ module.exports = {
     Ward: require('./ward.model'),
     Post: require('./post.model'),
     Role: require('./role.model'),
+    Price: require('./price.model'),
 };
