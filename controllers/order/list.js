@@ -100,9 +100,9 @@ module.exports = async (req, res) => {
     .sort(objSort)
     .exec(function (err, data) {
       if (err) {
-        res.send(err);
+        return API.fail(res, err.message);
       }
-      res.json(data);
+      API.success(res, data);
     });
 
 };

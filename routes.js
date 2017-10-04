@@ -46,6 +46,7 @@ module.exports = (app) => {
     app.get('/api/client/listForSelect', auth.isAuthenticated, client.listForSelect);
     app.put('/api/client/update/:id', auth.isAuthenticated, client.update);
     app.get('/api/client/orders-each-client', auth.isAuthenticated, client.ordersEachClient);
+    app.get('/api/client/order-info/:clientId', auth.isAuthenticated, client.orderInfo);
 
     app.post('/api/user/add', auth.isAuthenticated, user.add);
     app.delete('/api/user/delete/:id', auth.isAuthenticated, user.delete);
