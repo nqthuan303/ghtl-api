@@ -13,6 +13,10 @@ module.exports = async (req, res) => {
 
   try {
     const saveOrder = await objData.save();
+    const savedData = await model.findOne({_id: saveOrder._id})
+      .populate('orderstatus', 'name')
+      .populate('client', 'name');
+
     let clientFound = await clientModel.findOne({_id: data.client});
     
     let clientOrder = [];
@@ -24,9 +28,8 @@ module.exports = async (req, res) => {
   
     const saveClient = await clientModel.findOneAndUpdate({_id: data.client}, {orders: clientOrder});
   
-    API.success(res, {
-        message: 'Success!'
-    });
+    API.success(res, savedData);
+    
   } catch (err) {
     return API.fail(res, err.message);
   }
