@@ -23,6 +23,7 @@ var objSchema = new Schema({
     bankAccount: String,
     bankBranch: String,
     bankName: String,
+    descriptionOfGoods: String,
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: {type: ObjectId, ref: 'user' },
     isCod: Boolean,
