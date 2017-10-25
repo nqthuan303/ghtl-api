@@ -3,17 +3,12 @@
 var model = require('./../../models/client.model');
 var API = require('./../../APILib');
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
     var id = req.params.id;
-    model.findByIdAndRemove(id, function(err, data){
-      if(err) {
-          return API.fail(res, API.errors.UNKNOWN);
-        }
-        API.success(res, {
-            message: 'Success!',
-            statusCode: 0
-        });
-      
-    })
-
+    try {
+        const result = await model.findByIdAndRemove(id);
+        API.success(res, {});
+    } catch (error) {
+        API.fail(res, error);
+    }
 };

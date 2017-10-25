@@ -1,15 +1,14 @@
 'use strict';
 
 const model = require('./../../models/client.model');
-
 const orderStatusModel = require('./../../models/orderStatus.model');
-
 const API = require('./../../APILib');
+const orderStatus = require('../../constants/orderStatus');
 
 module.exports = async (req, res) => {
     var objQuery = req.query;
 
-    const orderStatusPending = await orderStatusModel.findOne({value: 'pending'});
+    const orderStatusPending = await orderStatusModel.findOne({value: orderStatus.PENDING});
     const pendingId = orderStatusPending._id;
 
     var objSearchClient = {$where: 'this.orders.length > 0'}

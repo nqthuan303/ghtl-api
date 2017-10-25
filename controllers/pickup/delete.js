@@ -6,6 +6,7 @@ var orderModel = require('./../../models/order.model');
 var API = require('./../../APILib');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
+const orderStatus = require('../../constants/orderStatus');
 
 module.exports = async (req, res) => {
     const id = req.params.id;
@@ -14,12 +15,12 @@ module.exports = async (req, res) => {
     try {
         
         const deletePickup = await model.findByIdAndRemove(id);
-        const orderStatus = await orderStatusModel.findOne({value: 'pending'});
-        const statusId = orderStatus._id;
+        const pending = await orderStatusModel.findOne({value: orderStatus.PENDING});
+        const pendingId = pending._id;
 
         const updateOrder = await orderModel.update(
             {_id : {$in: orderIds.map(function(o){ return ObjectId(o); })}},
-            {orderstatus: statusId}, {"multi": true}
+            {orderstatus: pendingId}, {"multi": true}
         )
 
         API.success(res, {
