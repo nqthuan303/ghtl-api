@@ -1,5 +1,5 @@
 module.exports = {
-    // add: require('./add'),
+    add: require('./add'),
     // delete: require('./delete'),
     // findOne: require('./findOne'),
     // getCount: require('./getCount'),
