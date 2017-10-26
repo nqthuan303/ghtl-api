@@ -3,22 +3,18 @@
 var model = require('./../../models/client.model');
 var API = require('./../../APILib');
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   var id = req.params.id;
 
   var data = req.body;
+  delete data._id;
 
-  model.findOneAndUpdate({
-    _id: id
-  }, data, function (err, doc) {
-    var result = {
-      "statusCode": 0,
-      "message": "Success"
-    }
-    if (err) {
-      result.statusCode = -1;
-      result.message = "Error";
-    }
-    res.json(result);
-  });
+  try {
+    const result = await model.findOneAndUpdate({_id: id}, data);
+    API.success(res, {});
+
+  } catch (error) {
+    API.fail(res, error);
+  }
+  
 };

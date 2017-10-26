@@ -5,6 +5,7 @@ const orderModel = require('./../../models/order.model');
 const orderStatusModel = require('./../../models/orderStatus.model');
 const API = require('./../../APILib');
 const utils = require('./../../utils');
+const orderStatus = require('../../constants/orderStatus');
 
 module.exports = async (req, res) => {
   const data = req.body;
@@ -14,12 +15,12 @@ module.exports = async (req, res) => {
 
   try {
     const saveOrder = await objData.save();
-    const receiving = await orderStatusModel.findOne({value: 'receiving'});
-    const receivingId = receiving._id;
+    const pickup = await orderStatusModel.findOne({value: orderStatus.PICKUP});
+    const pickupId = pickup._id;
 
     const updateOrder = await orderModel.update(
       { _id : { $in : data.orders }}, 
-      { orderstatus: receivingId}, 
+      { orderstatus: pickup},
       {"multi": true}
     )
 
