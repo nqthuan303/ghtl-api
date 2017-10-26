@@ -1,25 +1,33 @@
 'use strict';
 
-var model = require('./../../models/delivery.model');
-var API = require('./../../APILib');
-var utils = require('./../../utils');
+const model = require('./../../models/delivery.model');
+const orderModel = require('./../../models/order.model');
+const orderStatusModel = require('./../../models/orderStatus.model');
+const API = require('./../../APILib');
+const utils = require('./../../utils');
 
-module.exports = (req, res) => {
-  var data = req.body;
-  var authInfo = utils.getAuthInfo(req.headers.authorization);
+module.exports = async (req, res) => {
+  const data = req.body;
+  const authInfo = utils.getAuthInfo(req.headers.authorization);
   data.createdBy = authInfo._id;
-  var objData = new model(data);
+  const objData = new model(data);
 
-  objData.save(function (err) {
-    var result = {
-      "statusCode": 0,
-      "message": "Success"
-    }
-    if (err) {
-      result.statusCode = -1;
-      result.message = "Error";
-    }
-    res.json(result);
-  });
+  try {
+    const saveOrder = await objData.save();
+    const prepareDelivery = await orderStatusModel.findOne({value: 'prepareDelivery'});
+    const prepareDeliveryId = prepareDelivery._id;
+
+    const updateOrder = await orderModel.update(
+      { _id : { $in : data.orders }}, 
+      { orderstatus: prepareDeliveryId}, 
+      {"multi": true}
+    )
+
+    API.success(res, {
+        message: 'Success!'
+    });
+  } catch (err) {
+    return API.fail(res, err.message);
+  }
 
 };
