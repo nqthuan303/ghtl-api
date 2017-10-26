@@ -10,7 +10,6 @@ module.exports = async (req, res) => {
   const postData = req.body;
 
   try {
-    model.up
     const updateData = await model.findByIdAndUpdate(objParams.id, postData);
     const data = await model.findOne({_id: objParams.id}).populate('districts', 'name');
     const districts = data.districts;
