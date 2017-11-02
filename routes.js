@@ -95,7 +95,7 @@ module.exports = (app) => {
     app.post('/api/pickup/delete/:id', auth.isAuthenticated, pickup.delete);
     app.get('/api/pickup/findByShipper/:shipperId', auth.isAuthenticated, pickup.findByShipper);
 
-    app.post('/api/delivery/list', auth.isAuthenticated, delivery.list);
+    app.get('/api/delivery/list', auth.isAuthenticated, delivery.list);
     app.post('/api/delivery/add', auth.isAuthenticated, delivery.add);
 
     app.post('/api/price/add', auth.isAuthenticated, price.add);
