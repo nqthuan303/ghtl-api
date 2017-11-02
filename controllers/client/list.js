@@ -8,9 +8,7 @@ function getObjSearch(objQuery) {
   var query = {};
 
   var arrAnd = [];
-  console.log(objQuery.keyword !== "null")
-  console.log(objQuery.keyword != '')
-
+  
   if (objQuery.keyword && objQuery.keyword !== "null" && objQuery.keyword != '') {
     arrAnd.push({
       '$or': [{
