@@ -3,7 +3,20 @@
 var model = require('./../../models/delivery.model');
 var API = require('./../../APILib');
 
-module.exports = async (req, res) => {
-  const result = await model.find().populate('user', 'name');
-
+module.exports = (req, res) => {
+  model.find()
+      .populate('user', 'name phone_number')
+      .populate({
+          path: 'orders',
+          populate:{
+              path: 'reciever.district',
+              select: '_id type name'
+          }
+      })
+      .exec(function (err, data) {
+          if (err) {
+              res.send(err);
+          }
+          res.json(data);
+      });
 };
