@@ -4,6 +4,7 @@ const status = {
     PENDING: 'pending',
     PREPAREPICKUP: 'preparePickup',
     PICKUP: 'pickup',
+    STORAGE: 'storage',
     PREPAREDELIVERY: 'prepareDelivery',
     DELIVERY: 'delivery',
     CANCEL: 'cancel',

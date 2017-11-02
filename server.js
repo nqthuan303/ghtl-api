@@ -4,16 +4,17 @@ var express = require('express'),
   passport = require('passport'),
   mongoose = require('mongoose'),
   env = process.env.NODE_ENV || 'dev',
-  conn = 'mongodb://localhost:27017/giaohangtienloi',
-  port = 3435,
+  // conn = 'mongodb://localhost:27017/giaohangtienloi',
+  conn = 'mongodb://nqthuan303:thuan1602@ds031632.mlab.com:31632/giaohangtienloi'
+  port = process.env.PORT? process.env.PORT: 3435,
   API = require('./APILib'),
   model = require('./models'),
   routes = require('./routes');
 
-if(env !== 'dev'){
-  conn = 'mongodb://nqthuan303:thuan1602@ds031632.mlab.com:31632/giaohangtienloi';
-  port = process.env.PORT;
-}
+// if(env !== 'dev'){
+//   conn = 'mongodb://nqthuan303:thuan1602@ds031632.mlab.com:31632/giaohangtienloi';
+//   port = process.env.PORT;
+// }
 
 mongoose.connect(conn, { useMongoClient: true });
 
