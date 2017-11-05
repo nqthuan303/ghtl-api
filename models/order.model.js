@@ -21,9 +21,16 @@ var objSchema = new Schema({
         phoneNumbers: [String],
         province: {type: ObjectId, ref: 'province', default: '587124bcbe644a04d4b14e8b', required: true },
         district: {type: ObjectId, required: true, ref: 'district' },
+        ward: {type: ObjectId, required: true, ref: 'ward' },
         address: {type: String, required: true},
         lat: String,
         lng: String,
+    },
+    goods: {
+        value: {type: Number, required: true},
+        length: Number,
+        width: Number,
+        height: Number
     },
     shipFee: {type: Number, required: true},
     orderstatus: {type: ObjectId, default: '599992d32fc27aec771a8acb', ref: 'orderstatus' },

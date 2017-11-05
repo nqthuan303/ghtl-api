@@ -1,25 +1,31 @@
 'use strict';
 
 var model = require('./../../models/ward.model');
+var API = require('./../../APILib');
 
-module.exports = (req, res) => {
-    var objQuery = req.query;
+module.exports = async (req, res) => {
+  var objQuery = req.query;
   var districtId = objQuery.districtId;
 
-  model.aggregate([
-    { $match : { district : districtId } },
-      { 
-        "$project": {
-          "_id": false,
-          "value": "$_id",
-          "label": { $concat: [ "$type", " ", "$name" ] }
-        }
-      }
-  ], function(err, data) {
-    if (err) {
-      res.send(err);
+  const project = {
+    "_id": false,
+    "key": "$_id",
+    "value": "$_id",
+    "text": {
+      $concat: ["$type", " ", "$name"]
     }
-    res.json(data);
-  });
+  };
 
+  const match = { district: districtId };
+
+  try {
+    const result = await model.aggregate([
+      { $match: match },
+      { $project: project }
+    ]);
+    API.success(res, result);
+
+  } catch (error) {
+    return API.fail(res, error.message);
+  }
 };
