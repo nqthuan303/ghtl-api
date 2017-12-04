@@ -3,85 +3,18 @@
 var model = require('./../../models/client.model');
 var API = require('./../../APILib');
 
-
-function getObjSearch(objQuery) {
-  var query = {};
-
-  var arrAnd = [];
-  
-  if (objQuery.keyword && objQuery.keyword !== "null" && objQuery.keyword != '') {
-    arrAnd.push({
-      '$or': [{
-          'name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
-        },
-        {
-          'contactName': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
-        },
-        {
-          'address': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
-        },
-        {
-          'phone': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
-        }
-      ]
-    });
-  }
-
-  if (objQuery.districtId !== "null" && objQuery.districtId !== undefined && objQuery.districtId != 0) {
-    arrAnd.push({
-        'district': objQuery.districtId,
-    });
-  }
-
-  if (objQuery.wardId !== "null" && objQuery.wardId !== undefined && objQuery.wardId != 0)
-   {
-    arrAnd.push({
-      'ward': objQuery.wardId
-    })
-  }
-
-
-  if (arrAnd.length > 0) {
-    query.$and = arrAnd;
-  }
-  return query;
-}
-
-module.exports = (req, res) => {
-    var objQuery = req.query;
-
-  var objSort = {
-    'createdAt': -1
-  };
-
-
-  if (objQuery.sortField && objQuery.sortValue) {
-    objSort = {};
-    objSort[objQuery.sortField] = objQuery.sortValue;
-  }
-
-  var objSearch = getObjSearch(objQuery);
-
-  var recordsPerPage = Number(objQuery.recordsPerPage);
-  var page = Number(objQuery.page);
-  var skip = (page -1)* recordsPerPage;
-
-  model.find(objSearch)
+module.exports = async (req, res) => {
+  try {
+    const result = await model.find()
     .populate('createdBy', 'name')
     .populate('province', 'name type')
     .populate('district', 'name type')
     .populate('ward', 'name type')
-    .limit(recordsPerPage)
-    .skip(skip)
-    .sort(objSort)
-    .exec(function (err, data) {
-      if (err) {
-        return API.fail(res, err.message);
-      }
-      API.success(res, {
-        message: 'Success!',
-        items: data
-      });
+    .sort({
+      'createdAt': -1
     });
-
+    API.success(res, result);
+  } catch (error) {
+    API.fail(res, error.message);
+  }
 };

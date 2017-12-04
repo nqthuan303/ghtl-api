@@ -32,6 +32,7 @@ var objSchema = new Schema({
         width: Number,
         height: Number
     },
+    type: String,
     shipFee: {type: Number, required: true},
     orderstatus: {type: ObjectId, default: '599992d32fc27aec771a8acb', ref: 'orderstatus' },
     createdBy: {type: ObjectId, ref: 'user', required: true },

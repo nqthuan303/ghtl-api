@@ -30,9 +30,9 @@ module.exports = (req, res) => {
 
           API.success(res, {
               token: 'JWT ' + token,
-              name: data.name,
-              email: data.email,
-              userId: data._id
+              info: {
+                  name: data.name
+              }
           });
       });
     });
