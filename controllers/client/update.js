@@ -7,11 +7,10 @@ module.exports = async (req, res) => {
   var id = req.params.id;
 
   var data = req.body;
-  delete data._id;
 
   try {
-    const result = await model.findOneAndUpdate({_id: id}, data);
-    API.success(res, {});
+    const result = await model.findOneAndUpdate({_id: id}, data, {returnNewDocument : true});
+    API.success(res, data);
 
   } catch (error) {
     API.fail(res, error);

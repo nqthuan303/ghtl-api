@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     .select(`
       id name userName status email
       contactName district descriptionOfGoods 
-      ward address phone 
+      ward address phone password
       website bankNumber 
       bankAccount bankBranch 
       bankName isCod`

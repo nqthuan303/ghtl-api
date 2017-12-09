@@ -8,11 +8,12 @@ var objSchema = new Schema({
     id: String,
     name: { type: String, required: true },
     email: { type: String, required: true },
+    password: { type: String, select: false, required: true },
     userName: { type: String, required: true },
     orders: [{type: ObjectId, ref: 'order'}],
     contactName: { type: String, required: true },
     province: {type: ObjectId, ref: 'province', required: true, default: '587124bcbe644a04d4b14e8b' },
-    district: {type: ObjectId, ref: 'district' },
+    district: {type: ObjectId, ref: 'district', required: true },
     ward: {type: ObjectId, ref: 'ward' },
     address: { type: String, required: true },
     lat: { type: String},
@@ -28,8 +29,12 @@ var objSchema = new Schema({
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: {type: ObjectId, ref: 'user' },
     isCod: Boolean,
-    status: {type: Number, required: true, default: 1 }
-    
+    status: {
+        type: String, 
+        required: true, 
+        enum: ['active', 'inactive'],
+        default: 'active'
+    }
 }, { timestamps: true });
 
 objSchema.pre('save', function(next) {
