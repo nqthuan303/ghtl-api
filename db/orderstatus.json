@@ -1,7 +1,16 @@
-{"_id":{"$oid":"5884a56f7b66847851a426e6"},"value":"pending","name":"Pending"}
-{"_id":{"$oid":"5884a5a37b66847851a42717"},"value":"receiving","name":"Receiving"}
-{"_id":{"$oid":"5884a5ba7b66847851a42725"},"value":"storage","name":"Storage"}
-{"_id":{"$oid":"5884a5d87b66847851a42735"},"value":"shipping","name":"Shipping"}
-{"_id":{"$oid":"5884a5e77b66847851a4273a"},"value":"cancel","name":"Cancel"}
-{"_id":{"$oid":"5884a5f77b66847851a42748"},"value":"done","name":"Done"}
-{"_id":{"$oid":"5884a6117b66847851a42757"},"value":"paid","name":"Paid"}
+{"_id":{"$oid":"5884a56f7b66847851a426e6"},"value":"pending","name":"Chờ giải quyết"}
+{"_id":{"$oid":"5884a5a37b66847851a42717"},"value":"pickup","name":"Lấy hàng"}
+{"_id":{"$oid":"5884a5ba7b66847851a42725"},"value":"storage","name":"Lưu kho"}
+{"_id":{"$oid":"5884a5d87b66847851a42735"},"value":"delivery","name":"Giao hàng"}
+{"_id":{"$oid":"5884a5e77b66847851a4273a"},"value":"cancel","name":"Hủy"}
+{"_id":{"$oid":"5884a5f77b66847851a42748"},"value":"done","name":"Đã giao"}
+{"_id":{"$oid":"5884a6117b66847851a42757"},"value":"paid","name":"Đã thanh toán"}
+{"_id":{"$oid":"599992d32fc27aec771a8acb"},"value":"temp","name":"Tạm"}
+{"_id":{"$oid":"59f0af8155c0f9a8ae0afe81"},"value":"prepareDelivery","name":"Chuẩn bị giao hàng"}
+{"_id":{"$oid":"59f0af9f55c0f9a8ae0afe8f"},"value":"preparePickup","name":"Chuẩn bị lấy hàng"}
+{"_id":{"$oid":"59fb2c7b5506cd9f2cabbc75"},"value":"refundStorage","name":"Trả chưa hoàn"}
+{"_id":{"$oid":"59fb2c9a5506cd9f2cabbc7f"},"value":"refundReturning","name":"Trả đang hoàn"}
+{"_id":{"$oid":"59fb2cb45506cd9f2cabbc89"},"value":"refundNoStorage","name":"Trả đã hoàn"}
+{"_id":{"$oid":"59fb2cd35506cd9f2cabbc93"},"value":"cancelStorage","name":"Hủy chưa hoàn"}
+{"_id":{"$oid":"59fb2cef5506cd9f2cabbc9d"},"value":"cancelReturning","name":"Hủy đang hoàn"}
+{"_id":{"$oid":"59fb2d105506cd9f2cabbca7"},"value":"cancelNoStorage","name":"Hủy đã hoàn"}

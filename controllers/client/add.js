@@ -14,6 +14,6 @@ module.exports = async (req, res) => {
     const result = await objData.save();
     API.success(res, {});
   } catch (error) {
-    API.fail(res, error);
+    API.fail(res, error.message);
   }
 };
