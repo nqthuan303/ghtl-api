@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
 
   try {
     const result = await objData.save();
-    API.success(res, {});
+    API.success(res, result);
   } catch (error) {
     API.fail(res, error.message);
   }

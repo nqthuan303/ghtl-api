@@ -15,14 +15,16 @@ module.exports = async (req, res) => {
 
     let removeOrderOnClient = await clientModel.findOne({_id: clientId}).populate('orders').exec(function(err, dataFound) {
           let orders = [];
-          for(let i=0; i< dataFound.orders.length; i++) {
-            let orderId = dataFound.orders[i]._id.toString();
-            if(orderId === id) {
-              continue;
+          if(dataFound){
+            for(let i=0; i< dataFound.orders.length; i++) {
+              let orderId = dataFound.orders[i]._id.toString();
+              if(orderId === id) {
+                continue;
+              }
+              orders.push(orderId);
             }
-            orders.push(orderId);
+            dataFound.update({'orders': orders}).exec();
           }
-          dataFound.update({'orders': orders}).exec();
     });
     
     let deleteDevice = await order.remove();

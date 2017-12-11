@@ -8,7 +8,7 @@ module.exports = (req, res) => {
     var objQuery = req.query;
     var authInfo = utils.getAuthInfo(req.headers.authorization);
 
-    model.findById(authInfo._id, function (err, data) {
+    model.findById(objQuery.id, function (err, data) {
         if (err) {
         res.send(err);
         }
