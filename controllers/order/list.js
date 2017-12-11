@@ -24,7 +24,7 @@ function getObjSearch(objQuery) {
   if (objQuery.keyword && objQuery.keyword !== "null" && objQuery.keyword != '') {
     arrAnd.push({
       '$or': [{
-          'reciever_name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
+          'receiver_name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
         },
         {
           'address': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
@@ -94,7 +94,7 @@ module.exports = async (req, res) => {
     .populate('district', 'name type')
     .populate('ward', 'name type')
     .populate('orderstatus', 'name')
-    .select('address id bonus_fee reciever_name reciever_phone ship_fee createdAt note client createdBy province district ward orderstatus')
+    .select('address id bonus_fee receiver ship_fee createdAt note client createdBy province district ward orderstatus')
     .limit(recordsPerPage)
     .skip(skip)
     .sort(objSort)

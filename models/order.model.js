@@ -16,7 +16,7 @@ var objSchema = new Schema({
         lng: String,
         isCod: {type: Boolean, required: true},
     },
-    reciever: {
+    receiver: {
         name: {type: String, required: true},
         phoneNumbers: [String],
         province: {type: ObjectId, ref: 'province', default: '587124bcbe644a04d4b14e8b', required: true },

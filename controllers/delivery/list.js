@@ -9,7 +9,7 @@ module.exports = (req, res) => {
       .populate({
           path: 'orders',
           populate:{
-              path: 'reciever.district',
+              path: 'receiver.district',
               select: '_id type name'
           }
       })

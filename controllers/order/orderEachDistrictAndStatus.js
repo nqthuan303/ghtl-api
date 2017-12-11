@@ -21,8 +21,8 @@ module.exports = async (req, res) => {
     }
 
     model.
-    find({orderstatus: statusId, 'reciever.district': district}).
-    populate('reciever.district', '_id type name').
+    find({orderstatus: statusId, 'receiver.district': district}).
+    populate('receiver.district', '_id type name').
     where('this.orders.length > 0').
     exec(function(err, data) {
         if (err) {

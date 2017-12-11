@@ -23,7 +23,7 @@ function getObjSearch(objQuery) {
   if (objQuery.keyword !== "null" && objQuery.keyword != '') {
     arrAnd.push({
       '$or': [{
-          'reciever_name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
+          'receiver_name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
         },
         {
           'address': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
