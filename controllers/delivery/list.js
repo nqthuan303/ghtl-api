@@ -15,8 +15,8 @@ module.exports = (req, res) => {
       })
       .exec(function (err, data) {
           if (err) {
-              res.send(err);
+              API.fail(res, err.message)
           }
-          res.json(data);
+          API.success(res, data);
       });
 };

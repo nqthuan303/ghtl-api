@@ -7,7 +7,12 @@ var objSchema = new Schema({
     id: String,
     user: {type: ObjectId, ref: 'user'}, //shipper
     orders: [{type: ObjectId, ref: 'order'}],
-    status: {type: String,default:'unCompleted', required: true},
+    status: {
+        type: String, 
+        required: true, 
+        enum: ['unCompleted', 'completed', 'delivery'],
+        default: 'unCompleted'
+    },
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}]
 }, { timestamps: true });

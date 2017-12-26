@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
 
     const orderStatus = await orderStatusModel.findOne({value: objQuery.status});
     const statusId = orderStatus._id;
-    let orders = await model.find({orderstatus: statusId}).populate("reciever.district", "_id type name");
+    let orders = await model.find({orderstatus: statusId}).populate("receiver.district", "_id type name");
     if(orders){
         API.success(res, orders);
     }
