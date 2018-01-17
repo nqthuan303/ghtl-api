@@ -8,21 +8,21 @@ var API = require('./../../APILib');
 
 module.exports = async (req, res) => {
   var id = req.params.id;
-  var data = req.body;
 
   try {
-    const result = await model.findOneAndUpdate({_id: id}, data, {returnNewDocument : true});
+    const startTime = new Date();
+    const result = await model.findOneAndUpdate({_id: id}, {status: 'delivery', startTime}, {returnNewDocument : true});
     
-    const prepareDelivery = await orderStatusModel.findOne({value: status.PREPAREDELIVERY});
-    const prepareDeliveryId = prepareDelivery._id;
+    const orderStatus = await orderStatusModel.findOne({value: status.DELIVERY});
+    const orderStatusId = orderStatus._id;
     const updateOrder = await orderModel.update(
-      { _id : { $in : data.orders }}, 
-      { orderstatus: prepareDeliveryId}, 
+      { _id : { $in : result.orders }}, 
+      { orderstatus: orderStatusId}, 
       {"multi": true}
     )
-    API.success(res, data);
+    API.success(res, "Chuyển thành đang giao hàng thành công!!!");
   } catch (error) {
-    API.fail(res, error);
+    API.fail(res, error.message);
   }
   
 };

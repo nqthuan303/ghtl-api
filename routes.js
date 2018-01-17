@@ -74,7 +74,7 @@ module.exports = (app) => {
     app.get('/api/order/count-order-in-district', auth.isAuthenticated, order.countOrderInDistrict);
     app.get('/api/order/count-order-in-status', auth.isAuthenticated, order.countOrderInStatus);
     app.get('/api/order/order-with-status', auth.isAuthenticated, order.orderWithStatus);
-    
+    app.put('/api/order/changeMulti', auth.isAuthenticated, order.changeMulti);
     
     app.post('/api/orderlog/add', auth.isAuthenticated, orderLog.add);
     app.get('/api/orderStatus/listForSelect', orderStatus.listForSelect);
@@ -98,6 +98,8 @@ module.exports = (app) => {
     app.post('/api/delivery/add', auth.isAuthenticated, delivery.add);
     app.get('/api/delivery/findOne/:id', auth.isAuthenticated, delivery.findOne);
     app.put('/api/delivery/update/:id', auth.isAuthenticated, delivery.update);
+    app.delete('/api/delivery/delete/:id', auth.isAuthenticated, delivery.delete);
+    app.put('/api/delivery/changeStatusDelivery/:id', auth.isAuthenticated, delivery.changeStatusDelivery);
 
     app.post('/api/price/add', auth.isAuthenticated, price.add);
     app.delete('/api/price/delete/:id', auth.isAuthenticated, price.delete);

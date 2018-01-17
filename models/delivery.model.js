@@ -14,7 +14,9 @@ var objSchema = new Schema({
         default: 'unCompleted'
     },
     createdBy: {type: ObjectId, ref: 'user', required: true },
-    updatedBy: [{type: ObjectId, ref: 'user'}]
+    updatedBy: [{type: ObjectId, ref: 'user'}],
+    startTime: Date, // thời gian bắt đầu giao hàng
+    endTime: Date, // thời gian kết thúc chuyến đi giao hàng
 }, { timestamps: true });
 
 objSchema.pre('save', function(next) {
