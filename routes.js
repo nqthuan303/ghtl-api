@@ -100,6 +100,7 @@ module.exports = (app) => {
     app.put('/api/delivery/update/:id', auth.isAuthenticated, delivery.update);
     app.delete('/api/delivery/delete/:id', auth.isAuthenticated, delivery.delete);
     app.put('/api/delivery/changeStatusDelivery/:id', auth.isAuthenticated, delivery.changeStatusDelivery);
+    app.put('/api/delivery/completeDelivery/:id', auth.isAuthenticated, delivery.completeDelivery);
 
     app.post('/api/price/add', auth.isAuthenticated, price.add);
     app.delete('/api/price/delete/:id', auth.isAuthenticated, price.delete);

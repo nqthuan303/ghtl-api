@@ -19,7 +19,6 @@ if(env !== 'dev'){
 mongoose.connect(conn, { useMongoClient: true });
 
 var app = express();
-
 app.use(express.static('uploads'));
 app.use(passport.initialize());
 
