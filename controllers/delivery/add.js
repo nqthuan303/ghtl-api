@@ -3,7 +3,7 @@
 const model = require('./../../models/delivery.model');
 const orderModel = require('./../../models/order.model');
 const orderStatusModel = require('./../../models/orderStatus.model');
-const status = require('../../constants/orderStatus')
+const status = require('../../constants/status')
 const API = require('./../../APILib');
 const utils = require('./../../utils');
 
@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
 
   try {
     const saveOrder = await objData.save();
-    const prepareDelivery = await orderStatusModel.findOne({value: status.PREPAREDELIVERY});
+    const prepareDelivery = await orderStatusModel.findOne({value: status.order.PREPAREDELIVERY});
     const prepareDeliveryId = prepareDelivery._id;
 
     const updateOrder = await orderModel.update(

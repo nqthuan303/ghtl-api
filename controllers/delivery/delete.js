@@ -6,12 +6,12 @@ var orderModel = require('./../../models/order.model');
 var API = require('./../../APILib');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
-const orderStatus = require('../../constants/orderStatus');
+const status = require('../../constants/status');
 
 module.exports = async (req, res) => {
     const id = req.params.id;
     try {
-        const storage = await orderStatusModel.findOne({value: orderStatus.STORAGE});
+        const storage = await orderStatusModel.findOne({value: status.order.STORAGE});
         const storageId = storage._id;
         const delivery = await (model.findOne({_id: id}))
         const deleteDelivery = await model.findByIdAndRemove(id);   

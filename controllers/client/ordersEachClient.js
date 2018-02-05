@@ -3,12 +3,12 @@
 const model = require('./../../models/client.model');
 const orderStatusModel = require('./../../models/orderStatus.model');
 const API = require('./../../APILib');
-const orderStatus = require('../../constants/orderStatus');
+const status = require('../../constants/status');
 
 module.exports = async (req, res) => {
     var objQuery = req.query;
 
-    const orderStatusPending = await orderStatusModel.findOne({value: orderStatus.PENDING});
+    const orderStatusPending = await orderStatusModel.findOne({value: status.order.PENDING});
     const pendingId = orderStatusPending._id;
 
     var objSearchClient = {$where: 'this.orders.length > 0'}

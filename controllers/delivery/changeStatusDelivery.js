@@ -3,7 +3,7 @@
 var model = require('./../../models/delivery.model');
 const orderModel = require('./../../models/order.model');
 const orderStatusModel = require('./../../models/orderStatus.model');
-const status = require('../../constants/orderStatus')
+const status = require('../../constants/status')
 var API = require('./../../APILib');
 
 module.exports = async (req, res) => {
@@ -11,9 +11,9 @@ module.exports = async (req, res) => {
 
   try {
     const startTime = new Date();
-    const result = await model.findOneAndUpdate({_id: id}, {status: 'delivery', startTime}, {returnNewDocument : true});
+    const result = await model.findOneAndUpdate({_id: id}, {status: status.order.DELIVERY, startTime}, {returnNewDocument : true});
     
-    const orderStatus = await orderStatusModel.findOne({value: status.DELIVERY});
+    const orderStatus = await orderStatusModel.findOne({value: status.order.DELIVERY});
     const orderStatusId = orderStatus._id;
     const updateOrder = await orderModel.update(
       { _id : { $in : result.orders }}, 
