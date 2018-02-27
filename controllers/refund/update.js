@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
   try {
     const result = await model.findOneAndUpdate({_id: id}, data, {returnNewDocument : true});
     
-    const prepareDelivery = await orderStatusModel.findOne({value: status.order.PREPARE_DELIVERY});
+    const prepareDelivery = await orderStatusModel.findOne({value: status.PREPARE_DELIVERY});
     const prepareDeliveryId = prepareDelivery._id;
     const updateOrder = await orderModel.update(
       { _id : { $in : data.orders }}, 

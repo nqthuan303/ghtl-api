@@ -11,4 +11,5 @@ module.exports = {
     Post: require('./post.model'),
     Role: require('./role.model'),
     Price: require('./price.model'),
+    Refund: require('./refund.model'),
 };

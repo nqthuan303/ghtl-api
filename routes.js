@@ -11,6 +11,7 @@ let ward = require('./controllers/ward');
 let pickup = require('./controllers/pickup');
 let delivery = require('./controllers/delivery');
 let price = require('./controllers/price');
+let refund = require('./controllers/refund');
 
 var auth = require('./services/auth');
 var file = require('./controllers/file');
@@ -73,7 +74,8 @@ module.exports = (app) => {
     app.post('/api/order/setStatus', auth.isAuthenticated, order.setStatus);
     app.get('/api/order/count-order-in-district', auth.isAuthenticated, order.countOrderInDistrict);
     app.get('/api/order/count-order-in-status', auth.isAuthenticated, order.countOrderInStatus);
-    app.get('/api/order/order-with-status', auth.isAuthenticated, order.orderWithStatus);
+    app.get('/api/order/order-for-delivery', auth.isAuthenticated, order.orderForDelivery);
+    app.get('/api/order/order-for-refund', auth.isAuthenticated, order.orderForRefund);
     app.put('/api/order/changeMulti', auth.isAuthenticated, order.changeMulti);
     
     app.post('/api/orderlog/add', auth.isAuthenticated, orderLog.add);
@@ -106,4 +108,12 @@ module.exports = (app) => {
     app.delete('/api/price/delete/:id', auth.isAuthenticated, price.delete);
     app.get('/api/price/list/:shopId', auth.isAuthenticated, price.list);
     app.post('/api/price/update/:id', auth.isAuthenticated, price.update);
+
+    app.get('/api/refund/list', auth.isAuthenticated, refund.list);
+    app.post('/api/refund/add', auth.isAuthenticated, refund.add);
+    app.get('/api/refund/findOne/:id', auth.isAuthenticated, refund.findOne);
+    app.put('/api/refund/update/:id', auth.isAuthenticated, refund.update);
+    app.delete('/api/refund/delete/:id', auth.isAuthenticated, refund.delete);
+    app.put('/api/refund/changeStatusRefund/:id', auth.isAuthenticated, refund.changeStatusRefund);
+    app.put('/api/refund/completeRefund/:id', auth.isAuthenticated, refund.completeRefund);
 };

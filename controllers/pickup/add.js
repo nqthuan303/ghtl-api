@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
 
   try {
     const saveOrder = await objData.save();
-    const pickup = await orderStatusModel.findOne({value: status.order.PREPAREDELIVERY});
+    const pickup = await orderStatusModel.findOne({value: status.order.PREPARE_DELIVERY});
     const pickupId = pickup._id;
 
     const updateOrder = await orderModel.update(
