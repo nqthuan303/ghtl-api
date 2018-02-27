@@ -18,16 +18,20 @@ module.exports = async (req, res) => {
         objSearchClient['district'] = districtId
     }
 
-    model.find(objSearchClient)
-    .populate({
+    const items = await model.find(objSearchClient).populate({
         path: 'orders',
         match: { orderstatus: pendingId}
-    }).populate('district', 'name type')
-    .exec(function(err, data) {
-        if (err) {
-            return API.fail(res, err);
+    }).populate('district', 'name type');
+
+    const result = [];
+    for(let i=0; i< items.length; i++){
+        const item = items[i];
+        const { orders } = item;
+        if(orders.length > 0){
+            result.push(item);
         }
-        API.success(res, data);
-    });
+    }
+
+    API.success(res, result);
 
 };

@@ -17,10 +17,24 @@ module.exports = async (req, res) => {
       //Nếu đã tồn tại thì cập nhật lại chuyến đi đó
       const {data: pickupData} = pickupTrip;
       const updateData = JSON.parse(JSON.stringify(pickupTrip.data));
-      updateData.push({
-        clientId: data.client,
-        orders: data.orders
-      });
+      
+      let added = false;
+      for(let i=0; i< pickupData.length; i++){
+        const item = pickupData[i];
+        const clientId = item.clientId.toString();
+        if(clientId === data.client && !added){
+          const orders = item.orders.concat(data.orders);
+          updateData[i].orders = orders;
+          added = true;
+        }
+      }
+      if(!added){
+        updateData.push({
+          clientId: data.client,
+          orders: data.orders
+        });
+      }
+      
       const updateResult = await PickupModel.findByIdAndUpdate(pickupTrip._id, {data: updateData});
     }else{
       //Nếu chưa thì tạo mới chuyến đi
@@ -34,6 +48,18 @@ module.exports = async (req, res) => {
       const objAdd = new PickupModel(addData);
       const addResult = await objAdd.save(req); 
     }
+
+    const pickupStatus = await(orderStatusModel.findOne({value: status.order.PICKUP}));
+    const pickupId = pickupStatus._id;
+
+    const updateOrder = await(
+      orderModel.update(
+          { _id : { $in : data.orders }}, 
+          { orderstatus: pickupId}, 
+          {"multi": true}
+      )
+    );
+
     API.success(res, {});
 
   } catch (err) {
