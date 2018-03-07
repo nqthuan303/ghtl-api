@@ -1,7 +1,6 @@
 'use strict';
 
 var model = require('./../../models/order.model');
-var orderLogModel = require('./../../models/orderLog.model');
 var utils = require('./../../utils');
 
 var API = require('./../../APILib');
@@ -28,27 +27,7 @@ module.exports = (req, res) => {
           "message": "Error"
         }
         if (!err) {
-          var authInfo = utils.getAuthInfo(req.headers.authorization);
-          var orderLogData = {
-            'order_id': id,
-            'orderstatus_id': data.orderstatus_id,
-            'createdBy': authInfo._id
-          };
-
-          var orderLog = new orderLogModel(orderLogData);
-
-          orderLog.save(function(err) {
-            if (!err) {
-              result.statusCode = 0;
-              result.message = "Success";
-              result.data = {
-                'order_id': dataFound._id,
-                'orderstatus_id': data.orderstatus_id
-              };
-            }
-            res.json(result);
-          });
-
+          res.json({});
         }
       });
     }

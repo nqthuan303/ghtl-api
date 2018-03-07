@@ -1,7 +1,6 @@
 'use strict';
 
 var model = require('./../../models/order.model');
-var orderstatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
 
 module.exports = async (req, res) => {
@@ -28,19 +27,18 @@ module.exports = async (req, res) => {
         statusId.push(orderstatusId);
     }
 
-    orderstatusModel.find({_id: {$in: statusId}}).exec(function(err, data) {
-        const result = [];
-        for(let i=0; i< data.length; i++) {
-            const item = data[i];
-            const itemId = item._id.toString();
+    const result = [];
+    for(let i=0; i< data.length; i++) {
+        const item = data[i];
+        const itemId = item._id.toString();
 
-            result.push({
-                _id: item._id.toString(),
-                name: item.name,
-                count: objCount[itemId]
-            });
-        }
-        res.json(result);
-    });
+        result.push({
+            _id: item._id.toString(),
+            name: item.name,
+            count: objCount[itemId]
+        });
+    }
+    res.json(result);
+
 
 };

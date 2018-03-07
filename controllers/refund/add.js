@@ -2,8 +2,6 @@
 
 const model = require('./../../models/refund.model');
 const orderModel = require('./../../models/order.model');
-const orderStatusModel = require('./../../models/orderStatus.model');
-const status = require('../../constants/status')
 const API = require('./../../APILib');
 const utils = require('./../../utils');
 

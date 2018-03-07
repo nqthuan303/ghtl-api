@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
             .populate('province', 'name type')
             .populate('district', 'name type')
             .populate('ward', 'name type')
-            .populate('orderstatus', 'name')
             .sort({'createdAt': -1});
 
         API.success(res, result);

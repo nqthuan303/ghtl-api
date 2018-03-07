@@ -58,7 +58,6 @@ module.exports = (req, res) => {
     .populate('province', 'name type')
     .populate('district', 'name type')
     .populate('ward', 'name type')
-    .populate('orderstatus', 'name')
     .select('address bonus_fee receiver_name receiver_phone ship_fee createdAt note client createdBy province district ward orderstatus')
     .limit(recordsPerPage)
     .skip(skip)

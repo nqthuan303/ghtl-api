@@ -3,8 +3,6 @@
 let client = require('./controllers/client');
 let district = require('./controllers/district');
 let order = require('./controllers/order');
-let orderLog = require('./controllers/orderLog');
-let orderStatus = require('./controllers/orderStatus');
 let user = require('./controllers/user');
 let post = require('./controllers/post');
 let ward = require('./controllers/ward');
@@ -77,9 +75,6 @@ module.exports = (app) => {
     app.get('/api/order/order-for-delivery', auth.isAuthenticated, order.orderForDelivery);
     app.get('/api/order/order-for-refund', auth.isAuthenticated, order.orderForRefund);
     app.put('/api/order/changeMulti', auth.isAuthenticated, order.changeMulti);
-    
-    app.post('/api/orderlog/add', auth.isAuthenticated, orderLog.add);
-    app.get('/api/orderStatus/listForSelect', orderStatus.listForSelect);
 
     app.post('/api/file/upload', upload.single('file'), file.upload);
     app.get('/api/file/list', auth.isAuthenticated, file.list);

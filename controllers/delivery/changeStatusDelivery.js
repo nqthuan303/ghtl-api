@@ -2,22 +2,19 @@
 
 var model = require('./../../models/delivery.model');
 const orderModel = require('./../../models/order.model');
-const orderStatusModel = require('./../../models/orderStatus.model');
-const status = require('../../constants/status')
 var API = require('./../../APILib');
+const {order: orderStatus} = require('../../constants/status');
 
 module.exports = async (req, res) => {
   var id = req.params.id;
 
   try {
     const startTime = new Date();
-    const result = await model.findOneAndUpdate({_id: id}, {status: status.order.DELIVERY, startTime}, {returnNewDocument : true});
+    const result = await model.findOneAndUpdate({_id: id}, {status: orderStatus.DELIVERY.value, startTime}, {returnNewDocument : true});
     
-    const orderStatus = await orderStatusModel.findOne({value: status.order.DELIVERY});
-    const orderStatusId = orderStatus._id;
     const updateOrder = await orderModel.update(
       { _id : { $in : result.orders }}, 
-      { orderstatus: orderStatusId}, 
+      { orderstatus: orderStatus.DELIVERY.value}, 
       {"multi": true}
     )
     API.success(res, "Chuyển thành đang giao hàng thành công!!!");

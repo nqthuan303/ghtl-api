@@ -1,8 +1,8 @@
 'use strict';
 
 var model = require('./../../models/order.model');
-var orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
+const {order: orderStatus} = require('../../constants/status');
 
 function getObjSearch(objQuery) {
   var query = {};
@@ -65,8 +65,6 @@ module.exports = async (req, res) => {
   var objSearch = getObjSearch(objQuery);
 
   if (objQuery.status) {
-    const orderStatus = await orderStatusModel.findOne({value: objQuery.status});
-    const orderStatusId = orderStatus._id;
     let arrAnd = [];
     
     if(objSearch.$and && objSearch.$and.length > 0) {
@@ -74,7 +72,7 @@ module.exports = async (req, res) => {
     }
 
     arrAnd.push({
-        'orderstatus': orderStatusId,
+        'orderstatus': objQuery.status,
     });
     objSearch.$and = arrAnd;
   }
@@ -93,7 +91,6 @@ module.exports = async (req, res) => {
     .populate('province', 'name type')
     .populate('district', 'name type')
     .populate('ward', 'name type')
-    .populate('orderstatus', 'name')
     .select('address id bonus_fee receiver ship_fee createdAt note client createdBy province district ward orderstatus')
     .limit(recordsPerPage)
     .skip(skip)

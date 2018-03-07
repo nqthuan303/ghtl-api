@@ -2,16 +2,15 @@
 
 const PickupModel = require('./../../models/pickup.model');
 const orderModel = require('./../../models/order.model');
-const orderStatusModel = require('./../../models/orderStatus.model');
 const API = require('./../../APILib');
-const status = require('../../constants/status');
+const {order: orderStatus, pickup: pickupStatus} = require('../../constants/status');
 
 module.exports = async (req, res) => {
   const data = req.body;
 
   try {
     //tìm chuyến đi có trạng thái là pending và thuộc về shiper cần tạo
-    const pickupTrip = await PickupModel.findOne({status: status.pickup.PENDING, user: data.user});
+    const pickupTrip = await PickupModel.findOne({status: pickupStatus.PENDING, user: data.user});
 
     if(pickupTrip){
       //Nếu đã tồn tại thì cập nhật lại chuyến đi đó
@@ -49,13 +48,10 @@ module.exports = async (req, res) => {
       const addResult = await objAdd.save(req); 
     }
 
-    const pickupStatus = await(orderStatusModel.findOne({value: status.order.PICKUP}));
-    const pickupId = pickupStatus._id;
-
     const updateOrder = await(
       orderModel.update(
           { _id : { $in : data.orders }}, 
-          { orderstatus: pickupId}, 
+          { orderstatus: orderStatus.PICKUP.value}, 
           {"multi": true}
       )
     );

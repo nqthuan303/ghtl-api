@@ -2,9 +2,8 @@
 
 var model = require('./../../models/delivery.model');
 const orderModel = require('./../../models/order.model');
-const orderStatusModel = require('./../../models/orderStatus.model');
-const status = require('../../constants/status')
 var API = require('./../../APILib');
+const {order: orderStatus} = require('../../constants/status');
 
 module.exports = async (req, res) => {
   var id = req.params.id;
@@ -12,12 +11,9 @@ module.exports = async (req, res) => {
 
   try {
     const result = await model.findOneAndUpdate({_id: id}, data, {returnNewDocument : true});
-    
-    const prepareDelivery = await orderStatusModel.findOne({value: status.order.PREPARE_DELIVERY});
-    const prepareDeliveryId = prepareDelivery._id;
     const updateOrder = await orderModel.update(
       { _id : { $in : data.orders }}, 
-      { orderstatus: prepareDeliveryId}, 
+      { orderstatus: orderStatus.DELIVERYPREPARE.value}, 
       {"multi": true}
     )
     API.success(res, data);

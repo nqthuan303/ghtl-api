@@ -1,7 +1,6 @@
 'use strict';
 
 var model = require('./../../models/order.model');
-var orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
 var utils = require('./../../utils');
 
@@ -9,12 +8,9 @@ module.exports = async (req, res) => {
   var data = req.body;
   var objQuery = req.query;
 
-  const orderStatus = await orderStatusModel.findOne({value: objQuery.status});
-  const statusId = orderStatus._id;
-
   model.update(
       { _id : { $in : data }}, 
-      {orderstatus: statusId}, 
+      {orderstatus: objQuery.status}, 
       {"multi": true}, 
       function(err, data) {
         if(err) {

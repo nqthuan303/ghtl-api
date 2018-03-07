@@ -40,7 +40,7 @@ var objSchema = new Schema({
     note: String,
     bonusFee: String,
     shipFee: {type: Number, required: true},
-    orderstatus: {type: ObjectId, default: '599992d32fc27aec771a8acb', ref: 'orderstatus' },
+    orderstatus: String,
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}]
 }, { timestamps: true });

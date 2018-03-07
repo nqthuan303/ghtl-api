@@ -2,7 +2,6 @@
 
 var model = require('./../../models/order.model');
 var clientModel = require('./../../models/client.model');
-var orderLogModel = require('./../../models/orderLog.model');
 
 var API = require('./../../APILib');
 
@@ -28,8 +27,6 @@ module.exports = async (req, res) => {
     });
     
     let deleteDevice = await order.remove();
-
-    const removeOrderLog = await orderLogModel.remove({order: id});
 
     API.success(res, {
         message: 'Xóa vận đơn thành công!',

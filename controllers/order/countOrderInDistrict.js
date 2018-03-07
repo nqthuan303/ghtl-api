@@ -1,15 +1,11 @@
 'use strict';
 
 var model = require('./../../models/client.model');
-const orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
 
 module.exports = async (req, res) => {
 
     var objQuery = req.query;
-
-    const orderStatusPending = await orderStatusModel.findOne({value: objQuery.status});
-    const pendingId = orderStatusPending._id;
 
     var objSearchClient = {}
 
@@ -20,7 +16,7 @@ module.exports = async (req, res) => {
 
     model.find(objSearchClient).populate({
         path: 'orders',
-        match: { orderstatus: pendingId}
+        match: { orderstatus: objQuery.status}
     }).populate('district').sort({district: -1}).exec(function(err, data) {
         if (err) {
             return API.fail(res, err);

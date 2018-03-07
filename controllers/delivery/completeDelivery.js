@@ -2,7 +2,6 @@
 
 var model = require('./../../models/delivery.model');
 const orderModel = require('./../../models/order.model');
-const orderStatusModel = require('./../../models/orderStatus.model');
 var API = require('./../../APILib');
 
 module.exports = async (req, res) => {

@@ -1,12 +1,11 @@
 'use strict';
 
 var model = require('./../../models/pickup.model');
-var orderStatusModel = require('./../../models/orderStatus.model');
 var orderModel = require('./../../models/order.model');
 var API = require('./../../APILib');
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Types.ObjectId;
-const status = require('../../constants/status');
+const {order: orderStatus} = require('../../constants/status');
 
 module.exports = async (req, res) => {
     const id = req.params.id;
@@ -15,12 +14,10 @@ module.exports = async (req, res) => {
     try {
         
         const deletePickup = await model.findByIdAndRemove(id);
-        const pending = await orderStatusModel.findOne({value: status.order.PENDING});
-        const pendingId = pending._id;
 
         const updateOrder = await orderModel.update(
             {_id : {$in: orderIds.map(function(o){ return ObjectId(o); })}},
-            {orderstatus: pendingId}, {"multi": true}
+            {orderstatus: orderStatus.PENDING.value}, {"multi": true}
         )
 
         API.success(res, {

@@ -14,7 +14,6 @@ module.exports = async (req, res) => {
   try {
     const saveOrder = await objData.save();
     const savedData = await model.findOne({_id: saveOrder._id})
-      .populate('orderstatus', 'name')
       .populate('client', 'name');
 
     let clientFound = await clientModel.findOne({_id: data.client});
