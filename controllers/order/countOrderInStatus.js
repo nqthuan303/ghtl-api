@@ -2,6 +2,7 @@
 
 var model = require('./../../models/order.model');
 var API = require('./../../APILib');
+const { order: orderStatus } = require('../../constants/status');
 
 module.exports = async (req, res) => {
     var objQuery = req.query;
@@ -21,22 +22,21 @@ module.exports = async (req, res) => {
     const objCount = {}
 
     for(let i=0; i< ordersInStatus.length; i++) {
-        const orderstatus = ordersInStatus[i];
-        const orderstatusId = orderstatus._id.toString();
-        objCount[orderstatusId] = orderstatus.count;
-        statusId.push(orderstatusId);
+        const item = ordersInStatus[i];
+        objCount[item._id] = item.count;
+        statusId.push(item._id);
     }
 
     const result = [];
-    for(let i=0; i< data.length; i++) {
-        const item = data[i];
-        const itemId = item._id.toString();
-
-        result.push({
-            _id: item._id.toString(),
-            name: item.name,
-            count: objCount[itemId]
-        });
+    for(const key in orderStatus) {
+        const item = orderStatus[key];
+        if(objCount[item.value]){
+            result.push({
+                value: item.value,
+                name: item.name,
+                count: objCount[item.value]
+            });
+        }
     }
     res.json(result);
 

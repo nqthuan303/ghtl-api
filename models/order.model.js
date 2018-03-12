@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
-
+const { getOrderStatus, order: orderStatus } = require('../constants/status');
 var counter = require('./counter.model');
 
 var objSchema = new Schema({
@@ -40,7 +40,12 @@ var objSchema = new Schema({
     note: String,
     bonusFee: String,
     shipFee: {type: Number, required: true},
-    orderstatus: String,
+    orderstatus: {
+        type: String,
+        required: true,
+        enum: getOrderStatus(),
+        default: orderStatus.TEMP.value
+    },
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}]
 }, { timestamps: true });

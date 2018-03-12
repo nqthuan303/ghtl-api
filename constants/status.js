@@ -1,6 +1,12 @@
-
-module.exports 
 const status = {
+    getOrderStatus: () => {
+      const result = [];
+      for(const key in status.order){
+        const item = status.order[key];
+        result.push(item.value);
+      }
+      return result;
+    },
     order: {
       TEMP: { // trạng thái khi khách hàng tạo đơn hàng nhưng chưa xác nhận
         name: 'Tạm',
