@@ -9,40 +9,24 @@ module.exports = async (req, res) => {
   const data = req.body;
 
   try {
-    //tìm chuyến đi có trạng thái là pending và thuộc về shiper cần tạo
-    const pickupTrip = await PickupModel.findOne({status: pickupStatus.PENDING, user: data.user});
+    //tìm chuyến đi có trạng thái là pending và thuộc về shipper cần tạo
+    const pickupTrip = await PickupModel.findOne({status: pickupStatus.PENDING, shipper: data.shipperId}).lean();
 
     if(pickupTrip){
-      //Nếu đã tồn tại thì cập nhật lại chuyến đi đó
-      const {data: pickupData} = pickupTrip;
-      const updateData = JSON.parse(JSON.stringify(pickupTrip.data));
-      
-      let added = false;
-      for(let i=0; i< pickupData.length; i++){
-        const item = pickupData[i];
-        const clientId = item.clientId.toString();
-        if(clientId === data.client && !added){
-          const orders = item.orders.concat(data.orders);
-          updateData[i].orders = orders;
-          added = true;
+      const clients = pickupTrip.clients;
+      const clientIds = [data.client];
+      for(let i=0; i< clients.length; i++){
+        const client = clients[i].toString();
+        if(client !== data.client){
+          clientIds.push(client);
         }
       }
-      if(!added){
-        updateData.push({
-          clientId: data.client,
-          orders: data.orders
-        });
-      }
-      
-      const updateResult = await PickupModel.findByIdAndUpdate(pickupTrip._id, {data: updateData});
+      const updateResult = await PickupModel.findByIdAndUpdate(pickupTrip._id, {clients: clientIds});
     }else{
       //Nếu chưa thì tạo mới chuyến đi
       const addData = {
-        user: data.user,
-        data: [{
-          clientId: data.client,
-          orders: data.orders
-        }]
+        shipper: data.shipperId,
+        clients: [data.client]
       };
       const objAdd = new PickupModel(addData);
       const addResult = await objAdd.save(req); 

@@ -3,7 +3,10 @@ var Schema = mongoose.Schema;
 var bcrypt = require('bcryptjs'), SALT_WORK_FACTOR = 10;
 var ObjectId = Schema.Types.ObjectId;
 
+var counter = require('./counter.model');
+
 var objSchema = new Schema({
+    id: String,
     name: {type: String, required: true},
     username: { type: String, required: true, index: { unique: true } },
     password: { type: String, select: false, required: true },
@@ -29,6 +32,12 @@ objSchema.pre('save', function(next) {
                 next();
             }
         );
+    });
+
+    counter.findByIdAndUpdate({_id: 'userId'}, {$inc: { seq: 1} }, function(error, counter)   {
+        if(error) return next(error);
+        doc.id = counter.seq;
+        next();
     });
 });
 
