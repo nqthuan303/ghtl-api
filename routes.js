@@ -96,8 +96,8 @@ module.exports = (app) => {
     app.get('/api/delivery/findOne/:id', auth.isAuthenticated, delivery.findOne);
     app.put('/api/delivery/update/:id', auth.isAuthenticated, delivery.update);
     app.delete('/api/delivery/delete/:id', auth.isAuthenticated, delivery.delete);
-    app.put('/api/delivery/changeStatusDelivery/:id', auth.isAuthenticated, delivery.changeStatusDelivery);
-    app.put('/api/delivery/completeDelivery/:id', auth.isAuthenticated, delivery.completeDelivery);
+    app.put('/api/delivery/change-status-doing/:id', auth.isAuthenticated, delivery.changeStatusDoing);
+    app.put('/api/delivery/delivery-done/:id', auth.isAuthenticated, delivery.deliveryDone);
 
     app.post('/api/price/add', auth.isAuthenticated, price.add);
     app.delete('/api/price/delete/:id', auth.isAuthenticated, price.delete);

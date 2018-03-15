@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 var counter = require('./counter.model');
+const status = require('../constants/status');
 
 var objSchema = new Schema({
     id: String,
@@ -10,8 +11,8 @@ var objSchema = new Schema({
     status: {
         type: String, 
         required: true, 
-        enum: ['unCompleted', 'completed', 'delivery'],
-        default: 'unCompleted'
+        enum: [status.delivery.PENDING, status.delivery.DOING, status.delivery.DONE],
+        default: status.delivery.PENDING
     },
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}],

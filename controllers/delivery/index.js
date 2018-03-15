@@ -4,6 +4,6 @@ module.exports = {
     findOne: require('./findOne'),
     list: require('./list'),
     update: require('./update'),
-    changeStatusDelivery: require('./changeStatusDelivery'),
-    completeDelivery: require('./completeDelivery')
+    changeStatusDoing: require('./changeStatusDoing'),
+    deliveryDone: require('./deliveryDone')
 };
