@@ -44,6 +44,7 @@ var objSchema = new Schema({
         type: String,
         required: true,
         enum: [orderPayBy.SENDER.value, orderPayBy.RECEIVER.value],
+        default: orderPayBy.SENDER.value
     },
     orderstatus: {
         type: String,
@@ -54,7 +55,8 @@ var objSchema = new Schema({
     paymentStatus: {
         type: String,
         required: true,
-        enum: [paymentStatus.PENDING.value, paymentStatus.UNPAID.value, paymentStatus.PAID],
+        enum: [paymentStatus.PENDING.value, paymentStatus.UNPAID.value, paymentStatus.PAID.value],
+        default: paymentStatus.PENDING.value
     },
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}]
