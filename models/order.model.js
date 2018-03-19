@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
-const { getOrderStatus, order: orderStatus } = require('../constants/status');
+const { getOrderStatus, order: orderStatus, orderPayBy, paymentStatus } = require('../constants/status');
 var counter = require('./counter.model');
 
 var objSchema = new Schema({
@@ -38,13 +38,23 @@ var objSchema = new Schema({
     },
     require: String,
     note: String,
-    bonusFee: String,
+    goodMoney: {type: Number, required: true},
     shipFee: {type: Number, required: true},
+    payBy: {
+        type: String,
+        required: true,
+        enum: [orderPayBy.SENDER.value, orderPayBy.RECEIVER.value],
+    },
     orderstatus: {
         type: String,
         required: true,
         enum: getOrderStatus(),
         default: orderStatus.TEMP.value
+    },
+    paymentStatus: {
+        type: String,
+        required: true,
+        enum: [paymentStatus.PENDING.value, paymentStatus.UNPAID.value, paymentStatus.PAID],
     },
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}]
