@@ -97,7 +97,7 @@ module.exports = (app) => {
     app.put('/api/delivery/update/:id', auth.isAuthenticated, delivery.update);
     app.delete('/api/delivery/delete/:id', auth.isAuthenticated, delivery.delete);
     app.put('/api/delivery/change-status-doing/:id', auth.isAuthenticated, delivery.changeStatusDoing);
-    app.put('/api/delivery/delivery-done/:id', auth.isAuthenticated, delivery.deliveryDone);
+    app.put('/api/delivery/delivery-completed/:id', auth.isAuthenticated, delivery.deliveryCompleted);
 
     app.post('/api/price/add', auth.isAuthenticated, price.add);
     app.delete('/api/price/delete/:id', auth.isAuthenticated, price.delete);
