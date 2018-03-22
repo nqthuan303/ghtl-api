@@ -16,7 +16,7 @@ var objSchema = new Schema({
     },
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}],
-    colectedMoney: String,
+    collectedMoney: Number,
     startTime: Date, // thời gian bắt đầu giao hàng
     endTime: Date, // thời gian kết thúc chuyến đi giao hàng
 }, { timestamps: true });
