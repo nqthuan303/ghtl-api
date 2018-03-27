@@ -10,4 +10,5 @@ module.exports = {
     Role: require('./role.model'),
     Price: require('./price.model'),
     Refund: require('./refund.model'),
+    History: require('./history.model'),
 };

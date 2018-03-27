@@ -10,6 +10,7 @@ let pickup = require('./controllers/pickup');
 let delivery = require('./controllers/delivery');
 let price = require('./controllers/price');
 let refund = require('./controllers/refund');
+let history = require('./controllers/history');
 
 var auth = require('./services/auth');
 var file = require('./controllers/file');
@@ -111,4 +112,6 @@ module.exports = (app) => {
     app.delete('/api/refund/delete/:id', auth.isAuthenticated, refund.delete);
     app.put('/api/refund/changeStatusRefund/:id', auth.isAuthenticated, refund.changeStatusRefund);
     app.put('/api/refund/completeRefund/:id', auth.isAuthenticated, refund.completeRefund);
+
+    app.get('/api/history/list-for-type', auth.isAuthenticated, history.listForType);
 };
