@@ -7,5 +7,6 @@ module.exports = {
     list: require('./list'),
     listForSelect: require('./listForSelect'),
     update: require('./update'),
-    ordersEachClient: require('./ordersEachClient')
+    ordersEachClient: require('./ordersEachClient'),
+    clientForPayment: require('./clientForPayment'),
 };

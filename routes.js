@@ -47,6 +47,7 @@ module.exports = (app) => {
     app.post('/api/client/update/:id', auth.isAuthenticated, client.update);
     app.get('/api/client/orders-each-client', auth.isAuthenticated, client.ordersEachClient);
     app.get('/api/client/order-info/:clientId', auth.isAuthenticated, client.orderInfo);
+    app.get('/api/client/client-for-payment', auth.isAuthenticated, client.clientForPayment);
 
     app.post('/api/user/add', auth.isAuthenticated, user.add);
     app.delete('/api/user/delete/:id', auth.isAuthenticated, user.delete);
@@ -99,6 +100,7 @@ module.exports = (app) => {
     app.delete('/api/delivery/delete/:id', auth.isAuthenticated, delivery.delete);
     app.put('/api/delivery/change-status-doing/:id', auth.isAuthenticated, delivery.changeStatusDoing);
     app.put('/api/delivery/delivery-completed/:id', auth.isAuthenticated, delivery.deliveryCompleted);
+    app.put('/api/delivery/delivery-done/:id', auth.isAuthenticated, delivery.deliveryDone);
 
     app.post('/api/price/add', auth.isAuthenticated, price.add);
     app.delete('/api/price/delete/:id', auth.isAuthenticated, price.delete);

@@ -8,7 +8,7 @@ const {order: orderStatus} = require('../../constants/status');
 module.exports = async (req, res) => {
   var id = req.params.id;
   var data = req.body;
-
+  // cập nhật chuyến đi giao với trạng thái đơn hàng là chuẩn bị đi giao
   try {
     const result = await model.findOneAndUpdate({_id: id}, data, {returnNewDocument : true});
     const updateOrder = await orderModel.update(

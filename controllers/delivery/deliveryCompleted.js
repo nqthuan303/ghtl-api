@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
     const endTime = new Date();
     const result = await model.findOneAndUpdate({_id: id}, {
       status: deliveryStatus.COMPLETED,
-      collectedMoney: postData.collectedMoney,
+      money: postData.money,
       endTime,
     }, {returnNewDocument : true});
     

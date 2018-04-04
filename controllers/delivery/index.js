@@ -5,5 +5,6 @@ module.exports = {
     list: require('./list'),
     update: require('./update'),
     changeStatusDoing: require('./changeStatusDoing'),
-    deliveryCompleted: require('./deliveryCompleted')
+    deliveryCompleted: require('./deliveryCompleted'),
+    deliveryDone: require('./deliveryDone'),
 };
