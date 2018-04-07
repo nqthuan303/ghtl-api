@@ -7,6 +7,7 @@ var counter = require('./counter.model');
 var objSchema = new Schema({
     id: String,
     client: {type: ObjectId, required: true, ref: 'client' },
+    createdAt: {type: Date},
     sender: {
         phone: {type: String, required: true},
         province: {type: ObjectId, ref: 'province', default: '587124bcbe644a04d4b14e8b', required: true },
@@ -38,7 +39,7 @@ var objSchema = new Schema({
     },
     require: String,
     note: String,
-    goodMoney: {type: Number, required: true},
+    goodsMoney: {type: Number, required: true},
     shipFee: {type: Number, required: true},
     payBy: {
         type: String,
@@ -60,7 +61,7 @@ var objSchema = new Schema({
     },
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}]
-}, { timestamps: true });
+});
 
 objSchema.pre('save', function(next) {
     var doc = this;
