@@ -8,8 +8,7 @@ module.exports = async (req, res) => {
   var data = req.body;
   try {
     const updateData = {
-      orderstatus: orderStatus.PENDING.value,
-      createdAt: new Date().toISOString(),
+      orderstatus: orderStatus.PENDING.value
     }
     const result = await model.update(
         { _id : { $in : data }}, 
