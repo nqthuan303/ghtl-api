@@ -4,4 +4,5 @@ module.exports = {
     findOne: require('./findOne'),
     list: require('./list'),
     update: require('./update'),
+    paymentDone: require('./paymentDone'),
 };

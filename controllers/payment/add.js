@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
   const objData = new model(data);
 
   try {
-    const saveOrder = await objData.save();
+    const saveOrder = await objData.save({returnNewDocument : true});
 
     const updateOrder = await orderModel.update(
       { _id : { $in : data.orders }}, 
@@ -21,9 +21,7 @@ module.exports = async (req, res) => {
       {"multi": true}
     )
 
-    API.success(res, {
-        message: 'Success!'
-    });
+    API.success(res, saveOrder);
   } catch (err) {
     return API.fail(res, err.message);
   }

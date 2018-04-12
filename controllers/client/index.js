@@ -9,4 +9,5 @@ module.exports = {
     update: require('./update'),
     ordersEachClient: require('./ordersEachClient'),
     clientForPayment: require('./clientForPayment'),
+    findOnePayment: require('./findOnePayment'),
 };

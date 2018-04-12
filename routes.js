@@ -49,6 +49,7 @@ module.exports = (app) => {
     app.get('/api/client/orders-each-client', auth.isAuthenticated, client.ordersEachClient);
     app.get('/api/client/order-info/:clientId', auth.isAuthenticated, client.orderInfo);
     app.get('/api/client/client-for-payment', auth.isAuthenticated, client.clientForPayment);
+    app.get('/api/client/find-one-payment/:id', auth.isAuthenticated, client.findOnePayment);
 
     app.post('/api/user/add', auth.isAuthenticated, user.add);
     app.delete('/api/user/delete/:id', auth.isAuthenticated, user.delete);
@@ -123,4 +124,5 @@ module.exports = (app) => {
     app.get('/api/payment/findOne/:id', auth.isAuthenticated, payment.findOne);
     app.put('/api/payment/update/:id', auth.isAuthenticated, payment.update);
     app.delete('/api/payment/delete/:id', auth.isAuthenticated, payment.delete);
+    app.put('/api/payment/payment-done/:id', auth.isAuthenticated, payment.paymentDone);
 };
