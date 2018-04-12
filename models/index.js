@@ -11,4 +11,5 @@ module.exports = {
     Price: require('./price.model'),
     Refund: require('./refund.model'),
     History: require('./history.model'),
+    Payment: require('./payment.model'),
 };
