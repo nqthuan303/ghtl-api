@@ -38,7 +38,7 @@ var objSchema = new Schema({
     },
     require: String,
     note: String,
-    goodMoney: {type: Number, required: true},
+    goodsMoney: {type: Number, required: true},
     shipFee: {type: Number, required: true},
     payBy: {
         type: String,

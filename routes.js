@@ -72,7 +72,7 @@ module.exports = (app) => {
     app.get('/api/order/listStorage', auth.isAuthenticated, order.listStorage);
     app.put('/api/order/update/:id', auth.isAuthenticated, order.update);
     app.put('/api/order/updateStatus/:id', auth.isAuthenticated, order.updateStatus);
-    app.post('/api/order/setStatus', auth.isAuthenticated, order.setStatus);
+    app.post('/api/order/saveOrder', auth.isAuthenticated, order.saveOrder);
     app.get('/api/order/count-order-in-district', auth.isAuthenticated, order.countOrderInDistrict);
     app.get('/api/order/count-order-in-status', auth.isAuthenticated, order.countOrderInStatus);
     app.get('/api/order/order-for-delivery', auth.isAuthenticated, order.orderForDelivery);
