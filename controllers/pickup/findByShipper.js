@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
         })
         .populate({
             path: 'orders',
-            select: 'id sender orderstatus'
+            select: 'id orderstatus'
         })
         .sort({
             'createdAt': -1,

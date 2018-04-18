@@ -24,7 +24,13 @@ module.exports = async (req, res) => {
         ]}
     };
     try {
-        let orders = await model.find(objSearch).populate("sender.district", "_id type name");
+        let orders = await model.find(objSearch).populate({
+            path: 'client',
+            populate: {
+                path: 'district',
+                select: "_id type name"
+            }
+        });
         API.success(res, orders);
     } catch (error) {
         API.fail(res, error.message)

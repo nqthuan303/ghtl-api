@@ -7,19 +7,6 @@ var counter = require('./counter.model');
 var objSchema = new Schema({
     id: String,
     client: {type: ObjectId, required: true, ref: 'client' },
-    sender: {
-        phone: {type: String, required: true},
-        province: {type: ObjectId, ref: 'province', default: '587124bcbe644a04d4b14e8b', required: true },
-        district: {type: ObjectId, required: true, ref: 'district' },
-        address: {type: String, required: true},
-        lat: String,
-        lng: String,
-        paymentMethod: {
-            type: String,
-            required: true,
-            enum: ['cod', 'ung'],
-        },
-    },
     receiver: {
         name: {type: String, required: true},
         phone: {type: String, required: true},

@@ -12,7 +12,13 @@ module.exports = async (req, res) => {
             orderStatus.RETURNSTORAGE.value
         ]}
     };
-    let orders = await model.find(objSearch).populate("sender.district", "_id type name");
+    let orders = await model.find(objSearch).populate({
+        path: 'client',
+        populate: {
+            path: 'district',
+            select: "_id type name"
+        }
+    });
     if(orders){
         API.success(res, orders);
     }
