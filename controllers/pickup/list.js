@@ -2,6 +2,7 @@
 
 var model = require('./../../models/pickup.model');
 var API = require('./../../APILib');
+const {order: orderStatus} = require('../../constants/status');
 
 module.exports = async (req, res) => {
     var objQuery = req.query;
@@ -18,21 +19,26 @@ module.exports = async (req, res) => {
                     path: 'ward',
                     select: 'type name'
                 },
+                {
+                    path: 'orders',
+                    populate: [
+                        {
+                            path: 'receiver.district',
+                            select: 'type name'
+                        },
+                        {
+                            path: 'receiver.ward',
+                            select: 'type name'
+                        }
+                    ],
+                    match: { orderstatus: orderStatus.PICKUP.value},
+                    options: { sort: { 'createdAt': 1 } }
+                },
             ]
-        },
-        {
-            path: 'data',
-            populate: {
-                path: 'clientId'
-            }
         },
         {
             path: 'shipper',
             select: 'name phone id'
-        },
-        {
-            path: 'orders',
-            select: 'id'
         }
     ];
     const sortOpt = {
