@@ -125,4 +125,5 @@ module.exports = (app) => {
     app.put('/api/payment/update/:id', auth.isAuthenticated, payment.update);
     app.delete('/api/payment/delete/:id', auth.isAuthenticated, payment.delete);
     app.put('/api/payment/payment-done/:id', auth.isAuthenticated, payment.paymentDone);
+    app.put('/api/payment/payment-cancel/:id', auth.isAuthenticated, payment.paymentCancel);
 };

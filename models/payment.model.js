@@ -8,6 +8,7 @@ var objSchema = new Schema({
     id: String,
     client: {type: ObjectId, ref: 'client'}, //shipper
     orders: [{type: ObjectId, ref: 'order'}],
+    money: Number,
     status: {
         type: String, 
         required: true, 
@@ -18,6 +19,8 @@ var objSchema = new Schema({
     updatedBy: [{type: ObjectId, ref: 'user'}],
     startTime: Date, // thời gian bắt đầu tạo bảng
     endTime: Date, // thời gian đã thanh toán tiền cho shop
+    bank: String,
+    bill: String,
 }, { timestamps: true });
 
 objSchema.pre('save', function(next) {

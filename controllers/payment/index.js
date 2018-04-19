@@ -5,4 +5,5 @@ module.exports = {
     list: require('./list'),
     update: require('./update'),
     paymentDone: require('./paymentDone'),
+    paymentCancel: require('./paymentCancel'),
 };

@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
         const result = await model.find({
             type: objQuery.type,
             typeId: objQuery.id
-        }).populate('orderId');
+        }).populate('order');
         API.success(res, result);
     } catch (error) {
         API.fail(res, error.message)

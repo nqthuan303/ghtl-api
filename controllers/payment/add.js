@@ -10,8 +10,8 @@ module.exports = async (req, res) => {
   const data = req.body;
   const authInfo = utils.getAuthInfo(req.headers.authorization);
   data.createdBy = authInfo._id;
+  data.startTime = new Date();
   const objData = new model(data);
-
   try {
     const saveOrder = await objData.save({returnNewDocument : true});
 

@@ -9,10 +9,10 @@ var objSchema = new Schema({
     type: {
         type: String,
         required: true,
-        enum: ['delivery', 'pickup'],
+        enum: ['delivery', 'pickup', 'payment'],
     },
     typeId: {type: ObjectId, refPath: 'typeId', required: true},
-    orderId: {type: ObjectId, ref: 'order', required: true},
+    order: {type: ObjectId, ref: 'order', required: true},
     orderStatus: {
         type: String,
         required: true,
