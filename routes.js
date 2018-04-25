@@ -92,6 +92,7 @@ module.exports = (app) => {
 
     app.post('/api/pickup/add', auth.isAuthenticated, pickup.add);
     app.get('/api/pickup/list', auth.isAuthenticated, pickup.list);
+    app.get('/api/pickup/:id', auth.isAuthenticated, pickup.findOne);
     app.post('/api/pickup/delete/:id', auth.isAuthenticated, pickup.delete);
     app.get('/api/pickup/findByShipper/:shipperId', auth.isAuthenticated, pickup.findByShipper);
 
