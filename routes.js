@@ -12,6 +12,7 @@ let price = require('./controllers/price');
 let refund = require('./controllers/refund');
 let history = require('./controllers/history');
 let payment = require('./controllers/payment');
+let role = require('./controllers/role');
 
 var auth = require('./services/auth');
 var file = require('./controllers/file');
@@ -126,4 +127,5 @@ module.exports = (app) => {
     app.delete('/api/payment/delete/:id', auth.isAuthenticated, payment.delete);
     app.put('/api/payment/payment-done/:id', auth.isAuthenticated, payment.paymentDone);
     app.put('/api/payment/payment-cancel/:id', auth.isAuthenticated, payment.paymentCancel);
+    app.get('/api/role/list', auth.isAuthenticated, role.list);
 };

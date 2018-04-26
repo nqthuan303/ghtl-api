@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
           const objData = new historyModel({
             type: 'delivery',
             typeId: id,
-            orderId: arrOrder[i],
+            order: arrOrder[i],
             orderStatus: status,
           });
           const result = await objData.save();
