@@ -20,6 +20,6 @@ module.exports = async (req, res) => {
         statusCode: 0
     });
   } catch (error) {
-    return API.fail(res, error.message);
+    API.fail(res, error.message);
   }
 };

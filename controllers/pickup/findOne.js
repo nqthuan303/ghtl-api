@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
                     },
                     {
                         path: 'orders',
-                        match: { orderstatus: orderStatus.PICKUP.value},
+                        match: { orderstatus: {$in: [orderStatus.PICKUP.value, orderStatus.STORAGE.value]}},
                         options: { sort: { 'createdAt': 1 } }
                     },
                 ]
