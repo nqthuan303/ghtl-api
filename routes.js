@@ -54,7 +54,7 @@ module.exports = (app) => {
 
     app.post('/api/user/add', auth.isAuthenticated, user.add);
     app.delete('/api/user/delete/:id', auth.isAuthenticated, user.delete);
-    app.get('/api/user/findOne', auth.isAuthenticated, user.findOne);
+    app.get('/api/user/findOne/:id', auth.isAuthenticated, user.findOne);
     app.get('/api/user/getCount', auth.isAuthenticated, user.getCount);
     app.get('/api/user/list', auth.isAuthenticated, user.list);
     app.get('/api/user/getShipper', auth.isAuthenticated, user.getShipper);

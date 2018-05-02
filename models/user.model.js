@@ -13,17 +13,24 @@ var objSchema = new Schema({
     province: {type: ObjectId, ref: 'province', default: '587124bcbe644a04d4b14e8b' },
     district: {type: ObjectId, ref: 'district' },
     ward: {type: ObjectId, ref: 'ward' },
+    birthday: Date,
+    identityCard: String,
+    identityCardDate: Date,
     address: {type: String, required: true},
     email: String,
     phone: {type: String, required: true},
     status: {type: Number, default: 1, required: true },
     role: {type: ObjectId, ref: 'role', required: true},
     createdBy: {type: ObjectId, ref: 'user', required: true},
-    updatedBy: {type: ObjectId, ref: 'user' }
+    updatedBy: {type: ObjectId, ref: 'user' },
+    bankNumber: String,
+    bankAccount: String,
+    bankBranch: String,
+    bankName: String,
 }, { timestamps: true });
 
 objSchema.pre('save', function(next) {
-    let user = this;
+    var user = this;
     if (!user.isModified('password')) return next();
     bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
         if (err) return next(err);
@@ -34,10 +41,11 @@ objSchema.pre('save', function(next) {
             }
         );
     });
-
-    counter.findByIdAndUpdate({_id: 'userId'}, {$inc: { seq: 1} }, function(error, counter)   {
+    counter.findByIdAndUpdate(
+        {_id: 'userId'},
+        {$inc: { seq: 1} }, function(error, counter)   {
         if(error) return next(error);
-        doc.id = counter.seq;
+        user.id = counter.seq;
         next();
     });
 });
