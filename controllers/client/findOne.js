@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
     const result = await model
     .findById(objParams.id)
     .select(`
-      id name userName status email
+      id name username status email
       contactName district descriptionOfGoods 
       ward address phone password
       website bankNumber 

@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
       const objData = new historyModel({
         type: 'payment',
         typeId: id,
-        orderId: order._id,
+        order: order._id,
         orderStatus: order.orderstatus,
       });
       const save = await objData.save();

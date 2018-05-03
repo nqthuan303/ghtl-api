@@ -9,7 +9,7 @@ var objSchema = new Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, select: false, required: true },
-    userName: { type: String, required: true },
+    username: { type: String, required: true },
     orders: [{type: ObjectId, ref: 'order'}],
     contactName: { type: String, required: true },
     province: {type: ObjectId, ref: 'province', required: true, default: '587124bcbe644a04d4b14e8b' },
