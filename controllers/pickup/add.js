@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
 
   try {
     //tìm chuyến đi có trạng thái là pending và thuộc về shipper cần tạo
-    const pickupTrip = await PickupModel.findOne({status: pickupStatus.PENDING, shipper: data.shipperId}).lean();
+    const pickupTrip = await PickupModel.findOne({status: pickupStatus.INPROCESS, shipper: data.shipperId}).lean();
     let pickupId = '';
 
     if(pickupTrip){
