@@ -15,4 +15,5 @@ module.exports = {
     orderForDelivery: require('./orderForDelivery'),
     orderForRefund: require('./orderForRefund'),
     changeMulti: require('./changeMulti'),
+    cancel: require('./cancel'),
 };

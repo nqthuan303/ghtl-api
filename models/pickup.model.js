@@ -15,7 +15,7 @@ var objSchema = new Schema({
         type: String, 
         required: true, 
         enum: [status.pickup.PENDING, status.pickup.DOING, status.pickup.DONE],
-        default: status.pickup.PENDING
+        default: status.pickup.INPROCESS
     },
     createdBy: {type: ObjectId, ref: 'user' },
     updatedBy: [{type: ObjectId, ref: 'user'}]

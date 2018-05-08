@@ -91,7 +91,7 @@ module.exports = async (req, res) => {
     .populate('province', 'name type')
     .populate('district', 'name type')
     .populate('ward', 'name type')
-    .select('address id bonus_fee receiver ship_fee createdAt note client createdBy province district ward orderstatus')
+    .select('address payBy goodsMoney shipFee id receiver createdAt note client createdBy province district ward orderstatus')
     .limit(recordsPerPage)
     .skip(skip)
     .sort(objSort)

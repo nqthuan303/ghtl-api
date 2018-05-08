@@ -69,6 +69,7 @@ module.exports = (app) => {
 
     app.post('/api/order/add', auth.isAuthenticated, order.add);
     app.delete('/api/order/delete/:id', auth.isAuthenticated, order.delete);
+    app.post('/api/order/cancel', auth.isAuthenticated, order.cancel);
     app.get('/api/order/findOne', auth.isAuthenticated, order.findOne);
     app.get('/api/order/getCount', auth.isAuthenticated, order.getCount);
     app.get('/api/order/getCountStorage', auth.isAuthenticated, order.getCountStorage);
@@ -95,7 +96,7 @@ module.exports = (app) => {
     app.put('/api/post/update/:id', auth.isAuthenticated, post.update);
 
     app.post('/api/pickup/add', auth.isAuthenticated, pickup.add);
-    app.post('/api/pickup/save/:id', auth.isAuthenticated, pickup.save);
+    app.post('/api/pickup/save', auth.isAuthenticated, pickup.save);
     app.get('/api/pickup/list', auth.isAuthenticated, pickup.list);
     app.get('/api/pickup/:id', auth.isAuthenticated, pickup.findOne);
     app.post('/api/pickup/delete/:id', auth.isAuthenticated, pickup.delete);
