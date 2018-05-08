@@ -12,7 +12,7 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
 
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
     var data = User;
-    if(!jwt_payload.role){
+    if(!jwt_payload._doc.role){
         data = Client;
     }
     data.findOne({_id: jwt_payload._doc._id}).select('+password').exec(function(err, user) {
