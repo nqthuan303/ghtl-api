@@ -8,9 +8,8 @@ const utils = require('../utils');
 var objSchema = new Schema({
     id: String,
     shipper: {type: ObjectId, ref: 'user', required: true}, //shipper
-    clients: [{
-        type: ObjectId, ref: 'client'
-    }],
+    clients: [{ type: ObjectId, ref: 'client'}],
+    orders: [{ type: ObjectId, ref: 'order'}],
     status: {
         type: String, 
         required: true, 

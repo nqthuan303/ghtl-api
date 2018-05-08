@@ -7,15 +7,17 @@ const {order: orderStatus, pickup: pickupStatus} = require('../../constants/stat
 
 module.exports = async (req, res) => {
   const data = req.body;
-
+  const { orders: receivedOrders } = data;
   try {
+    const { PICKUP } = orderStatus;
+    const { INPROCESS } = pickupStatus;
     //tìm chuyến đi có trạng thái là pending và thuộc về shipper cần tạo
-    const pickupTrip = await PickupModel.findOne({status: pickupStatus.INPROCESS, shipper: data.shipperId}).lean();
+    const pickupTrip = await PickupModel.findOne({status: INPROCESS, shipper: data.shipperId}).lean();
     let pickupId = '';
 
     if(pickupTrip){
       pickupId = pickupTrip._id;
-      const clients = pickupTrip.clients;
+      const { clients, orders } = pickupTrip;
       const clientIds = [data.client];
       for(let i=0; i< clients.length; i++){
         const client = clients[i].toString();
@@ -23,45 +25,30 @@ module.exports = async (req, res) => {
           clientIds.push(client);
         }
       }
+      const orderIds = [];
+      for(let i=0; i< orders.length; i++){
+        const orderId = orders[i].toString();
+        orderIds.push(orderId);
+      }
+      for(let i=0; i< receivedOrders.length; i++){
+        if(orderIds.indexOf(receivedOrders[i]) === -1){
+          orderIds.push(receivedOrders[i]);
+        }
+      }
 
-      const updatePickup = await PickupModel.findByIdAndUpdate(pickupTrip._id, {clients: clientIds});
+      await PickupModel.findByIdAndUpdate(pickupTrip._id, {clients: clientIds, orders: orderIds});
     }else{
       //Nếu chưa thì tạo mới chuyến đi
       const addData = {
         shipper: data.shipperId,
-        clients: [data.client]
+        clients: [data.client],
+        orders: receivedOrders
       };
       const objAdd = new PickupModel(addData);
       const addPickup = await objAdd.save(req);
       pickupId = addPickup._id.toString();
     }
-
-    //cập nhật những pickup khác chứa client được chọn
-    const searchPickupRemoveClient = {clients: data.client, _id: { $ne: pickupId }};
-    const pickupRemoveClient = await PickupModel.findOne(searchPickupRemoveClient);
-    if(pickupRemoveClient){
-      const { clients } = pickupRemoveClient;
-      const clientIds = [];
-      for(let i=0; i< clients.length; i++){
-        const client = clients[i];
-        if(client.toString() !== data.client){
-          clientIds.push(client.toString());
-        }
-      }
-      if(clientIds.length === 0){
-        await PickupModel.findOneAndRemove(searchPickupRemoveClient);
-      }else{
-        await PickupModel.findOneAndUpdate(searchPickupRemoveClient, {clients: clientIds});
-      }
-      
-    }
-    const updateOrder = await(
-      orderModel.update(
-          { _id : { $in : data.orders }}, 
-          { orderstatus: orderStatus.PICKUP.value}, 
-          {"multi": true}
-      )
-    );
+    await orderModel.update({_id : {$in : data.orders}}, {orderstatus: PICKUP.value}, {"multi": true});
 
     API.success(res, {});
 

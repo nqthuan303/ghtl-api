@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
         const populateOpt = [
             {
                 path: 'clients',
-                select: 'id name address phone district ward orders',
+                select: 'id name address phone district ward',
                 populate: [
                     {
                         path: 'district',
@@ -18,17 +18,16 @@ module.exports = async (req, res) => {
                     {
                         path: 'ward',
                         select: 'type name'
-                    },
-                    {
-                        path: 'orders',
-                        match: { orderstatus: {$in: [orderStatus.PICKUP.value, orderStatus.STORAGE.value]}},
-                        options: { sort: { 'createdAt': 1 } }
-                    },
+                    }
                 ]
             },
             {
                 path: 'shipper',
                 select: 'name phone id'
+            },
+            {
+                path: 'orders',
+                options: { sort: { 'createdAt': 1 } }
             }
         ];
         const result = await PickupModel.findById(id).populate(populateOpt);

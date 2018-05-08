@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     const populateOpt = [
         {
             path: 'clients',
-            select: 'id name address phone district ward orders',
+            select: 'id name address phone district ward',
             populate: [
                 {
                     path: 'district',
@@ -18,28 +18,27 @@ module.exports = async (req, res) => {
                 {
                     path: 'ward',
                     select: 'type name'
-                },
-                {
-                    path: 'orders',
-                    populate: [
-                        {
-                            path: 'receiver.district',
-                            select: 'type name'
-                        },
-                        {
-                            path: 'receiver.ward',
-                            select: 'type name'
-                        }
-                    ],
-                    match: { orderstatus: orderStatus.PICKUP.value},
-                    options: { sort: { 'createdAt': 1 } }
-                },
+                }
             ]
         },
         {
             path: 'shipper',
             select: 'name phone id'
-        }
+        },
+        {
+            path: 'orders',
+            populate: [
+                {
+                    path: 'receiver.district',
+                    select: 'type name'
+                },
+                {
+                    path: 'receiver.ward',
+                    select: 'type name'
+                }
+            ],
+            options: { sort: { 'createdAt': 1 } }
+        },
     ];
     const sortOpt = {
         'createdAt': -1,
