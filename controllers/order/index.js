@@ -11,6 +11,7 @@ module.exports = {
     saveOrder: require('./saveOrder'),
     countOrderInDistrict: require('./countOrderInDistrict'),
     countOrderInStatus: require('./countOrderInStatus'),
+    countOrderInAllStatus: require('./countOrderInAllStatus'),
     orderForDelivery: require('./orderForDelivery'),
     orderForRefund: require('./orderForRefund'),
     changeMulti: require('./changeMulti'),

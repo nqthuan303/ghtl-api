@@ -6,8 +6,10 @@ module.exports = {
     getCount: require('./getCount'),
     list: require('./list'),
     listForSelect: require('./listForSelect'),
+    login: require('./login'),
     update: require('./update'),
     ordersEachClient: require('./ordersEachClient'),
     clientForPayment: require('./clientForPayment'),
     findOnePayment: require('./findOnePayment'),
+    findShop: require('./findShop'),
 };
