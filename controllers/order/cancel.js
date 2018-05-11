@@ -1,7 +1,8 @@
 const OrderModel = require('./../../models/order.model');
 const PickupModel = require('./../../models/pickup.model');
+const DeliveryModel = require('./../../models/delivery.model');
 const ClientModel = require('./../../models/client.model');
-const { order: orderStatus, pickup: pickupStatus } = require('../../constants/status');
+const { order: orderStatus, pickup: pickupStatus, delivery: deliveryStatus } = require('../../constants/status');
 
 module.exports = async (req, res) => {
     try {
@@ -43,9 +44,24 @@ module.exports = async (req, res) => {
             }
             if(orderstatus === orderStatus.DELIVERYPREPARE.value){
                 statusUpdate = orderStatus.RETURNSTORAGE.value;
-            }
-            if(orderstatus === orderStatus.DELIVERY.value){
-                statusUpdate = orderStatus.RETURNSTORAGE.value;
+                const objFindDelivery = { status: deliveryStatus.PENDING, orders: data.orderId };
+                const objDelivery = await DeliveryModel.findOne(objFindDelivery);
+                if(objDelivery){
+                    const { orders: deliveryOrders } = objDelivery;
+                    const deliveryOrderIds = [];
+                    for(let i=0; i< deliveryOrders.length; i++){
+                        const deliveryOrderId = deliveryOrders[i].toString();
+                        if(data.orderId !== deliveryOrderId){
+                            deliveryOrderIds.push(deliveryOrderId);
+                        }
+                    }
+                    if(deliveryOrderIds.length === 0){
+                        await objDelivery.remove();
+                    }else{
+                        await objDelivery.update({orders: deliveryOrderIds});
+                    }
+                }
+                
             }
             await OrderModel.findByIdAndUpdate(data.orderId, {orderstatus: statusUpdate});
         }
