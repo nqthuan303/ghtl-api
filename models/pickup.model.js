@@ -5,11 +5,15 @@ var CounterModel = require('./counter.model');
 const status = require('../constants/status');
 const utils = require('../utils');
 
+const dataSchema = new Schema({
+    client: {type: ObjectId, ref: 'client', required: true},
+    orders: [{type: ObjectId, ref: 'order', required: true}]
+}, {_id: false});
+
 var objSchema = new Schema({
     id: String,
     shipper: {type: ObjectId, ref: 'user', required: true}, //shipper
-    clients: [{ type: ObjectId, ref: 'client'}],
-    orders: [{ type: ObjectId, ref: 'order'}],
+    data: [dataSchema],
     status: {
         type: String, 
         required: true, 

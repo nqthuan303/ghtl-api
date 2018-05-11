@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
     var objQuery = req.query;
     const populateOpt = [
         {
-            path: 'clients',
+            path: 'data.client',
             select: 'id name address phone district ward',
             populate: [
                 {
@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
             select: 'name phone id'
         },
         {
-            path: 'orders',
+            path: 'data.orders',
             populate: [
                 {
                     path: 'receiver.district',
@@ -36,8 +36,7 @@ module.exports = async (req, res) => {
                     path: 'receiver.ward',
                     select: 'type name'
                 }
-            ],
-            options: { sort: { 'createdAt': 1 } }
+            ]
         },
     ];
     const sortOpt = {

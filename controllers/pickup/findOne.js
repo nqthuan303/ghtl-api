@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
         const id = req.params.id;
         const populateOpt = [
             {
-                path: 'clients',
+                path: 'data.client',
                 select: 'id name address phone district ward',
                 populate: [
                     {
@@ -26,13 +26,14 @@ module.exports = async (req, res) => {
                 select: 'name phone id'
             },
             {
-                path: 'orders',
-                options: { sort: { 'createdAt': 1 } }
+                path: 'data.orders',
+                select: '_id id orderstatus client',
+                match: { orderstatus: {$in: [orderStatus.PICKUP.value, orderStatus.STORAGE.value]} }
             }
         ];
         const result = await PickupModel.findById(id).populate(populateOpt);
         API.success(res, result);
     } catch (error) {
-        API.fail(res, err.message);
+        API.fail(res, error.message);
     }
 }
