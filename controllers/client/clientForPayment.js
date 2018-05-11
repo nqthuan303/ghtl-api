@@ -43,9 +43,9 @@ module.exports = async (req, res) => {
             let totalMoney = 0;
             for(let k =0; k<orders.length; k++){
                 const order = orders[k];
-                let money = order.goodMoney + order.shipFee;
+                let money = order.goodsMoney + order.shipFee;
                 if (order.payBy === orderPayBy.SENDER.value) {
-                    money = order.goodMoney;
+                    money = order.goodsMoney;
                 }
                 totalMoney += money;
             }
