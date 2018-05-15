@@ -7,7 +7,13 @@ var API = require('./../../APILib');
 module.exports = async (req, res) => {
   var objQuery = req.query;
   try {
-    const result = await model.findOne({ username: objQuery.username }).populate('orders');
+    const result = await model.findOne({ username: objQuery.username}).populate({
+        path: 'orders',
+        paymentStatus: {$in: [
+          paymentStatus.PENDING.value,
+          paymentStatus.UNPAID.value,
+        ]}
+      });
     API.success(res, result);
   } catch (error) {
     API.fail(res, error);

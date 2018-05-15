@@ -18,6 +18,7 @@ var objSchema = new Schema({
         required: true,
         enum: getOrderStatus(),
     },
+    createdBy: {type: ObjectId, ref: 'user', required: true },
     note: String
 }, { timestamps: true });
 

@@ -53,6 +53,7 @@ module.exports = (app) => {
     app.get('/api/client/find-one-payment/:id', auth.isAuthenticated, client.findOnePayment);
     app.post('/api/client/login', client.login);
     app.get('/api/client/find-shop', auth.isAuthenticated, client.findShop);
+    app.get('/api/client/find-username', auth.isAuthenticated, client.findUsername);
 
     app.post('/api/user/add', auth.isAuthenticated, user.add);
     app.delete('/api/user/delete/:id', auth.isAuthenticated, user.delete);
@@ -84,6 +85,8 @@ module.exports = (app) => {
     app.get('/api/order/order-for-delivery', auth.isAuthenticated, order.orderForDelivery);
     app.get('/api/order/order-for-refund', auth.isAuthenticated, order.orderForRefund);
     app.put('/api/order/changeMulti', auth.isAuthenticated, order.changeMulti);
+    app.get('/api/order/find-info', auth.isAuthenticated, order.findInfo);
+    app.post('/api/order/find-all-in-shop', auth.isAuthenticated, order.findAllInShop);
 
     app.post('/api/file/upload', upload.single('file'), file.upload);
     app.get('/api/file/list', auth.isAuthenticated, file.list);
@@ -125,6 +128,7 @@ module.exports = (app) => {
     app.put('/api/refund/completeRefund/:id', auth.isAuthenticated, refund.completeRefund);
 
     app.get('/api/history/list-for-type', auth.isAuthenticated, history.listForType);
+    app.get('/api/history/find-order', auth.isAuthenticated, history.findOrder);
 
     app.get('/api/payment/list', auth.isAuthenticated, payment.list);
     app.post('/api/payment/add', auth.isAuthenticated, payment.add);

@@ -16,4 +16,6 @@ module.exports = {
     orderForRefund: require('./orderForRefund'),
     changeMulti: require('./changeMulti'),
     cancel: require('./cancel'),
+    findInfo: require('./findInfo'),
+    findAllInShop: require('./findAllInShop'),
 };
