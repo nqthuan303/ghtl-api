@@ -5,20 +5,28 @@ var model = require('./../../models/payment.model'),
     historyModel = require('./../../models/history.model'),
     API = require('./../../APILib');
 
-const {payment, paymentStatus} = require('../../constants/status');
+const {payment, paymentStatus, paymentType} = require('../../constants/status');
 
 module.exports = async (req, res) => {
-  var id = req.params.id;
-  var objQuery = req.query;
+  const { body: reqData } = req;
+
   try {
     const endTime = new Date();
-    const result = await model.findOneAndUpdate({_id: id}, {
+    const updateData = {
       status: payment.DONE,
       endTime,
-      bill: objQuery.bill,
-      bank: objQuery.bank,
-      money: objQuery.money,
-    }, {returnNewDocument : true}).populate('orders', '_id orderstatus').lean();
+      type: reqData.type,
+      money: reqData.money,
+    };
+    if(reqData.type === paymentType.TRANSFER.value){
+      updateData.bank = reqData.bank;
+      updateData.bill = reqData.bill;
+    }
+    const result = await model.findOneAndUpdate(
+      {_id: reqData.paymentId}, 
+      updateData, 
+      {returnNewDocument : true}
+    ).populate('orders', '_id orderstatus').lean();
     
     const arrOrderId = [];
     for(let i=0; i< result.orders.length; i++){

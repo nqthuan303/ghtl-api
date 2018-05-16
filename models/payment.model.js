@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 var counter = require('./counter.model');
-const status = require('../constants/status');
+const {payment: paymentStatus, paymentType} = require('../constants/status');
 
 var objSchema = new Schema({
     id: String,
@@ -12,15 +12,39 @@ var objSchema = new Schema({
     status: {
         type: String, 
         required: true, 
-        enum: [status.payment.CANCEL, status.payment.DOING, status.payment.DONE],
-        default: status.refund.DOING
+        enum: [paymentStatus.CANCEL, paymentStatus.DOING, paymentStatus.DONE],
+        default: paymentStatus.DOING
     },
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: [{type: ObjectId, ref: 'user'}],
     startTime: Date, // thời gian bắt đầu tạo bảng
     endTime: Date, // thời gian đã thanh toán tiền cho shop
-    bank: String,
-    bill: String,
+    type: {
+        type: String, 
+        required: true, 
+        enum: [paymentType.CASH.value, paymentType.TRANSFER.value],
+        default: paymentType.CASH.value
+    },
+    bank: {
+        type: String,
+        required: function () {
+            let result = true;
+            if (this.type === paymentType.CASH.value) {
+                result = false;
+            }
+            return result;
+        },
+    },
+    bill: {
+        type: String,
+        required: function () {
+            let result = true;
+            if (this.type === paymentType.CASH.value) {
+                result = false;
+            }
+            return result;
+        },
+    },
 }, { timestamps: true });
 
 objSchema.pre('save', function(next) {
