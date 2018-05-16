@@ -133,9 +133,9 @@ module.exports = (app) => {
     app.get('/api/payment/list', auth.isAuthenticated, payment.list);
     app.post('/api/payment/add', auth.isAuthenticated, payment.add);
     app.get('/api/payment/findOne/:id', auth.isAuthenticated, payment.findOne);
-    app.put('/api/payment/update/:id', auth.isAuthenticated, payment.update);
+    app.post('/api/payment/update/:id', auth.isAuthenticated, payment.update);
     app.delete('/api/payment/delete/:id', auth.isAuthenticated, payment.delete);
-    app.post('/api/payment/payment-done', auth.isAuthenticated, payment.paymentDone);
+    app.post('/api/payment/payment-done/:id', auth.isAuthenticated, payment.paymentDone);
     app.put('/api/payment/payment-cancel/:id', auth.isAuthenticated, payment.paymentCancel);
     app.get('/api/role/list', auth.isAuthenticated, role.list);
 };

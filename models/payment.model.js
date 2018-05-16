@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 var counter = require('./counter.model');
-const {payment: paymentStatus, paymentType} = require('../constants/status');
+const {payment: paymentStatus, paymentMethods} = require('../constants/status');
 
 var objSchema = new Schema({
     id: String,
@@ -19,17 +19,17 @@ var objSchema = new Schema({
     updatedBy: [{type: ObjectId, ref: 'user'}],
     startTime: Date, // thời gian bắt đầu tạo bảng
     endTime: Date, // thời gian đã thanh toán tiền cho shop
-    type: {
+    method: {
         type: String, 
         required: true, 
-        enum: [paymentType.CASH.value, paymentType.TRANSFER.value],
-        default: paymentType.CASH.value
+        enum: [paymentMethods.CASH.value, paymentMethods.TRANSFER.value],
+        default: paymentMethods.CASH.value
     },
     bank: {
         type: String,
         required: function () {
             let result = true;
-            if (this.type === paymentType.CASH.value) {
+            if (this.method === paymentMethods.CASH.value) {
                 result = false;
             }
             return result;
@@ -39,7 +39,7 @@ var objSchema = new Schema({
         type: String,
         required: function () {
             let result = true;
-            if (this.type === paymentType.CASH.value) {
+            if (this.method === paymentMethods.CASH.value) {
                 result = false;
             }
             return result;
