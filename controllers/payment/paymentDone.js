@@ -23,13 +23,13 @@ module.exports = async (req, res) => {
     const arrOrderId = [];
     for(let i=0; i< result.orders.length; i++){
       const order = result.orders[i];
-      const objData = new historyModel({
-        type: 'payment',
-        typeId: id,
-        order: order._id,
-        orderStatus: order.orderstatus,
-      });
-      const save = await objData.save();
+      // const objData = new historyModel({
+      //   type: 'payment',
+      //   typeId: id,
+      //   order: order._id,
+      //   orderStatus: order.orderstatus,
+      // });
+      // const save = await objData.save();
       arrOrderId.push(order._id)
     }
     const updateOrder = await orderModel.update(

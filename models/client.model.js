@@ -7,6 +7,7 @@ var counter = require('./counter.model');
 var objSchema = new Schema({
     id: String,
     name: { type: String, required: true },
+    payments: [{type: ObjectId, ref: 'payment'}],
     email: { type: String, required: true },
     password: { type: String, select: false, required: true },
     username: { type: String, required: true, index: { unique: true } },

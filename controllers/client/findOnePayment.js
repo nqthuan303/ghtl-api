@@ -1,8 +1,11 @@
 'use strict';
 
 var model = require('./../../models/client.model');
-var paymentModel = require('./../../models/payment.model');
-const {order: orderStatus, paymentStatus, payment: paymentTable} = require('../../constants/status');
+const {
+  order: orderStatus, 
+  paymentStatus, 
+  payment: paymentTable
+} = require('../../constants/status');
 var API = require('./../../APILib');
 
 const objSearch = {
@@ -28,16 +31,16 @@ module.exports = async (req, res) => {
     const result = await model
       .findById(objParams.id)
       .populate({
+        path: 'payments',
+        match: {status: paymentTable.DOING},
+        select: '_id id'
+      })
+      .populate({
           path: 'orders',
           match: objSearch
       }).lean();
-    const payment = await paymentModel.findOne({
-      client: objParams.id,
-      status : paymentTable.DOING
-    }).lean();
-    result.payment = payment ? {id: payment.id, _id: payment._id} : ''
     API.success(res, result);
   } catch (error) {
-    API.fail(res, error);
+    API.fail(res, error.message);
   }
 };
