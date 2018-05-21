@@ -86,7 +86,7 @@ module.exports = (app) => {
     app.get('/api/order/order-for-refund', auth.isAuthenticated, order.orderForRefund);
     app.put('/api/order/changeMulti', auth.isAuthenticated, order.changeMulti);
     app.get('/api/order/find-info', auth.isAuthenticated, order.findInfo);
-    app.post('/api/order/find-all-in-shop', auth.isAuthenticated, order.findAllInShop);
+    app.get('/api/order/find-with-condition', auth.isAuthenticated, order.findWithCondition);
 
     app.post('/api/file/upload', upload.single('file'), file.upload);
     app.get('/api/file/list', auth.isAuthenticated, file.list);

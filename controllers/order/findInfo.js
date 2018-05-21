@@ -8,7 +8,7 @@ const {paymentStatus, payment: paymentTable} = require('../../constants/status')
 module.exports = async (req, res) => {
     var objQuery = req.query;
     try {
-      let order = await model.findById(objQuery.id).populate('client').lean();
+      let order = await model.findById(objQuery.id).populate('client').populate('receiver.district').populate('receiver.ward').lean();
       if(order.paymentStatus === paymentStatus.PAID.value){
         const payment = await paymentModel.findOne({ 
           orders: order._id,

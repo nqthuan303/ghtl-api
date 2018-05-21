@@ -17,5 +17,5 @@ module.exports = {
     changeMulti: require('./changeMulti'),
     cancel: require('./cancel'),
     findInfo: require('./findInfo'),
-    findAllInShop: require('./findAllInShop'),
+    findWithCondition: require('./findWithCondition'),
 };
