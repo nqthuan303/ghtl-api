@@ -1,105 +1,113 @@
-'use strict';
+    'use strict';
 
-var model = require('./../../models/order.model');
-var API = require('./../../APILib');
-const {order: orderStatus} = require('../../constants/status');
+    const model = require('./../../models/order.model');
+    const ClientModel = require('./../../models/client.model');
+    const API = require('./../../APILib');
+    const {order: orderStatus} = require('../../constants/status');
 
-function getObjSearch(objQuery) {
-  var query = {};
+    module.exports = async (req, res) => {
+      var objQuery = req.query;
 
-  var arrAnd = [];
-  
-  if (objQuery.clientId !== "null" && objQuery.clientId !== undefined && objQuery.clientId != 0) {
-    arrAnd.push({
-      'client': objQuery.clientId
-    });
-  }
+      var recordsPerPage = Number(objQuery.recordsPerPage);
+      var page = Number(objQuery.page);
+      var skip = (page - 1) * recordsPerPage;
+      var objSearch = await getObjSearch(objQuery);
+      var objSort = {
+        'createdAt': -1
+      };
 
-  if (objQuery.orderStatusId !== "null" && objQuery.orderStatusId !== undefined && objQuery.orderStatusId != 0) {
-    arrAnd.push({
-      'orderstatus': objQuery.orderStatusId
-    });
-  }
-
-  if (objQuery.keyword && objQuery.keyword !== "null" && objQuery.keyword != '') {
-    arrAnd.push({
-      '$or': [{
-          'receiver_name': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
-        },
-        {
-          'address': new RegExp(".*" + objQuery.keyword.replace(/(\W)/g, "\\$1") + ".*", "i")
-        } 
-      ]
-    });
-  }
-
-  if (objQuery.districtId !== "null" && objQuery.districtId !== undefined && objQuery.districtId != 0) {
-    arrAnd.push({
-        'district': objQuery.districtId,
-    });
-  }
-
-
-
-  if (objQuery.wardId !== "null" && objQuery.wardId !== undefined && objQuery.wardId != 0)
-   {
-    arrAnd.push({
-      'ward': objQuery.wardId
-    })
-  }
-
-
-  if (arrAnd.length > 0) {
-    query.$and = arrAnd;
-  }
-  return query;
-}
-
-module.exports = async (req, res) => {
-    var objQuery = req.query;
-
-  var recordsPerPage = Number(objQuery.recordsPerPage);
-  var page = Number(objQuery.page);
-  var skip = (page - 1) * recordsPerPage;
-
-  var objSearch = getObjSearch(objQuery);
-
-  if (objQuery.status) {
-    let arrAnd = [];
-    
-    if(objSearch.$and && objSearch.$and.length > 0) {
-      arrAnd = objSearch.$and;
-    }
-
-    arrAnd.push({
-        'orderstatus': objQuery.status,
-    });
-    objSearch.$and = arrAnd;
-  }
-
-  var objSort = {
-    'createdAt': -1
-  };
-
-  if (objQuery.sortField && objQuery.sortValue) {
-    objSort = {};
-    objSort[objQuery.sortField] = objQuery.sortValue;
-  }
-  model.find(objSearch)
-    .populate('client', 'name')
-    .populate('createdBy', 'name')
-    .populate('province', 'name type')
-    .populate('district', 'name type')
-    .populate('ward', 'name type')
-    .select('address payBy goodsMoney shipFee id receiver createdAt note client createdBy province district ward orderstatus')
-    .limit(recordsPerPage)
-    .skip(skip)
-    .sort(objSort)
-    .exec(function (err, data) {
-      if (err) {
-        return API.fail(res, err.message);
+      if (objQuery.sortField && objQuery.sortValue) {
+        objSort = {};
+        objSort[objQuery.sortField] = objQuery.sortValue;
       }
-      API.success(res, data);
-    });
+      
+      model.find(objSearch)
+        .populate('client', 'name phone')
+        .populate('createdBy', 'name')
+        .populate('province', 'name type')
+        .populate('district', 'name type')
+        .populate('ward', 'name type')
+        .populate('receiver.district', 'name type')
+        .populate('receiver.ward', 'name type')
+        .select('address payBy goodsMoney shipFee id receiver createdAt note client createdBy province district ward orderstatus')
+        .limit(recordsPerPage)
+        .skip(skip)
+        .sort(objSort)
+        .exec(function (err, data) {
+          if (err) {
+            return API.fail(res, err.message);
+          }
+          API.success(res, data);
+        });
+    };
 
-};
+    async function getObjSearch(objQuery) {
+      var query = {};
+
+      var arrAnd = [];
+
+      if(objQuery.senderNameOrPhone){
+        const searchClient = {
+          $or: [
+            {'name': new RegExp(".*" + objQuery.senderNameOrPhone.replace(/(\W)/g, "\\$1") + ".*", "i")},
+            {'phone': new RegExp(".*" + objQuery.senderNameOrPhone.replace(/(\W)/g, "\\$1") + ".*", "i")}
+          ]
+        };
+        const clients = await ClientModel.find(searchClient).select('_id').lean();
+        const clientIds = [];
+        if(clients.length > 0){
+          for(let i=0; i< clients.length; i++){
+            const client = clients[i];
+            const clientId = client._id.toString();
+            clientIds.push(clientId);
+          }
+        }
+        arrAnd.push({
+          'client': {$in: clientIds}
+        });
+        
+      }
+
+      if (objQuery.orderId) {
+        arrAnd.push({
+            'id': new RegExp(".*" + objQuery.orderId.replace(/(\W)/g, "\\$1") + ".*", "i"),
+        });
+      }
+
+      if (objQuery.receiverNameOrPhone) {
+        arrAnd.push({
+          '$or': [{
+              'receiver.name': new RegExp(".*" + objQuery.receiverNameOrPhone.replace(/(\W)/g, "\\$1") + ".*", "i")
+            },
+            {
+              'receiver.phone': new RegExp(".*" + objQuery.receiverNameOrPhone.replace(/(\W)/g, "\\$1") + ".*", "i")
+            }
+          ]
+        });
+      }
+
+      if(objQuery.createdDate){
+        const arrDate = objQuery.createdDate.split(',');
+        const startDate = new Date(arrDate[0]);
+        startDate.setHours(0);
+        startDate.setMinutes(0);
+        startDate.setSeconds(1);
+        const endDate = new Date(arrDate[1]);
+        endDate.setHours(23);
+        endDate.setMinutes(59);
+        endDate.setSeconds(59);
+        arrAnd.push({ createdAt: { $gte: startDate, $lte: endDate } });
+      }
+
+      if (objQuery.orderstatus && objQuery.orderstatus !== 'all') {
+        arrAnd.push({
+            'orderstatus': objQuery.orderstatus,
+        });
+      }
+
+
+      if (arrAnd.length > 0) {
+        query.$and = arrAnd;
+      }
+      return query;
+    }
