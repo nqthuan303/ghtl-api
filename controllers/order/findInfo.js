@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
       if(order.paymentStatus === paymentStatus.PAID.value){
         const payment = await paymentModel.findOne({ 
           orders: order._id,
-          status: paymentTable.DONE}).select('_id id endTime');
+          status: paymentTable.DONE}).select('_id id endTime status');
         order.payment = payment;
       }
       API.success(res, order); 

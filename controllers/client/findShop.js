@@ -9,10 +9,12 @@ module.exports = async (req, res) => {
   try {
     const result = await model.findOne({ username: objQuery.username}).populate({
         path: 'orders',
-        paymentStatus: {$in: [
-          paymentStatus.PENDING.value,
-          paymentStatus.UNPAID.value,
-        ]}
+        match: {
+          paymentStatus: {$in: [
+            paymentStatus.PENDING.value,
+            paymentStatus.UNPAID.value,
+          ]}
+        }
       });
     API.success(res, result);
   } catch (error) {

@@ -6,4 +6,5 @@ module.exports = {
     update: require('./update'),
     paymentDone: require('./paymentDone'),
     paymentCancel: require('./paymentCancel'),
+    findClient: require('./findClient'),
 };
