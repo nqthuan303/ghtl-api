@@ -13,4 +13,6 @@ module.exports = {
     findOnePayment: require('./findOnePayment'),
     findShop: require('./findShop'),
     findUsername: require('./findUsername'),
+    findOneClient: require('./findOneClient'),
+    updateClient: require('./updateClient'),
 };

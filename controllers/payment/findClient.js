@@ -12,10 +12,25 @@ module.exports = async (req, res) => {
         clientId =  authInfo._id;
     }
     try {
+        const populateOpt = [
+            {
+                path: 'orders',
+                populate: [
+                    {
+                        path: 'receiver.district',
+                        select: 'type name'
+                    },
+                    {
+                        path: 'receiver.ward',
+                        select: 'type name'
+                    }
+                ]
+            },
+        ];
         const data = await model.find({
             client: clientId,
             status: {$ne: paymentStatus.CANCEL}
-        }).populate('orders')
+        }).populate(populateOpt)
         API.success(res, data);
     } catch (error) {
         API.error(res, error.message);

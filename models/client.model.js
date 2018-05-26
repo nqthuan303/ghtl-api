@@ -22,6 +22,7 @@ var objSchema = new Schema({
     phone: { type: String, required: true },
     phone_2: String,
     website: String,
+    updatedBank: { type: Boolean, required: true, default: false },
     bankNumber: String,
     bankAccount: String,
     bankBranch: String,
@@ -29,7 +30,6 @@ var objSchema = new Schema({
     descriptionOfGoods: String,
     createdBy: {type: ObjectId, ref: 'user', required: true },
     updatedBy: {type: ObjectId, ref: 'user' },
-    isCod: Boolean,
     status: {
         type: String, 
         required: true, 
