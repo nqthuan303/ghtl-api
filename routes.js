@@ -71,12 +71,12 @@ module.exports = (app) => {
     app.post('/api/order/add', auth.isAuthenticated, order.add);
     app.delete('/api/order/delete/:id', auth.isAuthenticated, order.delete);
     app.post('/api/order/cancel', auth.isAuthenticated, order.cancel);
-    app.get('/api/order/findOne', auth.isAuthenticated, order.findOne);
+    app.get('/api/order/findOne/:id', auth.isAuthenticated, order.findOne);
     app.get('/api/order/getCount', auth.isAuthenticated, order.getCount);
     app.get('/api/order/getCountStorage', auth.isAuthenticated, order.getCountStorage);
     app.get('/api/order/list', auth.isAuthenticated, order.list);
     app.get('/api/order/listStorage', auth.isAuthenticated, order.listStorage);
-    app.put('/api/order/update/:id', auth.isAuthenticated, order.update);
+    app.post('/api/order/update/:id', auth.isAuthenticated, order.update);
     app.post('/api/order/update-status', auth.isAuthenticated, order.updateStatus);
     app.post('/api/order/saveOrder', auth.isAuthenticated, order.saveOrder);
     app.get('/api/order/count-order-in-district', auth.isAuthenticated, order.countOrderInDistrict);

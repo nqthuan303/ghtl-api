@@ -107,12 +107,6 @@
           arrAnd.push({ createdAt: { $gte: startDate, $lte: endDate } });
         }
   
-        if (objQuery.orderstatus && objQuery.orderstatus !== 'all') {
-          arrAnd.push({
-              'orderstatus': objQuery.orderstatus,
-          });
-        }
-  
   
         if (arrAnd.length > 0) {
           query.$and = arrAnd;

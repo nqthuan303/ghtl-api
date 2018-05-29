@@ -1,36 +1,15 @@
-'use strict';
+  'use strict';
 
-var model = require('./../../models/order.model');
-var API = require('./../../APILib');
+  var model = require('./../../models/order.model');
+  var API = require('./../../APILib');
 
-module.exports = (req, res) => {
+  module.exports = async (req, res) => {
     var id = req.params.id;
-
-  var data = req.body;
-  model.findOne({
-    _id: id
-  }, function (err, dataFound) {
-    if (err || !dataFound) {
-      res.json({
-        "statusCode": -1,
-        "message": "Error"
-      });
+    var data = req.body;
+    try {
+      await model.findByIdAndUpdate(id, data);
+      API.success(res, {});
+    } catch (error) {
+      API.fail(res, error.message);
     }
-
-    dataFound.update(data, function (err, dataUpdate) {
-      var result = {
-        "statusCode": -1,
-        "message": "Error"
-      }
-      if (!err) {
-        result.statusCode = 0;
-        result.message = "Success";
-        result.data = {
-          'order_id': dataFound._id,
-          'orderstatus_id': data.orderstatus_id
-        };
-      }
-      res.json(result);
-    });
-  });
-};
+  };

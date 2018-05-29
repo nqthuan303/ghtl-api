@@ -26,15 +26,15 @@ module.exports = async (req, res) => {
             {"multi": true}
           )
 
-        for(let i=0; i< arrOrder.length; i++){
-          const objData = new historyModel({
-            type: 'delivery',
-            typeId: id,
-            order: arrOrder[i],
-            orderStatus: status,
-          });
-          const result = await objData.save();
-        }
+        // for(let i=0; i< arrOrder.length; i++){
+        //   const objData = new historyModel({
+        //     type: 'delivery',
+        //     typeId: id,
+        //     order: arrOrder[i],
+        //     orderStatus: status,
+        //   });
+        //   const result = await objData.save();
+        // }
     }
     API.success(res, "Kết thúc chuyến giao hàng thành công!!!");
   } catch (error) {
