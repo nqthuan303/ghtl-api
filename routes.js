@@ -54,6 +54,8 @@ module.exports = (app) => {
     app.post('/api/client/login', client.login);
     app.get('/api/client/find-shop', auth.isAuthenticated, client.findShop);
     app.get('/api/client/find-username', auth.isAuthenticated, client.findUsername);
+    app.get('/api/client/find-one-client', auth.isAuthenticated, client.findOneClient);
+    app.post('/api/client/update-client', auth.isAuthenticated, client.updateClient);    
 
     app.post('/api/user/add', auth.isAuthenticated, user.add);
     app.delete('/api/user/delete/:id', auth.isAuthenticated, user.delete);
@@ -87,6 +89,7 @@ module.exports = (app) => {
     app.put('/api/order/changeMulti', auth.isAuthenticated, order.changeMulti);
     app.get('/api/order/find-info', auth.isAuthenticated, order.findInfo);
     app.get('/api/order/find-with-condition', auth.isAuthenticated, order.findWithCondition);
+    app.get('/api/order/order-payment-for-shop', auth.isAuthenticated, order.orderPaymentForShop);
 
     app.post('/api/file/upload', upload.single('file'), file.upload);
     app.get('/api/file/list', auth.isAuthenticated, file.list);
@@ -137,5 +140,7 @@ module.exports = (app) => {
     app.delete('/api/payment/delete/:id', auth.isAuthenticated, payment.delete);
     app.post('/api/payment/payment-done/:id', auth.isAuthenticated, payment.paymentDone);
     app.put('/api/payment/payment-cancel/:id', auth.isAuthenticated, payment.paymentCancel);
+    app.get('/api/payment/find-client', auth.isAuthenticated, payment.findClient);
     app.get('/api/role/list', auth.isAuthenticated, role.list);
+    
 };

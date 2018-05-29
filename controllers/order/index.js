@@ -18,4 +18,5 @@ module.exports = {
     cancel: require('./cancel'),
     findInfo: require('./findInfo'),
     findWithCondition: require('./findWithCondition'),
+    orderPaymentForShop: require('./orderPaymentForShop'),
 };
