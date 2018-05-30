@@ -7,8 +7,11 @@
     var id = req.params.id;
     var data = req.body;
     try {
-      await model.findByIdAndUpdate(id, data);
-      API.success(res, {});
+      const result = await model.findByIdAndUpdate(id, data, {new: true})
+        .populate('client', 'name phone')
+        .populate('receiver.district', 'name type')
+        .populate('receiver.ward', 'name type');
+      API.success(res, result);
     } catch (error) {
       API.fail(res, error.message);
     }
