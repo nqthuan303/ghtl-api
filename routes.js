@@ -56,6 +56,7 @@ module.exports = (app) => {
     app.get('/api/client/find-username', auth.isAuthenticated, client.findUsername);
     app.get('/api/client/find-one-client', auth.isAuthenticated, client.findOneClient);
     app.post('/api/client/update-client', auth.isAuthenticated, client.updateClient);    
+    app.put('/api/client/change-password', auth.isAuthenticated, client.changePassword);    
 
     app.post('/api/user/add', auth.isAuthenticated, user.add);
     app.delete('/api/user/delete/:id', auth.isAuthenticated, user.delete);
@@ -89,7 +90,7 @@ module.exports = (app) => {
     app.put('/api/order/changeMulti', auth.isAuthenticated, order.changeMulti);
     app.get('/api/order/find-info', auth.isAuthenticated, order.findInfo);
     app.get('/api/order/find-with-condition', auth.isAuthenticated, order.findWithCondition);
-    app.get('/api/order/order-payment-for-shop', auth.isAuthenticated, order.orderPaymentForShop);
+    app.post('/api/order/list-condition-client', auth.isAuthenticated, order.listConditionClient);
 
     app.post('/api/file/upload', upload.single('file'), file.upload);
     app.get('/api/file/list', auth.isAuthenticated, file.list);

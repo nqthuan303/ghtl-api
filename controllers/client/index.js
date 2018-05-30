@@ -15,4 +15,5 @@ module.exports = {
     findUsername: require('./findUsername'),
     findOneClient: require('./findOneClient'),
     updateClient: require('./updateClient'),
+    changePassword: require('./changePassword'),    
 };

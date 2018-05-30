@@ -4,6 +4,17 @@ var model = require('./../../models/client.model');
 const {order: orderStatus, paymentStatus, payment: paymentTable} = require('../../constants/status');
 var API = require('./../../APILib');
 
+const populateOpt = [
+  {
+      path: 'receiver.district',
+      select: 'type name'
+  },
+  {
+      path: 'receiver.ward',
+      select: 'type name'
+  }
+]
+
 module.exports = async (req, res) => {
   var objQuery = req.query;
   try {
@@ -14,7 +25,8 @@ module.exports = async (req, res) => {
             paymentStatus.PENDING.value,
             paymentStatus.UNPAID.value,
           ]}
-        }
+        },
+        populate: populateOpt,
       });
     API.success(res, result);
   } catch (error) {
