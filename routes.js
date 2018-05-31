@@ -75,6 +75,7 @@ module.exports = (app) => {
     app.delete('/api/order/delete/:id', auth.isAuthenticated, order.delete);
     app.post('/api/order/cancel', auth.isAuthenticated, order.cancel);
     app.get('/api/order/findOne/:id', auth.isAuthenticated, order.findOne);
+    app.get('/api/order/detail/:id', auth.isAuthenticated, order.detail);
     app.get('/api/order/getCount', auth.isAuthenticated, order.getCount);
     app.get('/api/order/getCountStorage', auth.isAuthenticated, order.getCountStorage);
     app.get('/api/order/list', auth.isAuthenticated, order.list);

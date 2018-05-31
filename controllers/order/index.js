@@ -2,6 +2,7 @@ module.exports = {
     add: require('./add'),
     delete: require('./delete'),
     findOne: require('./findOne'),
+    detail: require('./detail'),
     getCount: require('./getCount'),
     getCountStorage: require('./getCountStorage'),
     list: require('./list'),

@@ -26,7 +26,7 @@
         .populate('createdBy', 'name')
         .populate('receiver.district', 'name type')
         .populate('receiver.ward', 'name type')
-        .select('address payBy goodsMoney shipFee id receiver createdAt note client createdBy province district ward orderstatus')
+        .select('address payBy goodsMoney shipFee id receiver createdAt note client createdBy orderstatus')
         .limit(recordsPerPage)
         .skip(skip)
         .sort(objSort)
