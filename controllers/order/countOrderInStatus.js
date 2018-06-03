@@ -42,7 +42,7 @@
                     });
                 }
             }
-            res.json(result);
+            API.success(res, result);
         } catch (error) {
             API.fail(res, error.message);
         }
