@@ -4,8 +4,8 @@ var express = require('express'),
   passport = require('passport'),
   mongoose = require('mongoose'),
   env = process.env.NODE_ENV || 'dev',
-  conn = 'mongodb://localhost:27017/giaohangtienloi',
-  // conn = 'mongodb://nqthuan303:thuan1602@ds031632.mlab.com:31632/giaohangtienloi'
+  // conn = 'mongodb://localhost:27017/giaohangtienloi',
+  conn = 'mongodb://nqthuan303:thuan1602@ds031632.mlab.com:31632/giaohangtienloi'
   port = process.env.PORT? process.env.PORT: 8080,
   API = require('./APILib'),
   model = require('./models'),
@@ -16,7 +16,7 @@ var express = require('express'),
   port = process.env.PORT;
 }*/
 
-mongoose.connect(conn, { useMongoClient: true });
+mongoose.connect(conn);
 
 var app = express();
 app.use(express.static('uploads'));
